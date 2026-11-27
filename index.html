@@ -25,192 +25,7 @@
               300: '#8FD1CA',
               400: '#4FB3A9',
               500: '#24948A',
-              600: '#0F7C74',<!DOCTYPE html>
-<html lang="bn">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wajiha Lifestyle</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    body {
-      background-color: #f7f5f2;
-      color: #222;
-      line-height: 1.5;
-    }
-
-    header {
-      background-color: #1f1f1f;
-      color: #ffffff;
-      padding: 20px 16px;
-      text-align: center;
-    }
-
-    header h1 {
-      font-size: 28px;
-      letter-spacing: 0.5px;
-    }
-
-    header p {
-      font-size: 14px;
-      color: #dddddd;
-      margin-top: 4px;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 28px 16px;
-    }
-
-    .section-title {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      color: #1f1f1f;
-      border-left: 4px solid #b06d3b;
-      padding-left: 10px;
-    }
-
-    .top-showcase {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-bottom: 40px;
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
-
-    .card {
-      background-color: #ffffff;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
-      border: 1px solid #ece8e1;
-      transition: transform 0.2s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-3px);
-    }
-
-    .card img {
-      width: 100%;
-      height: 430px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .card-caption {
-      padding: 10px 12px;
-      font-size: 14px;
-      font-weight: 600;
-      color: #333;
-      text-align: center;
-      background-color: #fff;
-    }
-
-    footer {
-      background-color: #1f1f1f;
-      color: #cccccc;
-      text-align: center;
-      padding: 18px 16px;
-      margin-top: 40px;
-      font-size: 14px;
-    }
-
-    @media (max-width: 900px) {
-      .top-showcase {
-        grid-template-columns: 1fr;
-      }
-
-      .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .card img {
-        height: 360px;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .gallery-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Wajiha Lifestyle</h1>
-    <p>Exclusive Collection</p>
-  </header>
-
-  <main class="container">
-    <h2 class="section-title">Featured Showcase</h2>
-    <section class="top-showcase">
-      <div class="card">
-        <img src="JPG1.jpg" alt="Featured Design 1" />
-        <div class="card-caption">Collection 01</div>
-      </div>
-      <div class="card">
-        <img src="JPG2.jpg" alt="Featured Design 2" />
-        <div class="card-caption">Collection 02</div>
-      </div>
-      <div class="card">
-        <img src="JPG3.jpg" alt="Featured Design 3" />
-        <div class="card-caption">Collection 03</div>
-      </div>
-    </section>
-
-    <h2 class="section-title">More Designs</h2>
-    <section class="gallery-grid">
-      <div class="card">
-        <img src="JPG4.jpg" alt="Design 4" />
-        <div class="card-caption">Design 04</div>
-      </div>
-      <div class="card">
-        <img src="JPG5.jpg" alt="Design 5" />
-        <div class="card-caption">Design 05</div>
-      </div>
-      <div class="card">
-        <img src="JPG6.jpg" alt="Design 6" />
-        <div class="card-caption">Design 06</div>
-      </div>
-      <div class="card">
-        <img src="JPG7.jpg" alt="Design 7" />
-        <div class="card-caption">Design 07</div>
-      </div>
-      <div class="card">
-        <img src="JPG8.jpg" alt="Design 8" />
-        <div class="card-caption">Design 08</div>
-      </div>
-      <div class="card">
-        <img src="JPG9.jpg" alt="Design 9" />
-        <div class="card-caption">Design 09</div>
-      </div>
-      <div class="card">
-        <img src="JPG10.jpg" alt="Design 10" />
-        <div class="card-caption">Design 10</div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    Wajiha Lifestyle
-  </footer>
-</body>
-</html>
+              600: '#0F7C74',
               700: '#0B5B56',
               800: '#084743',
               900: '#053230',
@@ -635,7 +450,7 @@
     // =========================================================================
     // 1. STATE & CONSTANTS
     // =========================================================================
-    const STORAGE_KEY = 'wajiha_lifestyle_state_v1';
+    const STORAGE_KEY = 'wajiha_lifestyle_clothing_v2';
     const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
 
     let currentLang = 'en';
@@ -659,18 +474,18 @@
         navSpecial: 'Special',
         orderBtn: 'Order',
         newArrivalsTitle: 'New arrivals',
-        newArrivalsSub: 'Click any item for color swatches, size & instant COD checkout',
+        newArrivalsSub: 'Click any piece for color swatches, size & instant COD checkout',
         seeAll: 'See all',
         viewBtn: 'View',
         serialLabel: 'Collection',
-        trust1Title: 'Safe product',
-        trust1Desc: 'Check what you are buying and choose with confidence.',
+        trust1Title: 'Authentic & Safe Quality',
+        trust1Desc: 'Check fabric, embroidery & color swatches before ordering.',
         trust2Title: 'Cash on delivery',
-        trust2Desc: 'Pay when you receive the product.',
+        trust2Desc: 'Pay safely when you receive your parcel at your doorstep.',
         trust3Title: 'Delivery nationwide',
         trust3Desc: 'Dhaka ৳70 • Sub-Dhaka ৳100 • Outside Dhaka ৳120.',
         trust4Title: 'Easy returns',
-        trust4Desc: 'If you have any problems, let us know, we are here for you.',
+        trust4Desc: 'Fast support & hassle-free exchange if any issue occurs.',
         checkoutBadge: 'Fixed Global COD Checkout',
         checkoutHeading: 'Complete Your Cash on Delivery Order',
         lblName: 'Full Name *',
@@ -693,13 +508,13 @@
         navNew: 'নতুন',
         navSpecial: 'স্পেশাল',
         orderBtn: 'অর্ডার',
-        newArrivalsTitle: 'নতুন এসেছে',
-        newArrivalsSub: 'কালার সোয়াচ, সাইজ ও ইনস্ট্যান্ট COD অর্ডারের জন্য যেকোনো আইটেমে ক্লিক করুন',
+        newArrivalsTitle: 'নতুন পোশাক',
+        newArrivalsSub: 'কালার সোয়াচ, সাইজ ও ইনস্ট্যান্ট COD অর্ডারের জন্য যেকোনো ড্রেসে ক্লিক করুন',
         seeAll: 'সব দেখুন',
         viewBtn: 'দেখুন',
         serialLabel: 'কালেকশন',
-        trust1Title: 'নিরাপদ পণ্য',
-        trust1Desc: 'যা কিনছেন তা যাচাই করে বেছে নিন।',
+        trust1Title: 'নিরাপদ ও মানসম্মত কাপড়',
+        trust1Desc: 'কাপড়, এমব্রয়ডারি ও কালার সোয়াচ যাচাই করে বেছে নিন।',
         trust2Title: 'ক্যাশ অন ডেলিভারি',
         trust2Desc: 'পণ্য হাতে পেয়ে টাকা দিন।',
         trust3Title: 'সারা দেশে ডেলিভারি',
@@ -767,191 +582,207 @@
         customHeroCover: '',
         sectionLabels: {
           newArrivalsTitle: 'New arrivals',
-          newArrivalsSub: 'Click any item for color swatches, size & instant COD checkout',
+          newArrivalsSub: 'Click any piece for color swatches, size & instant COD checkout',
           featuredTag: 'Featured Collection',
           seeAllText: 'See all',
           viewText: 'View'
         },
         categories: [
           {
-            id: 'cat-baby-bath',
-            name: 'Baby bath items',
-            description: 'Gentle cleansing washes, tear-free shampoos & soft towels for delicate skin.',
+            id: 'cat-3-piece',
+            name: '3-Piece',
+            description: 'Embroidered kamiz, salwar & dupatta sets crafted for everyday elegance and festive grace.',
             serial: 1,
-            badgeSvg: createCircleBadgeSvg('#DFF3F1', '#8FD1CA', '#0F7C74', 'Baby Bath')
+            badgeSvg: createCircleBadgeSvg('#DFF3F1', '#8FD1CA', '#0F7C74', '3-Piece')
           },
           {
-            id: 'cat-baby-skincare',
-            name: 'Baby skincare',
-            description: 'Nourishing lotions, soothing creams & everyday moisture care.',
+            id: 'cat-2-piece',
+            name: '2-Piece',
+            description: 'Breezy two-piece ensembles with matching bottoms for effortless daily wear.',
             serial: 2,
-            badgeSvg: createCircleBadgeSvg('#E0F2FE', '#BAE6FD', '#0369A1', 'Skincare')
+            badgeSvg: createCircleBadgeSvg('#E0F2FE', '#BAE6FD', '#0369A1', '2-Piece')
           },
           {
-            id: 'cat-baby-feeding',
-            name: 'Baby Feeding Items',
-            description: 'Anti-colic feeders, natural-flow bottles & daily feeding essentials.',
+            id: 'cat-1-piece',
+            name: '1-Piece',
+            description: 'Statement tunics, long kurtis & chic single-piece silhouettes.',
             serial: 3,
-            badgeSvg: createCircleBadgeSvg('#FEF3C7', '#FDE68A', '#B45309', 'Feeding')
+            badgeSvg: createCircleBadgeSvg('#FEF3C7', '#FDE68A', '#B45309', '1-Piece')
           },
           {
-            id: 'cat-mom-care',
-            name: 'Mom Care',
-            description: 'Supportive maternity & postpartum care essentials designed for comfort.',
+            id: 'cat-coord-set',
+            name: 'Co-ord Set',
+            description: 'Modern coordinated top & trouser sets tailored for clean contemporary styling.',
             serial: 4,
-            badgeSvg: createCircleBadgeSvg('#FCE7F3', '#FBCFE8', '#9D174D', 'Mom Care')
+            badgeSvg: createCircleBadgeSvg('#FCE7F3', '#FBCFE8', '#9D174D', 'Co-ord Set')
           },
           {
-            id: 'cat-womens-personal',
-            name: "Women's Personal Care",
-            description: 'Daily gentle cleansers, skin care & personal wellness essentials.',
+            id: 'cat-festive-wear',
+            name: 'Festive Wear',
+            description: 'Rich textures, delicate threadwork & occasion-ready outfits for celebrations.',
             serial: 5,
-            badgeSvg: createCircleBadgeSvg('#EDE9FE', '#DDD6FE', '#5B21B6', 'Personal Care')
+            badgeSvg: createCircleBadgeSvg('#EDE9FE', '#DDD6FE', '#5B21B6', 'Festive')
           }
         ],
         products: [
           {
-            id: 'prod-sun-milk',
-            name: 'Missha All Around Safe Block Sun Milk SPF50+ 70ml',
-            categoryId: 'cat-mom-care',
+            id: 'prod-3p-teal',
+            name: 'Signature Teal Embroidered 3-Piece',
+            categoryId: 'cat-3-piece',
             serial: 1,
-            price: 1180,
-            oldPrice: 1450,
+            price: 2450,
+            oldPrice: 2850,
             stock: 25,
             soldCount: 34,
-            description: 'Lightweight daily sun protection milk with smooth non-sticky finish.',
-            upsellId: 'prod-cerave-cream',
-            upsellOfferText: 'Save ৳150 when bundled!',
+            description: 'Breathable cotton 3-piece set with intricate neckline embroidery and soft dupatta.',
+            upsellId: 'prod-festive-royal',
+            upsellOfferText: 'Save ৳200 when bundled!',
             variants: [
-              { colorName: 'Soft Ivory', swatchHex: '#0F7C74', size: '70ml', imageUrl: '', svg: createDressSvg('#0F7C74', '#FEF3C7', 'SUN MILK') }
+              { colorName: 'Signature Teal', swatchHex: '#0F7C74', size: 'M, L, XL', imageUrl: 'JPG1.jpg', svg: createDressSvg('#0F7C74', '#FEF3C7', '3-PIECE 01') }
             ]
           },
           {
-            id: 'prod-cerave-cream',
-            name: 'CeraVe Moisturising Cream 340g',
-            categoryId: 'cat-mom-care',
-            serial: 2,
-            price: 2850,
-            oldPrice: 3100,
+            id: 'prod-festive-royal',
+            name: 'Royal Festive Designer 3-Piece',
+            categoryId: 'cat-festive-wear',
+            serial: 1,
+            price: 3250,
+            oldPrice: 3650,
             stock: 19,
             soldCount: 41,
-            description: 'Rich daily moisture cream formulated to help restore and protect the skin barrier.',
-            upsellId: 'prod-simple-gel-wash',
-            upsellOfferText: 'Add with ৳100 off!',
+            description: 'Occasion-ready outfit with detailed motifs and graceful drape.',
+            upsellId: 'prod-2p-lawn',
+            upsellOfferText: 'Add with ৳150 off!',
             variants: [
-              { colorName: 'Classic Jar', swatchHex: '#1D4ED8', size: '340g', imageUrl: '', svg: createDressSvg('#1D4ED8', '#EFF6FF', 'CERAVE 340G') }
+              { colorName: 'Royal Crimson', swatchHex: '#B91C1C', size: 'M, L, XL', imageUrl: 'JPG2.jpg', svg: createDressSvg('#B91C1C', '#FEF3C7', 'FESTIVE 02') }
             ]
           },
           {
-            id: 'prod-simple-gel-wash',
-            name: 'Simple Water Boost Micellar Gel Wash 150ml',
-            categoryId: 'cat-womens-personal',
-            serial: 2,
-            price: 650,
-            oldPrice: 700,
+            id: 'prod-2p-lawn',
+            name: 'Sapphire Breeze 2-Piece Set',
+            categoryId: 'cat-2-piece',
+            serial: 1,
+            price: 1850,
+            oldPrice: 2100,
             stock: 30,
             soldCount: 29,
-            description: 'Hydrating micellar gel wash that gently cleanses without leaving skin feeling tight.',
+            description: 'Lightweight 2-piece set designed for comfortable all-day wear.',
             upsellId: '',
             upsellOfferText: '',
             variants: [
-              { colorName: 'Aqua Blue', swatchHex: '#0284C7', size: '150ml', imageUrl: '', svg: createDressSvg('#0284C7', '#E0F2FE', 'GEL WASH') }
+              { colorName: 'Sapphire Blue', swatchHex: '#0284C7', size: 'M, L, XL', imageUrl: 'JPG3.jpg', svg: createDressSvg('#0284C7', '#E0F2FE', '2-PIECE 03') }
             ]
           },
           {
-            id: 'prod-avent-anticolic',
-            name: 'Philips Avent Anti-Colic Feeding Bottle 1m+ 260ml',
-            categoryId: 'cat-baby-feeding',
-            serial: 4,
-            price: 980,
-            oldPrice: 1040,
+            id: 'prod-coord-botanical',
+            name: 'Botanical Edit Co-ord Set',
+            categoryId: 'cat-coord-set',
+            serial: 1,
+            price: 2150,
+            oldPrice: 2450,
             stock: 22,
             soldCount: 37,
-            description: 'Designed to reduce colic and discomfort with an integrated anti-colic valve.',
+            description: 'Coordinated shirt & relaxed trouser set with clean modern tailoring.',
             upsellId: '',
             upsellOfferText: '',
             variants: [
-              { colorName: 'Clear / Teal', swatchHex: '#0F7C74', size: '260ml', imageUrl: '', svg: createDressSvg('#0F7C74', '#F0FDFA', 'AVENT 260ML') }
+              { colorName: 'Emerald & Ivory', swatchHex: '#0F7C74', size: 'M, L, XL', imageUrl: 'JPG4.jpg', svg: createDressSvg('#0F7C74', '#F0FDFA', 'CO-ORD 04') }
             ]
           },
           {
-            id: 'prod-tommee-bottle',
-            name: 'Tommee Tippee Closer To Nature Bottle 260ml',
-            categoryId: 'cat-baby-feeding',
-            serial: 3,
-            price: 980,
-            oldPrice: 1080,
+            id: 'prod-1p-pastel',
+            name: 'Pastel Muse 1-Piece Tunic',
+            categoryId: 'cat-1-piece',
+            serial: 1,
+            price: 1550,
+            oldPrice: 1790,
             stock: 20,
             soldCount: 26,
-            description: 'Breast-like teat shape that flexes naturally for comfortable feeding.',
+            description: 'Easy single-piece tunic with soft fall and refined finish.',
             upsellId: '',
             upsellOfferText: '',
             variants: [
-              { colorName: 'Soft White', swatchHex: '#0B5B56', size: '260ml', imageUrl: '', svg: createDressSvg('#0B5B56', '#FEF3C7', 'TOMMEE 260ML') }
+              { colorName: 'Deep Teal', swatchHex: '#0B5B56', size: 'M, L, XL', imageUrl: 'JPG5.jpg', svg: createDressSvg('#0B5B56', '#FEF3C7', '1-PIECE 05') }
             ]
           },
           {
-            id: 'prod-bioderma-gel',
-            name: 'Bioderma ABCDerm Foaming Gel 200ml',
-            categoryId: 'cat-baby-bath',
-            serial: 1,
-            price: 1840,
-            oldPrice: 1980,
+            id: 'prod-3p-garden',
+            name: 'Garden Bloom 3-Piece Suit',
+            categoryId: 'cat-3-piece',
+            serial: 2,
+            price: 2590,
+            oldPrice: 2900,
             stock: 16,
             soldCount: 23,
-            description: 'Mild foaming cleansing gel for gentle daily bath routines.',
+            description: 'Floral-inspired 3-piece dress with matching dupatta and trouser.',
             upsellId: '',
             upsellOfferText: '',
             variants: [
-              { colorName: 'Sky & White', swatchHex: '#0284C7', size: '200ml', imageUrl: '', svg: createDressSvg('#0284C7', '#F0F9FF', 'BIODERMA') }
+              { colorName: 'Sky & Teal', swatchHex: '#0284C7', size: 'M, L, XL', imageUrl: 'JPG6.jpg', svg: createDressSvg('#0284C7', '#F0F9FF', '3-PIECE 06') }
             ]
           },
           {
-            id: 'prod-sebamed-foam',
-            name: 'Sebamed Baby Face & Body Wash Foam 400ml',
-            categoryId: 'cat-baby-bath',
+            id: 'prod-festive-evening',
+            name: 'Evening Silk Festive Ensemble',
+            categoryId: 'cat-festive-wear',
             serial: 2,
-            price: 2480,
-            oldPrice: 2650,
+            price: 3450,
+            oldPrice: 3890,
             stock: 14,
             soldCount: 19,
-            description: 'Gentle pH-balanced wash foam for sensitive skin.',
+            description: 'Refined festive wear crafted for family gatherings and celebrations.',
             upsellId: '',
             upsellOfferText: '',
             variants: [
-              { colorName: 'Soft Blue', swatchHex: '#0369A1', size: '400ml', imageUrl: '', svg: createDressSvg('#0369A1', '#E0F2FE', 'SEBAMED FOAM') }
+              { colorName: 'Midnight Navy', swatchHex: '#0369A1', size: 'M, L, XL', imageUrl: 'JPG7.jpg', svg: createDressSvg('#0369A1', '#E0F2FE', 'FESTIVE 07') }
             ]
           },
           {
-            id: 'prod-aveeno-lotion',
-            name: 'Aveeno Baby Daily Care Moisturising Lotion 150ml',
-            categoryId: 'cat-baby-skincare',
-            serial: 1,
-            price: 940,
-            oldPrice: 1100,
+            id: 'prod-2p-everyday',
+            name: 'Daily Comfort 2-Piece Outfit',
+            categoryId: 'cat-2-piece',
+            serial: 2,
+            price: 1790,
+            oldPrice: 2050,
             stock: 21,
             soldCount: 31,
-            description: 'Soothing oat-enriched daily lotion for soft, nourished skin.',
+            description: 'Soft-touch 2-piece set suitable for daily outings and home comfort.',
             upsellId: '',
             upsellOfferText: '',
             variants: [
-              { colorName: 'Oat Cream', swatchHex: '#0F7C74', size: '150ml', imageUrl: '', svg: createDressSvg('#0F7C74', '#FEF9C3', 'AVEENO 150ML') }
+              { colorName: 'Warm Olive Teal', swatchHex: '#0F7C74', size: 'M, L, XL', imageUrl: 'JPG8.jpg', svg: createDressSvg('#0F7C74', '#FEF9C3', '2-PIECE 08') }
             ]
           },
           {
-            id: 'prod-sebamed-clear-gel',
-            name: 'Sebamed Clear Face Care Gel 50ml',
-            categoryId: 'cat-womens-personal',
-            serial: 1,
-            price: 1160,
-            oldPrice: 1280,
+            id: 'prod-coord-urban',
+            name: 'Urban Chic Co-ord Set',
+            categoryId: 'cat-coord-set',
+            serial: 2,
+            price: 2290,
+            oldPrice: 2590,
             stock: 18,
             soldCount: 24,
-            description: 'Oil-free soothing gel formulated for clear, balanced skin.',
+            description: 'Structured top and matching pants for a smart everyday look.',
             upsellId: '',
             upsellOfferText: '',
             variants: [
-              { colorName: 'Pure Teal', swatchHex: '#0B5B56', size: '50ml', imageUrl: '', svg: createDressSvg('#0B5B56', '#CCFBF1', 'CLEAR GEL') }
+              { colorName: 'Teal Slate', swatchHex: '#0B5B56', size: 'M, L, XL', imageUrl: 'JPG9.jpg', svg: createDressSvg('#0B5B56', '#CCFBF1', 'CO-ORD 09') }
+            ]
+          },
+          {
+            id: 'prod-1p-classic',
+            name: 'Classic Draped 1-Piece Kurti',
+            categoryId: 'cat-1-piece',
+            serial: 2,
+            price: 1650,
+            oldPrice: 1890,
+            stock: 17,
+            soldCount: 21,
+            description: 'Versatile 1-piece dress with clean cut and comfortable fit.',
+            upsellId: '',
+            upsellOfferText: '',
+            variants: [
+              { colorName: 'Plum & Teal', swatchHex: '#6D28D9', size: 'M, L, XL', imageUrl: 'JPG10.jpg', svg: createDressSvg('#6D28D9', '#EDE9FE', '1-PIECE 10') }
             ]
           }
         ],
@@ -977,7 +808,7 @@
           sessions: []
         },
         policies: {
-          about: 'Wajiha Lifestyle is a modern women’s fashion house located at TONGI GAGIPUR TONGIBAZAR ANARKOLI ROAD (Contact: 01812829178), specializing in embroidered 3-piece suits, festive lawn and co-ord sets.',
+          about: 'Wajiha Lifestyle is a modern women’s fashion house located at TONGI GAGIPUR TONGIBAZAR ANARKOLI ROAD (Contact: 01812829178), specializing in 3-piece, 2-piece, 1-piece, co-ord sets and festive wear.',
           contact: 'Store Address: TONGI GAGIPUR TONGIBAZAR ANARKOLI ROAD • Hotline & WhatsApp: 01812829178',
           privacy: 'Your name, phone number and delivery address are used strictly for order confirmation and courier delivery.',
           terms: 'All orders are shipped via Cash on Delivery subject to stock availability.',
@@ -1041,7 +872,7 @@
       if (!document.getElementById('admin-view').classList.contains('hidden')) {
         renderAdminPanel();
       }
-      showToast('Demo data reset to Wajiha Lifestyle defaults!');
+      showToast('Demo data reset to Wajiha Lifestyle clothing defaults!');
     }
 
     function pruneOldClaritySessions() {
@@ -1174,7 +1005,9 @@
 
     function renderVariantMedia(v) {
       if (!v) return '';
-      if (v.imageUrl) return `<img src="${v.imageUrl}" alt="${v.colorName || 'Wajiha Dress'}" class="w-full h-full object-cover" />`;
+      if (v.imageUrl) {
+        return `<img src="${v.imageUrl}" alt="${v.colorName || 'Wajiha Dress'}" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';" class="w-full h-full object-cover" /><div style="display:none;" class="w-full h-full">${v.svg || ''}</div>`;
+      }
       return v.svg || '';
     }
 
@@ -1904,7 +1737,7 @@
           <form onsubmit="adminAddProduct(event)" class="p-4 rounded-2xl bg-[#F2FAF9] border border-teal-200 mb-6 space-y-3">
             <div class="font-extrabold text-xs uppercase tracking-wider text-[#0B5B56]">+ Add New Item</div>
             <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
-              <input id="adm-pname" type="text" required placeholder="Item Name" class="px-3.5 py-2 rounded-xl bg-white border border-teal-200 text-xs sm:text-sm" />
+              <input id="adm-pname" type="text" required placeholder="Item Name (e.g. Embroidered 3-Piece)" class="px-3.5 py-2 rounded-xl bg-white border border-teal-200 text-xs sm:text-sm" />
               <select id="adm-pcat" class="px-3.5 py-2 rounded-xl bg-white border border-teal-200 text-xs sm:text-sm">${state.categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('')}</select>
               <input id="adm-pprice" type="number" required placeholder="Price (৳)" class="px-3.5 py-2 rounded-xl bg-white border border-teal-200 text-xs sm:text-sm" />
               <input id="adm-pold" type="number" placeholder="Old Price (optional)" class="px-3.5 py-2 rounded-xl bg-white border border-teal-200 text-xs sm:text-sm" />
