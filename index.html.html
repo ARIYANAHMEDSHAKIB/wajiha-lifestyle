@@ -1,0 +1,2115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wajiha Lifestyle — Premium Boutique &amp; Editorial Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>
+    // Configure Tailwind brand tokens matching Wajiha Lifestyle teal & soft mint palette
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Inter"', '"Hind Siliguri"', 'sans-serif'],
+            brand: ['"Fredoka"', '"Inter"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#F2FAF9',
+              100: '#DFF3F1',
+              200: '#BEE6E2',
+              300: '#8FD1CA',
+              400: '#4FB3A9',
+              500: '#24948A',
+              600: '#0F7C74',
+              700: '#0B5B56',
+              800: '#084743',
+              900: '#053230',
+            }
+          },
+          boxShadow: {
+            soft: '0 10px 30px -10px rgba(15, 124, 116, 0.16)',
+            card: '0 4px 18px -6px rgba(14, 36, 34, 0.08)',
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Inter', 'Hind Siliguri', sans-serif;
+      background-color: #FFFFFF;
+      color: #111827;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    .brand-logo-font {
+      font-family: 'Fredoka', 'Inter', sans-serif;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #F2FAF9;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #8FD1CA;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="bg-white text-zinc-900 min-h-screen flex flex-col">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none"></div>
+
+  <!-- Sticky Header (Clean Single-Row Reference Layout: Stacked Wajiha Lifestyle Logo + All products / New / ★ Special / Categories + Order / Search / Bag + EN/bn & Admin) -->
+  <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-teal-100 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
+      <!-- Left: Stacked Wajiha Lifestyle Logo + Brand Popup Trigger -->
+      <a href="#top" onclick="goHomeView()" class="flex items-center gap-2 group shrink-0">
+        <div class="flex flex-col items-center leading-none select-none">
+          <span class="brand-logo-font text-2xl sm:text-[30px] font-bold tracking-tight text-[#0F7C74] -rotate-2">Wajiha</span>
+          <span class="brand-logo-font text-[11px] sm:text-xs font-bold tracking-wide text-[#0B5B56] -mt-0.5">Lifestyle</span>
+        </div>
+        <button type="button" onclick="event.preventDefault(); event.stopPropagation(); openBrandPopup()" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#F2FAF9] hover:bg-[#DFF3F1] text-[#0B5B56] border border-teal-200 text-[11px] font-bold cursor-pointer">
+          ✦ Brand
+        </button>
+      </a>
+
+      <!-- Center Navigation Items (Single Clean Row Matching Reference Video & genalphabd.com) -->
+      <nav aria-label="Primary Navigation" class="hidden lg:flex items-center gap-4 xl:gap-6 text-[13px] font-semibold text-zinc-800 whitespace-nowrap">
+        <button type="button" onclick="jumpToSection('new-arrivals-section')" class="hover:text-[#0F7C74] transition cursor-pointer" data-i18n="navAll">All products</button>
+        <button type="button" onclick="triggerNewArrivalsFilter()" class="hover:text-[#0F7C74] transition cursor-pointer" data-i18n="navNew">New</button>
+        <button type="button" onclick="openLandingModal()" class="px-3.5 py-1.5 rounded-full bg-[#FBBF24] hover:bg-amber-300 text-zinc-950 font-bold text-xs inline-flex items-center gap-1 shadow-xs transition cursor-pointer">
+          <span>★</span>
+          <span data-i18n="navSpecial">Special</span>
+        </button>
+        <div id="header-category-links" class="flex items-center gap-4 xl:gap-5"></div>
+      </nav>
+
+      <!-- Right Action Group: Order Pill + Search + Bag + Compact EN/bn & Admin Panel -->
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+        <a href="#checkout-section" onclick="ensureStorefrontVisible(); trackPixelEvent('InitiateCheckout', { source: 'header_order' })" class="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#FBBF24] hover:bg-amber-300 text-zinc-950 font-bold text-xs shadow-xs transition whitespace-nowrap" data-i18n="orderBtn">
+          Order
+        </a>
+        <button type="button" onclick="focusSearchInput()" aria-label="Search" class="w-9 h-9 rounded-full hover:bg-teal-50 text-zinc-800 flex items-center justify-center transition cursor-pointer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        </button>
+        <button type="button" onclick="openCartDrawer()" aria-label="Shopping Bag" class="relative w-9 h-9 rounded-full hover:bg-teal-50 text-zinc-800 flex items-center justify-center transition cursor-pointer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7V5a3 3 0 016 0v2"/></svg>
+          <span id="cart-count-badge" class="absolute -top-0.5 -right-0.5 px-1.5 py-0.5 rounded-full bg-[#0F7C74] text-white text-[10px] font-bold">0</span>
+        </button>
+        <div class="hidden sm:inline-flex rounded-full bg-teal-50 p-0.5 border border-teal-200">
+          <button type="button" id="lang-en-btn" onclick="setLanguage('en')" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#0F7C74] text-white cursor-pointer">EN</button>
+          <button type="button" id="lang-bn-btn" onclick="setLanguage('bn')" class="px-2 py-0.5 rounded-full text-[10px] font-bold text-[#0B5B56] cursor-pointer">বাংলা</button>
+        </div>
+        <button type="button" onclick="toggleAdminView()" id="view-switch-btn" class="px-2.5 sm:px-3 py-1.5 rounded-full bg-[#0B5B56] hover:bg-[#084743] text-white font-bold text-[11px] transition cursor-pointer whitespace-nowrap">
+          Admin Panel
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile / Tablet Quick Category & Nav Strip -->
+    <div id="mobile-header-strip" class="lg:hidden border-t border-teal-50 bg-[#F2FAF9]/80 px-3 py-1.5 flex items-center gap-2 overflow-x-auto custom-scrollbar text-xs font-semibold text-zinc-800 whitespace-nowrap"></div>
+  </header>
+
+  <!-- ==================== STOREFRONT VIEW ==================== -->
+  <main id="storefront-view" class="flex-1">
+
+    <!-- 1. Edge-to-Edge Full-Width Cover Banner Carousel -->
+    <section id="top" class="pt-3 sm:pt-4 pb-4 px-3 sm:px-5 lg:px-6 w-full">
+      <div class="relative w-full rounded-3xl overflow-hidden border border-teal-200/80 shadow-soft h-[360px] sm:h-[480px] lg:h-[560px] bg-[#E8F6F4]">
+        <div id="hero-slide-content" class="w-full h-full"></div>
+
+        <button type="button" onclick="prevHeroSlide()" aria-label="Previous Banner" class="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-zinc-900 shadow-lg flex items-center justify-center font-extrabold text-xl transition cursor-pointer">
+          ‹
+        </button>
+        <button type="button" onclick="nextHeroSlide()" aria-label="Next Banner" class="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-zinc-900 shadow-lg flex items-center justify-center font-extrabold text-xl transition cursor-pointer">
+          ›
+        </button>
+
+        <div id="hero-dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 bg-black/20 backdrop-blur-xs px-3 py-1.5 rounded-full"></div>
+      </div>
+    </section>
+
+    <!-- 2. Circular Category Badge Strip -->
+    <section class="py-6 sm:py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div id="circular-category-strip" class="flex items-start justify-start sm:justify-center gap-6 sm:gap-10 overflow-x-auto pb-2 custom-scrollbar"></div>
+    </section>
+
+    <!-- 3. New Arrivals Section -->
+    <section id="new-arrivals-section" class="py-6 sm:py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+        <div>
+          <h2 id="new-arrivals-heading" class="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight uppercase">NEW ARRIVALS</h2>
+          <p id="new-arrivals-subtext" class="text-xs sm:text-sm text-zinc-500 mt-0.5" data-i18n="newArrivalsSub">Click any piece for color swatches, size &amp; instant COD checkout</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <input id="search-input" type="text" oninput="renderStorefront()" placeholder="Search dresses, lawn, co-ords..." class="w-44 sm:w-64 px-4 py-2 rounded-full bg-teal-50/70 border border-teal-200 text-xs sm:text-sm focus:outline-none focus:border-[#0F7C74]" />
+          <button type="button" onclick="scrollNewArrivals(-1)" class="w-10 h-10 rounded-full border border-teal-200 hover:bg-teal-50 text-zinc-800 flex items-center justify-center font-bold cursor-pointer">‹</button>
+          <button type="button" onclick="scrollNewArrivals(1)" class="w-10 h-10 rounded-full border border-teal-200 hover:bg-teal-50 text-zinc-800 flex items-center justify-center font-bold cursor-pointer">›</button>
+        </div>
+      </div>
+
+      <div id="new-arrivals-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5"></div>
+    </section>
+
+    <!-- 4. Serialized Category Showcase Sections -->
+    <section id="categories-section" class="py-6 sm:py-10 bg-white">
+      <div id="serialized-categories-container" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14"></div>
+    </section>
+
+    <!-- 5. 4-Column Trust Strip -->
+    <section class="py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-teal-100">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="p-5 rounded-2xl bg-[#F2FAF9] border border-teal-100 flex items-start gap-3.5">
+          <div class="w-10 h-10 rounded-xl bg-[#0F7C74] text-white flex items-center justify-center font-bold shrink-0">✓</div>
+          <div>
+            <h3 class="font-bold text-sm text-zinc-950" data-i18n="trust1Title">Authentic &amp; Safe Quality</h3>
+            <p class="text-xs text-zinc-600 mt-1" data-i18n="trust1Desc">Check fabric, embroidery &amp; color swatches before ordering.</p>
+          </div>
+        </div>
+        <div class="p-5 rounded-2xl bg-[#F2FAF9] border border-teal-100 flex items-start gap-3.5">
+          <div class="w-10 h-10 rounded-xl bg-[#0F7C74] text-white flex items-center justify-center font-bold shrink-0">৳</div>
+          <div>
+            <h3 class="font-bold text-sm text-zinc-950" data-i18n="trust2Title">Cash on delivery</h3>
+            <p class="text-xs text-zinc-600 mt-1" data-i18n="trust2Desc">Pay safely when you receive your parcel at your doorstep.</p>
+          </div>
+        </div>
+        <div class="p-5 rounded-2xl bg-[#F2FAF9] border border-teal-100 flex items-start gap-3.5">
+          <div class="w-10 h-10 rounded-xl bg-[#0F7C74] text-white flex items-center justify-center font-bold shrink-0">🚚</div>
+          <div>
+            <h3 class="font-bold text-sm text-zinc-950" data-i18n="trust3Title">Delivery nationwide</h3>
+            <p class="text-xs text-zinc-600 mt-1" data-i18n="trust3Desc">Dhaka ৳70 • Sub-Dhaka ৳100 • Outside Dhaka ৳120.</p>
+          </div>
+        </div>
+        <div class="p-5 rounded-2xl bg-[#F2FAF9] border border-teal-100 flex items-start gap-3.5">
+          <div class="w-10 h-10 rounded-xl bg-[#0F7C74] text-white flex items-center justify-center font-bold shrink-0">↺</div>
+          <div>
+            <h3 class="font-bold text-sm text-zinc-950" data-i18n="trust4Title">Easy returns</h3>
+            <p class="text-xs text-zinc-600 mt-1" data-i18n="trust4Desc">Fast support &amp; hassle-free exchange if any issue occurs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Fixed Global Cash on Delivery Checkout Section -->
+    <section id="checkout-section" class="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 bg-[#F2FAF9]/60 border-t border-teal-100">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-6">
+          <span class="px-3 py-1 rounded-full bg-[#DFF3F1] text-[#0B5B56] text-xs font-bold" data-i18n="checkoutBadge">Fixed Global COD Checkout</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-950 mt-2" data-i18n="checkoutHeading">Complete Your Cash on Delivery Order</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <form id="global-checkout-form" onsubmit="submitGlobalOrder(event)" class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-teal-200/80 shadow-card space-y-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-zinc-700 mb-1.5" data-i18n="lblName">Full Name *</label>
+                <input id="chk-name" type="text" required oninput="captureAbandonedLead()" placeholder="Enter your full name" class="w-full px-4 py-3 rounded-2xl bg-teal-50/40 border border-teal-200 text-sm focus:outline-none focus:border-[#0F7C74]" />
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-zinc-700 mb-1.5" data-i18n="lblPhone">Mobile Number *</label>
+                <input id="chk-phone" type="tel" required oninput="captureAbandonedLead()" placeholder="018XXXXXXXX" class="w-full px-4 py-3 rounded-2xl bg-teal-50/40 border border-teal-200 text-sm focus:outline-none focus:border-[#0F7C74]" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-zinc-700 mb-1.5" data-i18n="lblDistrict">Delivery District *</label>
+                <select id="chk-district" onchange="recalculateCheckoutTotals(); captureAbandonedLead();" class="w-full px-4 py-3 rounded-2xl bg-teal-50/40 border border-teal-200 text-sm font-medium focus:outline-none focus:border-[#0F7C74]">
+                  <option value="dhaka">Dhaka City (Inside Dhaka — ৳70)</option>
+                  <option value="gazipur">Gazipur (Sub-Dhaka — ৳100)</option>
+                  <option value="savar">Savar (Sub-Dhaka — ৳100)</option>
+                  <option value="norsindi">Narsingdi / Norsindi (Sub-Dhaka — ৳100)</option>
+                  <option value="narayongonj">Narayanganj / Narayongonj (Sub-Dhaka — ৳100)</option>
+                  <option value="chattogram">Chattogram (Outside Dhaka — ৳120)</option>
+                  <option value="sylhet">Sylhet (Outside Dhaka — ৳120)</option>
+                  <option value="rajshahi">Rajshahi (Outside Dhaka — ৳120)</option>
+                  <option value="khulna">Khulna (Outside Dhaka — ৳120)</option>
+                  <option value="cumilla">Cumilla (Outside Dhaka — ৳120)</option>
+                  <option value="other_outside">Other District (Outside Dhaka — ৳120)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-zinc-700 mb-1.5" data-i18n="lblCoupon">Coupon Code</label>
+                <div class="flex gap-2">
+                  <input id="chk-coupon" type="text" placeholder="WAJIHA10 / FREESHIP" class="w-full px-4 py-3 rounded-2xl bg-teal-50/40 border border-teal-200 text-sm uppercase focus:outline-none focus:border-[#0F7C74]" />
+                  <button type="button" onclick="applyCheckoutCoupon()" class="px-4 py-3 rounded-2xl bg-[#DFF3F1] hover:bg-[#BEE6E2] text-[#0B5B56] font-bold text-xs shrink-0 cursor-pointer" data-i18n="applyBtn">Apply</button>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 mb-1.5" data-i18n="lblAddress">Full Delivery Address *</label>
+              <textarea id="chk-address" rows="2" required oninput="captureAbandonedLead()" placeholder="House, Road, Area, Thana..." class="w-full px-4 py-3 rounded-2xl bg-teal-50/40 border border-teal-200 text-sm focus:outline-none focus:border-[#0F7C74]"></textarea>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-[#F2FAF9] border border-teal-200 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <input type="radio" checked readonly class="w-4 h-4 accent-[#0F7C74]" />
+                <div>
+                  <div class="font-bold text-sm text-zinc-950" data-i18n="codLabel">Cash on Delivery (COD)</div>
+                  <div class="text-xs text-zinc-600" data-i18n="codSub">Pay cash upon receiving your parcel</div>
+                </div>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold">Active</span>
+            </div>
+
+            <button type="submit" class="w-full py-4 rounded-2xl bg-[#0F7C74] hover:bg-[#0B5B56] text-white font-bold text-base shadow-soft transition cursor-pointer" data-i18n="confirmOrderBtn">
+              Confirm Cash on Delivery Order
+            </button>
+          </form>
+
+          <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-7 border border-teal-200/80 shadow-card space-y-5">
+            <h3 class="font-extrabold text-lg text-zinc-950" data-i18n="summaryHeading">Order Summary</h3>
+            <div id="checkout-items-list" class="space-y-3 max-h-72 overflow-y-auto custom-scrollbar pr-1"></div>
+
+            <div class="border-t border-teal-100 pt-4 space-y-2.5 text-sm">
+              <div class="flex justify-between text-zinc-600">
+                <span data-i18n="subtotalLbl">Subtotal</span>
+                <span id="summary-subtotal" class="font-bold text-zinc-900">৳0</span>
+              </div>
+              <div class="flex justify-between text-zinc-600">
+                <span>Delivery (<span id="summary-zone-label">Inside Dhaka</span>)</span>
+                <span id="summary-delivery" class="font-bold text-zinc-900">৳70</span>
+              </div>
+              <div id="summary-discount-row" class="hidden flex justify-between text-emerald-700 font-semibold">
+                <span>Coupon Discount</span>
+                <span id="summary-discount">-৳0</span>
+              </div>
+              <div class="flex justify-between text-lg font-extrabold text-[#0B5B56] border-t border-teal-100 pt-3">
+                <span data-i18n="totalPayableLbl">Total Payable (COD)</span>
+                <span id="summary-grand-total">৳70</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== NO-CODE ADMIN PANEL VIEW ==================== -->
+  <section id="admin-view" class="hidden flex-1 bg-[#F2FAF9] py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="rounded-3xl bg-[#0B5B56] text-white p-6 mb-6 flex flex-wrap items-center justify-between gap-4 shadow-soft">
+        <div>
+          <span class="px-3 py-1 rounded-full bg-white/15 text-teal-100 text-xs font-bold">No-Code Control Center</span>
+          <h1 class="text-2xl sm:text-3xl font-extrabold mt-2">Wajiha Lifestyle — Admin Dashboard</h1>
+          <p class="text-xs sm:text-sm text-teal-100 mt-1">Manage products, upload photos, reorder categories, check orders &amp; control delivery charges.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="toggleAdminView()" class="px-4 py-2 rounded-xl bg-amber-400 text-zinc-950 font-bold text-xs cursor-pointer">← Back to Storefront</button>
+          <button type="button" onclick="resetDemoState()" class="px-3.5 py-2 rounded-xl bg-white/15 hover:bg-white/25 text-white font-semibold text-xs cursor-pointer">Reset Demo</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <aside class="lg:col-span-3 bg-white rounded-3xl p-3 border border-teal-200/80 shadow-card">
+          <nav id="admin-tabs-nav" class="flex lg:flex-col gap-1.5 overflow-x-auto pb-2 lg:pb-0"></nav>
+        </aside>
+        <div id="admin-tab-content" class="lg:col-span-9 bg-white rounded-3xl p-6 border border-teal-200/80 shadow-card min-h-[460px]"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3-Column Footer -->
+  <footer class="bg-white border-t border-teal-100 pt-12 pb-8 px-4 sm:px-6 lg:px-8 relative">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-10 border-b border-teal-100">
+      <div>
+        <div class="brand-logo-font text-3xl font-bold text-[#0F7C74] -rotate-2 inline-block">Wajiha</div>
+        <div class="brand-logo-font text-sm font-bold text-[#0B5B56] -mt-1">Lifestyle</div>
+        <p class="text-xs text-zinc-600 mt-3 leading-relaxed">
+          Wajiha Lifestyle is here for every woman's refined wardrobe needs. Safe, reliable, and easily accessible across Bangladesh.
+        </p>
+        <p id="footer-address-text" class="text-xs font-semibold text-zinc-800 mt-3">📍 TONGI GAGIPUR TONGIBAZAR ANARKOLI ROAD</p>
+        <p id="footer-phone-text" class="text-xs font-semibold text-[#0F7C74] mt-1">📞 01812829178</p>
+      </div>
+
+      <div>
+        <h4 class="text-xs font-extrabold uppercase tracking-wider text-zinc-950 mb-3">COMPANY</h4>
+        <ul class="space-y-2 text-xs text-zinc-600">
+          <li><button type="button" onclick="openInfoModal('about')" class="hover:text-[#0F7C74] cursor-pointer">About us</button></li>
+          <li><button type="button" onclick="openInfoModal('contact')" class="hover:text-[#0F7C74] cursor-pointer">Contact</button></li>
+          <li><button type="button" onclick="openInfoModal('privacy')" class="hover:text-[#0F7C74] cursor-pointer">Privacy Policy</button></li>
+          <li><button type="button" onclick="openInfoModal('terms')" class="hover:text-[#0F7C74] cursor-pointer">Terms and conditions</button></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-xs font-extrabold uppercase tracking-wider text-zinc-950 mb-3">SERVICES AND POLICIES</h4>
+        <ul class="space-y-2 text-xs text-zinc-600">
+          <li><a href="#checkout-section" class="hover:text-[#0F7C74]">Track order / Checkout</a></li>
+          <li><button type="button" onclick="openInfoModal('dataprotection')" class="hover:text-[#0F7C74] cursor-pointer">Customer Data Protection</button></li>
+          <li><button type="button" onclick="openInfoModal('refund')" class="hover:text-[#0F7C74] cursor-pointer">Return and Refund Policy</button></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-xs font-extrabold uppercase tracking-wider text-zinc-950 mb-3">CATEGORIES</h4>
+        <ul id="footer-category-links" class="space-y-2 text-xs text-zinc-600"></ul>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto pt-6 flex flex-wrap items-center justify-between gap-3 text-xs text-zinc-500">
+      <div>© 2026 Wajiha Lifestyle. All rights reserved.</div>
+      <div class="flex items-center gap-2">
+        <a href="#checkout-section" class="px-4 py-2 rounded-full bg-[#0F7C74] hover:bg-[#0B5B56] text-white font-bold text-xs shadow-soft transition">
+          Cash on delivery
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Brand Popup Modal -->
+  <div id="brand-popup-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 border border-teal-200 shadow-2xl text-center space-y-4">
+      <div class="inline-flex flex-col items-center px-6 py-3 rounded-2xl bg-[#F2FAF9] border border-teal-200">
+        <span class="brand-logo-font text-3xl font-bold text-[#0F7C74] -rotate-2">Wajiha</span>
+        <span class="brand-logo-font text-sm font-bold text-[#0B5B56]">Lifestyle</span>
+      </div>
+      <h3 class="text-xl font-extrabold text-zinc-950">Welcome to Wajiha Lifestyle</h3>
+      <p class="text-xs sm:text-sm text-zinc-600">Premium embroidered 3-piece sets, festive lawn &amp; modern co-ords delivered nationwide with Cash on Delivery.</p>
+      <div class="flex gap-2 justify-center pt-2">
+        <button type="button" onclick="closeBrandPopup()" class="px-5 py-2.5 rounded-full bg-[#0F7C74] text-white text-xs font-bold cursor-pointer">Explore Collection</button>
+        <button type="button" onclick="closeBrandPopup(); document.getElementById('checkout-section').scrollIntoView({behavior:'smooth'});" class="px-5 py-2.5 rounded-full bg-amber-400 text-zinc-950 text-xs font-bold cursor-pointer">Order Now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Quick-View Modal -->
+  <div id="product-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+    <div id="product-modal-body" class="bg-white rounded-3xl max-w-4xl w-full border border-teal-200 shadow-2xl overflow-hidden my-8"></div>
+  </div>
+
+  <!-- Cart Drawer Modal -->
+  <div id="cart-drawer" class="fixed inset-0 z-50 hidden bg-black/50 backdrop-blur-xs flex justify-end">
+    <div class="bg-white w-full max-w-md h-full flex flex-col justify-between p-6 border-l border-teal-200 shadow-2xl">
+      <div>
+        <div class="flex items-center justify-between pb-4 border-b border-teal-100">
+          <h3 class="text-lg font-extrabold text-zinc-950">Your Shopping Bag</h3>
+          <button type="button" onclick="closeCartDrawer()" class="w-9 h-9 rounded-full bg-teal-50 text-zinc-800 font-bold cursor-pointer">✕</button>
+        </div>
+        <div id="drawer-cart-items" class="mt-4 space-y-3 max-h-[60vh] overflow-y-auto custom-scrollbar"></div>
+      </div>
+      <div class="border-t border-teal-100 pt-4 space-y-3">
+        <div class="flex justify-between font-extrabold text-base">
+          <span>Subtotal</span>
+          <span id="drawer-subtotal" class="text-[#0F7C74]">৳0</span>
+        </div>
+        <button type="button" onclick="closeCartDrawer(); document.getElementById('checkout-section').scrollIntoView({behavior:'smooth'});" class="w-full py-3.5 rounded-2xl bg-[#0F7C74] hover:bg-[#0B5B56] text-white font-bold text-sm cursor-pointer">
+          Proceed to COD Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Landing Page Modal -->
+  <div id="landing-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+    <div id="landing-modal-body" class="bg-white rounded-3xl max-w-4xl w-full p-6 border border-teal-200 shadow-2xl my-8"></div>
+  </div>
+
+  <!-- Info Policy Modal -->
+  <div id="info-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 border border-teal-200 shadow-2xl">
+      <div class="flex items-center justify-between pb-3 border-b border-teal-100">
+        <h3 id="info-modal-title" class="text-lg font-extrabold text-zinc-950">Policy</h3>
+        <button type="button" onclick="document.getElementById('info-modal').classList.add('hidden')" class="w-8 h-8 rounded-full bg-teal-50 font-bold cursor-pointer">✕</button>
+      </div>
+      <div id="info-modal-content" class="mt-4 text-sm text-zinc-700 leading-relaxed"></div>
+    </div>
+  </div>
+
+  <!-- Pixel Events Log Modal -->
+  <div id="events-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-xl w-full p-6 border border-teal-200 shadow-2xl">
+      <div class="flex items-center justify-between pb-3 border-b border-teal-100">
+        <h3 class="text-lg font-extrabold text-zinc-950">Pixel &amp; CAPI Event Stream</h3>
+        <button type="button" onclick="document.getElementById('events-modal').classList.add('hidden')" class="w-8 h-8 rounded-full bg-teal-50 font-bold cursor-pointer">✕</button>
+      </div>
+      <div id="events-log-list" class="mt-4 space-y-2 max-h-72 overflow-y-auto custom-scrollbar text-xs"></div>
+    </div>
+  </div>
+
+  <!-- Order Thank-You Modal -->
+  <div id="thankyou-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div id="thankyou-modal-body" class="bg-white rounded-3xl max-w-md w-full p-6 border border-teal-200 shadow-2xl text-center space-y-4"></div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. STATE & CONSTANTS
+    // =========================================================================
+    const STORAGE_KEY = 'wajiha_lifestyle_state_v1';
+    const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
+
+    let currentLang = 'en';
+    let activeCategoryFilter = 'ALL';
+    let activeHeroSlide = 0;
+    let activeModalVariantIdx = 0;
+    let activeModalSize = 'M';
+    let appliedCoupon = null;
+    let currentAdminTab = 'dashboard';
+    let newProdImageData = '';
+    let pendingHeroCoverData = '';
+    let pendingProdUploads = {};
+    let _saveTimer = null;
+
+    const I18N = {
+      en: {
+        eventsBtn: 'Events',
+        navHome: 'Home',
+        navAll: 'All products',
+        navNew: 'New',
+        navSpecial: 'Special',
+        orderBtn: 'Order',
+        newArrivalsTitle: 'New arrivals',
+        newArrivalsSub: 'Click any item for color swatches, size & instant COD checkout',
+        seeAll: 'See all',
+        viewBtn: 'View',
+        serialLabel: 'Collection',
+        trust1Title: 'Safe product',
+        trust1Desc: 'Check what you are buying and choose with confidence.',
+        trust2Title: 'Cash on delivery',
+        trust2Desc: 'Pay when you receive the product.',
+        trust3Title: 'Delivery nationwide',
+        trust3Desc: 'Dhaka ৳70 • Sub-Dhaka ৳100 • Outside Dhaka ৳120.',
+        trust4Title: 'Easy returns',
+        trust4Desc: 'If you have any problems, let us know, we are here for you.',
+        checkoutBadge: 'Fixed Global COD Checkout',
+        checkoutHeading: 'Complete Your Cash on Delivery Order',
+        lblName: 'Full Name *',
+        lblPhone: 'Mobile Number *',
+        lblDistrict: 'Delivery District *',
+        lblCoupon: 'Coupon Code',
+        applyBtn: 'Apply',
+        lblAddress: 'Full Delivery Address *',
+        codLabel: 'Cash on Delivery (COD)',
+        codSub: 'Pay cash upon receiving your parcel',
+        confirmOrderBtn: 'Confirm Cash on Delivery Order',
+        summaryHeading: 'Order Summary',
+        subtotalLbl: 'Subtotal',
+        totalPayableLbl: 'Total Payable (COD)'
+      },
+      bn: {
+        eventsBtn: 'ইভেন্ট',
+        navHome: 'হোম',
+        navAll: 'সব প্রোডাক্ট',
+        navNew: 'নতুন',
+        navSpecial: 'স্পেশাল',
+        orderBtn: 'অর্ডার',
+        newArrivalsTitle: 'নতুন এসেছে',
+        newArrivalsSub: 'কালার সোয়াচ, সাইজ ও ইনস্ট্যান্ট COD অর্ডারের জন্য যেকোনো আইটেমে ক্লিক করুন',
+        seeAll: 'সব দেখুন',
+        viewBtn: 'দেখুন',
+        serialLabel: 'কালেকশন',
+        trust1Title: 'নিরাপদ পণ্য',
+        trust1Desc: 'যা কিনছেন তা যাচাই করে বেছে নিন।',
+        trust2Title: 'ক্যাশ অন ডেলিভারি',
+        trust2Desc: 'পণ্য হাতে পেয়ে টাকা দিন।',
+        trust3Title: 'সারা দেশে ডেলিভারি',
+        trust3Desc: 'ঢাকার ভেতরে ও বাইরে সব জেলায় (৳৭০ / ৳১০০ / ৳১২০)।',
+        trust4Title: 'সহজ রিটার্ন',
+        trust4Desc: 'সমস্যা হলে আমাদের জানান, আমরা পাশে আছি।',
+        checkoutBadge: 'ফিক্সড গ্লোবাল COD চেকআউট',
+        checkoutHeading: 'ক্যাশ অন ডেলিভারি অর্ডার সম্পন্ন করুন',
+        lblName: 'পূর্ণ নাম *',
+        lblPhone: 'মোবাইল নম্বর *',
+        lblDistrict: 'ডেলিভারি জেলা *',
+        lblCoupon: 'কুপন কোড',
+        applyBtn: 'প্রয়োগ',
+        lblAddress: 'সম্পূর্ণ ডেলিভারি ঠিকানা *',
+        codLabel: 'ক্যাশ অন ডেলিভারি (COD)',
+        codSub: 'পণ্য হাতে পেয়ে টাকা পরিশোধ করুন',
+        confirmOrderBtn: 'ক্যাশ অন ডেলিভারি অর্ডার কনফার্ম করুন',
+        summaryHeading: 'অর্ডার সামারি',
+        subtotalLbl: 'সাবটোটাল',
+        totalPayableLbl: 'সর্বমোট বিল (COD)'
+      }
+    };
+
+    function createDressSvg(primaryHex, accentHex, label = 'WAJIHA') {
+      const safeLabel = String(label || 'WAJIHA').slice(0, 14);
+      const safePrimary = primaryHex || '#0F7C74';
+      const safeAccent = accentHex || '#FDE68A';
+      return `
+        <svg viewBox="0 0 240 300" class="w-full h-full object-cover select-none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="240" height="300" fill="#F2FAF9"/>
+          <path d="M92 175 L84 268 H114 L120 202 L126 268 H156 L148 175 Z" fill="${safePrimary}"/>
+          <path d="M80 66 L102 52 H138 L160 66 L176 122 L154 129 L146 92 L152 212 H88 L94 92 L86 129 L64 122 Z" fill="${safePrimary}"/>
+          <path d="M104 62 C102 92 106 114 120 132 C134 114 138 92 136 62" fill="none" stroke="${safeAccent}" stroke-width="2.5"/>
+          <path d="M142 62 C168 74 174 112 170 156 L184 262 C178 270 160 268 154 258 L144 148 Z" fill="${safePrimary}" fill-opacity="0.72" stroke="${safeAccent}" stroke-width="1.8"/>
+          <rect x="52" y="274" width="136" height="18" rx="9" fill="#0B5B56"/>
+          <text x="120" y="286" text-anchor="middle" font-size="8" font-weight="700" fill="#FFFFFF">${safeLabel}</text>
+        </svg>
+      `;
+    }
+
+    function createCircleBadgeSvg(bgTop, bgBot, accent, titleText) {
+      const safeTitle = String(titleText || 'Wajiha').slice(0, 12);
+      const safeTop = bgTop || '#DFF3F1';
+      const safeBot = bgBot || '#8FD1CA';
+      const safeAccent = accent || '#0F7C74';
+      return `
+        <svg viewBox="0 0 120 120" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="60" cy="60" r="58" fill="${safeTop}" stroke="${safeBot}" stroke-width="3"/>
+          <circle cx="60" cy="66" r="40" fill="#FFFFFF" fill-opacity="0.7"/>
+          <path d="M40 42 L52 34 H68 L80 42 L88 70 L76 74 L72 54 L76 100 H44 L48 54 L44 74 L32 70 Z" fill="${safeAccent}"/>
+          <rect x="14" y="12" width="92" height="18" rx="9" fill="#FFFFFF"/>
+          <text x="60" y="24" text-anchor="middle" font-size="7.5" font-weight="700" fill="#0B5B56">${safeTitle}</text>
+        </svg>
+      `;
+    }
+
+    function getDefaultState() {
+      return {
+        brand: {
+          name: 'Wajiha Lifestyle',
+          address: 'TONGI GAGIPUR TONGIBAZAR ANARKOLI ROAD',
+          phone: '01812829178',
+          promoBanner: ''
+        },
+        customHeroCover: '',
+        sectionLabels: {
+          newArrivalsTitle: 'New arrivals',
+          newArrivalsSub: 'Click any item for color swatches, size & instant COD checkout',
+          featuredTag: 'Featured Collection',
+          seeAllText: 'See all',
+          viewText: 'View'
+        },
+        categories: [
+          {
+            id: 'cat-baby-bath',
+            name: 'Baby bath items',
+            description: 'Gentle cleansing washes, tear-free shampoos & soft towels for delicate skin.',
+            serial: 1,
+            badgeSvg: createCircleBadgeSvg('#DFF3F1', '#8FD1CA', '#0F7C74', 'Baby Bath')
+          },
+          {
+            id: 'cat-baby-skincare',
+            name: 'Baby skincare',
+            description: 'Nourishing lotions, soothing creams & everyday moisture care.',
+            serial: 2,
+            badgeSvg: createCircleBadgeSvg('#E0F2FE', '#BAE6FD', '#0369A1', 'Skincare')
+          },
+          {
+            id: 'cat-baby-feeding',
+            name: 'Baby Feeding Items',
+            description: 'Anti-colic feeders, natural-flow bottles & daily feeding essentials.',
+            serial: 3,
+            badgeSvg: createCircleBadgeSvg('#FEF3C7', '#FDE68A', '#B45309', 'Feeding')
+          },
+          {
+            id: 'cat-mom-care',
+            name: 'Mom Care',
+            description: 'Supportive maternity & postpartum care essentials designed for comfort.',
+            serial: 4,
+            badgeSvg: createCircleBadgeSvg('#FCE7F3', '#FBCFE8', '#9D174D', 'Mom Care')
+          },
+          {
+            id: 'cat-womens-personal',
+            name: "Women's Personal Care",
+            description: 'Daily gentle cleansers, skin care & personal wellness essentials.',
+            serial: 5,
+            badgeSvg: createCircleBadgeSvg('#EDE9FE', '#DDD6FE', '#5B21B6', 'Personal Care')
+          }
+        ],
+        products: [
+          {
+            id: 'prod-sun-milk',
+            name: 'Missha All Around Safe Block Sun Milk SPF50+ 70ml',
+            categoryId: 'cat-mom-care',
+            serial: 1,
+            price: 1180,
+            oldPrice: 1450,
+            stock: 25,
+            soldCount: 34,
+            description: 'Lightweight daily sun protection milk with smooth non-sticky finish.',
+            upsellId: 'prod-cerave-cream',
+            upsellOfferText: 'Save ৳150 when bundled!',
+            variants: [
+              { colorName: 'Soft Ivory', swatchHex: '#0F7C74', size: '70ml', imageUrl: '', svg: createDressSvg('#0F7C74', '#FEF3C7', 'SUN MILK') }
+            ]
+          },
+          {
+            id: 'prod-cerave-cream',
+            name: 'CeraVe Moisturising Cream 340g',
+            categoryId: 'cat-mom-care',
+            serial: 2,
+            price: 2850,
+            oldPrice: 3100,
+            stock: 19,
+            soldCount: 41,
+            description: 'Rich daily moisture cream formulated to help restore and protect the skin barrier.',
+            upsellId: 'prod-simple-gel-wash',
+            upsellOfferText: 'Add with ৳100 off!',
+            variants: [
+              { colorName: 'Classic Jar', swatchHex: '#1D4ED8', size: '340g', imageUrl: '', svg: createDressSvg('#1D4ED8', '#EFF6FF', 'CERAVE 340G') }
+            ]
+          },
+          {
+            id: 'prod-simple-gel-wash',
+            name: 'Simple Water Boost Micellar Gel Wash 150ml',
+            categoryId: 'cat-womens-personal',
+            serial: 2,
+            price: 650,
+            oldPrice: 700,
+            stock: 30,
+            soldCount: 29,
+            description: 'Hydrating micellar gel wash that gently cleanses without leaving skin feeling tight.',
+            upsellId: '',
+            upsellOfferText: '',
+            variants: [
+              { colorName: 'Aqua Blue', swatchHex: '#0284C7', size: '150ml', imageUrl: '', svg: createDressSvg('#0284C7', '#E0F2FE', 'GEL WASH') }
+            ]
+          },
+          {
+            id: 'prod-avent-anticolic',
+            name: 'Philips Avent Anti-Colic Feeding Bottle 1m+ 260ml',
+            categoryId: 'cat-baby-feeding',
+            serial: 4,
+            price: 980,
+            oldPrice: 1040,
+            stock: 22,
+            soldCount: 37,
+            description: 'Designed to reduce colic and discomfort with an integrated anti-colic valve.',
+            upsellId: '',
+            upsellOfferText: '',
+            variants: [
+              { colorName: 'Clear / Teal', swatchHex: '#0F7C74', size: '260ml', imageUrl: '', svg: createDressSvg('#0F7C74', '#F0FDFA', 'AVENT 260ML') }
+            ]
+          },
+          {
+            id: 'prod-tommee-bottle',
+            name: 'Tommee Tippee Closer To Nature Bottle 260ml',
+            categoryId: 'cat-baby-feeding',
+            serial: 3,
+            price: 980,
+            oldPrice: 1080,
+            stock: 20,
+            soldCount: 26,
+            description: 'Breast-like teat shape that flexes naturally for comfortable feeding.',
+            upsellId: '',
+            upsellOfferText: '',
+            variants: [
+              { colorName: 'Soft White', swatchHex: '#0B5B56', size: '260ml', imageUrl: '', svg: createDressSvg('#0B5B56', '#FEF3C7', 'TOMMEE 260ML') }
+            ]
+          },
+          {
+            id: 'prod-bioderma-gel',
+            name: 'Bioderma ABCDerm Foaming Gel 200ml',
+            categoryId: 'cat-baby-bath',
+            serial: 1,
+            price: 1840,
+            oldPrice: 1980,
+            stock: 16,
+            soldCount: 23,
+            description: 'Mild foaming cleansing gel for gentle daily bath routines.',
+            upsellId: '',
+            upsellOfferText: '',
+            variants: [
+              { colorName: 'Sky & White', swatchHex: '#0284C7', size: '200ml', imageUrl: '', svg: createDressSvg('#0284C7', '#F0F9FF', 'BIODERMA') }
+            ]
+          },
+          {
+            id: 'prod-sebamed-foam',
+            name: 'Sebamed Baby Face & Body Wash Foam 400ml',
+            categoryId: 'cat-baby-bath',
+            serial: 2,
+            price: 2480,
+            oldPrice: 2650,
+            stock: 14,
+            soldCount: 19,
+            description: 'Gentle pH-balanced wash foam for sensitive skin.',
+            upsellId: '',
+            upsellOfferText: '',
+            variants: [
+              { colorName: 'Soft Blue', swatchHex: '#0369A1', size: '400ml', imageUrl: '', svg: createDressSvg('#0369A1', '#E0F2FE', 'SEBAMED FOAM') }
+            ]
+          },
+          {
+            id: 'prod-aveeno-lotion',
+            name: 'Aveeno Baby Daily Care Moisturising Lotion 150ml',
+            categoryId: 'cat-baby-skincare',
+            serial: 1,
+            price: 940,
+            oldPrice: 1100,
+            stock: 21,
+            soldCount: 31,
+            description: 'Soothing oat-enriched daily lotion for soft, nourished skin.',
+            upsellId: '',
+            upsellOfferText: '',
+            variants: [
+              { colorName: 'Oat Cream', swatchHex: '#0F7C74', size: '150ml', imageUrl: '', svg: createDressSvg('#0F7C74', '#FEF9C3', 'AVEENO 150ML') }
+            ]
+          },
+          {
+            id: 'prod-sebamed-clear-gel',
+            name: 'Sebamed Clear Face Care Gel 50ml',
+            categoryId: 'cat-womens-personal',
+            serial: 1,
+            price: 1160,
+            oldPrice: 1280,
+            stock: 18,
+            soldCount: 24,
+            description: 'Oil-free soothing gel formulated for clear, balanced skin.',
+            upsellId: '',
+            upsellOfferText: '',
+            variants: [
+              { colorName: 'Pure Teal', swatchHex: '#0B5B56', size: '50ml', imageUrl: '', svg: createDressSvg('#0B5B56', '#CCFBF1', 'CLEAR GEL') }
+            ]
+          }
+        ],
+        deliveryZones: [
+          { id: 'dhaka', label: 'Inside Dhaka', charge: 70 },
+          { id: 'sub_dhaka', label: 'Sub-Dhaka (Gazipur, Savar, Narsingdi, Narayanganj)', charge: 100 },
+          { id: 'outside_dhaka', label: 'Outside Dhaka', charge: 120 }
+        ],
+        coupons: [
+          { code: 'WAJIHA10', type: 'percent', value: 10, active: true },
+          { code: 'FLAT200', type: 'fixed', value: 200, active: true },
+          { code: 'FREESHIP', type: 'free_delivery', value: 0, active: true }
+        ],
+        orders: [
+          { id: 'ORD-1041', customerName: 'Sabrina Rahman', phone: '01711000011', districtName: 'Gazipur (Tongi)', total: 2950, status: 'Confirmed' }
+        ],
+        abandonedCheckouts: [],
+        blockedMobiles: ['01900000000'],
+        eventLogs: [],
+        clarity: {
+          projectId: 'CLARITY_WAJIHA_7D',
+          retentionDays: 7,
+          sessions: []
+        },
+        policies: {
+          about: 'Wajiha Lifestyle is a modern women’s fashion house located at TONGI GAGIPUR TONGIBAZAR ANARKOLI ROAD (Contact: 01812829178), specializing in embroidered 3-piece suits, festive lawn and co-ord sets.',
+          contact: 'Store Address: TONGI GAGIPUR TONGIBAZAR ANARKOLI ROAD • Hotline & WhatsApp: 01812829178',
+          privacy: 'Your name, phone number and delivery address are used strictly for order confirmation and courier delivery.',
+          terms: 'All orders are shipped via Cash on Delivery subject to stock availability.',
+          dataprotection: 'Customer records are protected with role-based admin controls.',
+          refund: 'Please inspect your parcel upon delivery. Contact 01812829178 within 24 hours for any exchange support.'
+        }
+      };
+    }
+
+    let state = loadState();
+    let cart = [];
+
+    const activeVisitorSessionId = 'VIS-' + (sessionStorage.getItem('wajiha_vis_sid') || (() => {
+      const id = Math.floor(10000 + Math.random() * 89999);
+      sessionStorage.setItem('wajiha_vis_sid', String(id));
+      return String(id);
+    })());
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          const def = getDefaultState();
+          try { localStorage.setItem(STORAGE_KEY, JSON.stringify(def)); } catch {}
+          return def;
+        }
+        const parsed = JSON.parse(raw);
+        const def = getDefaultState();
+        return {
+          ...def,
+          ...parsed,
+          brand: { ...def.brand, ...(parsed.brand || {}) },
+          sectionLabels: { ...def.sectionLabels, ...(parsed.sectionLabels || {}) },
+          policies: { ...def.policies, ...(parsed.policies || {}) },
+          clarity: { ...def.clarity, ...(parsed.clarity || {}) }
+        };
+      } catch {
+        return getDefaultState();
+      }
+    }
+
+    function saveState() {
+      if (_saveTimer) clearTimeout(_saveTimer);
+      _saveTimer = setTimeout(() => {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch {
+          // Keep in-memory state if quota is reached
+        }
+      }, 40);
+    }
+
+    function resetDemoState() {
+      state = getDefaultState();
+      cart = [];
+      appliedCoupon = null;
+      pendingHeroCoverData = '';
+      pendingProdUploads = {};
+      saveState();
+      renderAll();
+      if (!document.getElementById('admin-view').classList.contains('hidden')) {
+        renderAdminPanel();
+      }
+      showToast('Demo data reset to Wajiha Lifestyle defaults!');
+    }
+
+    function pruneOldClaritySessions() {
+      if (!state.clarity || !Array.isArray(state.clarity.sessions)) {
+        state.clarity = { projectId: 'CLARITY_WAJIHA_7D', retentionDays: 7, sessions: [] };
+      }
+      const cutoff = Date.now() - SEVEN_DAYS_MS;
+      state.clarity.sessions = state.clarity.sessions.filter(s => (s.lastSeenAt || s.enteredAt || 0) >= cutoff);
+    }
+
+    function recordClarityActivity(actionLabel, detail = '') {
+      pruneOldClaritySessions();
+      const now = Date.now();
+      let sess = state.clarity.sessions.find(s => s.sessionId === activeVisitorSessionId);
+      if (!sess) {
+        sess = {
+          sessionId: activeVisitorSessionId,
+          enteredAt: now,
+          enteredText: new Date(now).toLocaleString(),
+          lastSeenAt: now,
+          exitedText: 'Active in session',
+          ordered: false,
+          steps: []
+        };
+        state.clarity.sessions.unshift(sess);
+      }
+      sess.lastSeenAt = now;
+      sess.steps.push({
+        time: new Date(now).toLocaleTimeString(),
+        action: actionLabel,
+        detail
+      });
+      if (sess.steps.length > 25) sess.steps = sess.steps.slice(-25);
+      if (actionLabel.toLowerCase().includes('order')) sess.ordered = true;
+      state.clarity.sessions = state.clarity.sessions.slice(0, 60);
+      saveState();
+    }
+
+    function markSessionExit() {
+      pruneOldClaritySessions();
+      const now = Date.now();
+      const sess = state.clarity.sessions.find(s => s.sessionId === activeVisitorSessionId);
+      if (sess) {
+        sess.lastSeenAt = now;
+        sess.exitedText = new Date(now).toLocaleString();
+        sess.steps.push({ time: new Date(now).toLocaleTimeString(), action: 'Left / Switched View', detail: '' });
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+      }
+    }
+
+    function formatBdt(n) {
+      return '৳' + Math.max(0, Math.round(Number(n) || 0)).toLocaleString('en-US');
+    }
+
+    function showToast(msg, type = 'ok') {
+      const box = document.getElementById('toast-container');
+      const div = document.createElement('div');
+      div.className = `pointer-events-auto px-4 py-3 rounded-2xl shadow-soft text-xs sm:text-sm font-semibold flex items-center justify-between gap-2 ${type === 'err' ? 'bg-rose-800 text-white' : 'bg-[#0B5B56] text-white border border-teal-400/30'}`;
+      div.innerHTML = `<span>${msg}</span><button type="button" onclick="this.parentElement.remove()" class="font-bold cursor-pointer">✕</button>`;
+      box.appendChild(div);
+      setTimeout(() => div.remove(), 3000);
+    }
+
+    function trackPixelEvent(eventName, payload = {}) {
+      state.eventLogs.unshift({
+        id: 'EVT-' + Math.floor(1000 + Math.random() * 8999),
+        eventName,
+        payload,
+        time: new Date().toLocaleTimeString()
+      });
+      state.eventLogs = state.eventLogs.slice(0, 30);
+      saveState();
+      const badge = document.getElementById('event-count-badge');
+      if (badge) badge.textContent = state.eventLogs.length;
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      const enBtn = document.getElementById('lang-en-btn');
+      const bnBtn = document.getElementById('lang-bn-btn');
+      if (enBtn) {
+        enBtn.className = lang === 'en'
+          ? 'px-2 py-0.5 rounded-full text-[11px] font-bold bg-[#0F7C74] text-white cursor-pointer'
+          : 'px-2 py-0.5 rounded-full text-[11px] font-bold text-[#0B5B56] cursor-pointer';
+      }
+      if (bnBtn) {
+        bnBtn.className = lang === 'bn'
+          ? 'px-2 py-0.5 rounded-full text-[11px] font-bold bg-[#0F7C74] text-white cursor-pointer'
+          : 'px-2 py-0.5 rounded-full text-[11px] font-bold text-[#0B5B56] cursor-pointer';
+      }
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (I18N[lang] && I18N[lang][key]) el.textContent = I18N[lang][key];
+      });
+      renderStorefront();
+      showToast(lang === 'bn' ? 'বাংলা ভাষা চালু হয়েছে' : 'English language active');
+    }
+
+    function ensureStorefrontVisible() {
+      const sf = document.getElementById('storefront-view');
+      const ad = document.getElementById('admin-view');
+      const btn = document.getElementById('view-switch-btn');
+      if (ad) ad.classList.add('hidden');
+      if (sf) sf.classList.remove('hidden');
+      if (btn) btn.textContent = 'Admin Panel';
+    }
+
+    function jumpToSection(secId) {
+      ensureStorefrontVisible();
+      renderStorefront();
+      recordClarityActivity('Clicked Menu', secId);
+      setTimeout(() => {
+        const el = document.getElementById(secId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 20);
+    }
+
+    function goHomeView() {
+      ensureStorefrontVisible();
+      activeCategoryFilter = 'ALL';
+      const inp = document.getElementById('search-input');
+      if (inp) inp.value = '';
+      renderHeroCarousel();
+      renderStorefront();
+      syncCartUI();
+      recordClarityActivity('Returned to Home', 'Storefront Home');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderVariantMedia(v) {
+      if (!v) return '';
+      if (v.imageUrl) return `<img src="${v.imageUrl}" alt="${v.colorName || 'Wajiha Dress'}" class="w-full h-full object-cover" />`;
+      return v.svg || '';
+    }
+
+    function getDiscountPct(prod) {
+      if (!prod.oldPrice || prod.oldPrice <= prod.price) return 0;
+      return Math.round(((prod.oldPrice - prod.price) / prod.oldPrice) * 100);
+    }
+
+    // =========================================================================
+    // 2. STOREFRONT RENDERING
+    // =========================================================================
+    const HERO_SLIDES = [
+      {
+        badge: 'WAJIHA LIFESTYLE • FULL COLLECTION',
+        headline: 'Embroidered 3-Piece, Festive Lawn & Co-ords',
+        sub: 'Signature Teal, Royal Red, Sapphire Lawn & Pastel Tunics — Cash on Delivery Nationwide',
+        cta: 'Shop All Products',
+        bgStart: '#DDF3F1',
+        bgMid: '#F2FAF9',
+        bgEnd: '#FEF6E4'
+      },
+      {
+        badge: 'NEW EID & FESTIVE DROP',
+        headline: 'Royal Red Grace & Signature Silk Suites',
+        sub: 'Handcrafted floral embroidery & flowing chiffon dupattas',
+        cta: 'Explore Festive Edit',
+        bgStart: '#FCE7F3',
+        bgMid: '#FFF1F5',
+        bgEnd: '#DFF3F1'
+      },
+      {
+        badge: 'EVERYDAY LUXURY',
+        headline: 'Breathable Luxury Lawn & Botanical Co-ord Sets',
+        sub: 'Effortless elegance delivered across Bangladesh',
+        cta: 'Order with COD',
+        bgStart: '#FEF3C7',
+        bgMid: '#F2FAF9',
+        bgEnd: '#DFF3F1'
+      }
+    ];
+
+    function renderHeroCarousel() {
+      const slide = HERO_SLIDES[activeHeroSlide % HERO_SLIDES.length];
+      const coverUrl = state.customHeroCover || '';
+      const box = document.getElementById('hero-slide-content');
+
+      if (coverUrl) {
+        box.innerHTML = `
+          <div onclick="document.getElementById('new-arrivals-section').scrollIntoView({behavior:'smooth'})" class="relative w-full h-full cursor-pointer">
+            <img src="${coverUrl}" alt="Wajiha Lifestyle Banner" class="w-full h-full object-cover" />
+          </div>
+        `;
+      } else {
+        box.innerHTML = `
+          <div onclick="document.getElementById('new-arrivals-section').scrollIntoView({behavior:'smooth'})" style="background: linear-gradient(125deg, ${slide.bgStart} 0%, ${slide.bgMid} 50%, ${slide.bgEnd} 100%);" class="relative w-full h-full flex items-center justify-center p-6 sm:p-12 cursor-pointer overflow-hidden">
+            <div class="max-w-4xl w-full text-center space-y-3 sm:space-y-4 z-10">
+              <span class="inline-block px-4 py-1 rounded-full bg-[#0F7C74] text-white text-[11px] sm:text-xs font-extrabold tracking-wider">${slide.badge}</span>
+              <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-zinc-950 tracking-tight leading-tight">${slide.headline}</h1>
+              <p class="text-sm sm:text-lg text-zinc-700 font-medium max-w-2xl mx-auto">${slide.sub}</p>
+              <div class="pt-2">
+                <span class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-amber-400 hover:bg-amber-300 text-zinc-950 font-extrabold text-xs sm:text-sm shadow-md">
+                  <span>${slide.cta}</span>
+                  <span>→</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      document.getElementById('hero-dots').innerHTML = HERO_SLIDES.map((_, idx) => `
+        <button type="button" onclick="activeHeroSlide=${idx}; renderHeroCarousel();" class="h-2.5 rounded-full transition cursor-pointer ${idx === activeHeroSlide ? 'w-7 bg-amber-400' : 'w-2.5 bg-white/80'}"></button>
+      `).join('');
+    }
+
+    function prevHeroSlide() {
+      activeHeroSlide = (activeHeroSlide - 1 + HERO_SLIDES.length) % HERO_SLIDES.length;
+      renderHeroCarousel();
+    }
+
+    function nextHeroSlide() {
+      activeHeroSlide = (activeHeroSlide + 1) % HERO_SLIDES.length;
+      renderHeroCarousel();
+    }
+
+    function renderProductCard(prod) {
+      const pct = getDiscountPct(prod);
+      return `
+        <div class="group rounded-3xl bg-white border border-teal-100 hover:border-[#0F7C74]/50 shadow-card p-3 flex flex-col justify-between transition">
+          <div>
+            <div class="relative aspect-[4/5] rounded-2xl overflow-hidden bg-[#F2FAF9] mb-3">
+              ${pct > 0 ? `<span class="absolute top-2.5 left-2.5 z-10 px-2.5 py-1 rounded-full bg-amber-400 text-zinc-950 text-[11px] font-extrabold shadow-xs">-${pct}%</span>` : ''}
+              <button type="button" onclick="quickAddToCart('${prod.id}')" aria-label="Quick Add" class="absolute top-2.5 right-2.5 z-10 w-8 h-8 rounded-full bg-white hover:bg-[#0F7C74] text-zinc-900 hover:text-white border border-teal-200 shadow-sm flex items-center justify-center font-extrabold text-base transition cursor-pointer">
+                +
+              </button>
+              <div onclick="openProductModal('${prod.id}')" class="w-full h-full cursor-pointer">
+                ${renderVariantMedia(prod.variants[0])}
+              </div>
+            </div>
+            <h3 onclick="openProductModal('${prod.id}')" class="font-bold text-xs sm:text-sm text-zinc-900 group-hover:text-[#0F7C74] line-clamp-2 cursor-pointer transition">
+              ${prod.name}
+            </h3>
+          </div>
+          <div class="mt-2 flex items-center gap-2">
+            <span class="font-extrabold text-sm text-[#0F7C74]">${formatBdt(prod.price)}</span>
+            ${prod.oldPrice ? `<span class="text-xs line-through text-zinc-400">${formatBdt(prod.oldPrice)}</span>` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderStorefront() {
+      const t = I18N[currentLang] || I18N.en;
+      const sortedCats = [...(state.categories || [])].sort((a, b) => (a.serial || 0) - (b.serial || 0));
+      const query = (document.getElementById('search-input')?.value || '').trim().toLowerCase();
+
+      const footAddr = document.getElementById('footer-address-text');
+      const footPhone = document.getElementById('footer-phone-text');
+      if (footAddr) footAddr.textContent = `📍 ${state.brand.address}`;
+      if (footPhone) footPhone.textContent = `📞 ${state.brand.phone}`;
+
+      const headerCatBox = document.getElementById('header-category-links');
+      if (headerCatBox) {
+        headerCatBox.innerHTML = sortedCats.map(c =>
+          `<button type="button" onclick="selectCategoryFilter('${c.id}')" class="hover:text-[#0F7C74] transition cursor-pointer ${activeCategoryFilter === c.id ? 'text-[#0F7C74] underline underline-offset-4' : ''}">${c.name}</button>`
+        ).join('');
+      }
+
+      const mobileStrip = document.getElementById('mobile-header-strip');
+      if (mobileStrip) {
+        mobileStrip.innerHTML = `
+          <button type="button" onclick="jumpToSection('new-arrivals-section')" class="px-2.5 py-1 rounded-full bg-white border border-teal-200 cursor-pointer">${t.navAll}</button>
+          <button type="button" onclick="triggerNewArrivalsFilter()" class="px-2.5 py-1 rounded-full bg-white border border-teal-200 cursor-pointer">${t.navNew}</button>
+          <button type="button" onclick="openLandingModal()" class="px-2.5 py-1 rounded-full bg-[#FBBF24] text-zinc-950 font-bold cursor-pointer">★ ${t.navSpecial}</button>
+          ${sortedCats.map(c => `<button type="button" onclick="selectCategoryFilter('${c.id}')" class="px-2.5 py-1 rounded-full bg-white/80 hover:bg-white border border-teal-100 cursor-pointer">${c.name}</button>`).join('')}
+        `;
+      }
+
+      const footerCatBox = document.getElementById('footer-category-links');
+      if (footerCatBox) {
+        footerCatBox.innerHTML = sortedCats.map(c =>
+          `<li><button type="button" onclick="selectCategoryFilter('${c.id}')" class="hover:text-[#0F7C74] cursor-pointer">${c.name}</button></li>`
+        ).join('');
+      }
+
+      const circStrip = document.getElementById('circular-category-strip');
+      if (circStrip) {
+        circStrip.innerHTML = sortedCats.map(c => `
+          <button type="button" onclick="selectCategoryFilter('${c.id}')" class="flex flex-col items-center gap-2.5 shrink-0 group cursor-pointer">
+            <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full p-1.5 bg-white border-2 ${activeCategoryFilter === c.id ? 'border-[#0F7C74] shadow-soft' : 'border-teal-200 group-hover:border-[#0F7C74]'} transition">
+              <div class="w-full h-full rounded-full overflow-hidden">
+                ${c.badgeSvg || createCircleBadgeSvg('#DFF3F1', '#8FD1CA', '#0F7C74', c.name)}
+              </div>
+            </div>
+            <span class="text-xs sm:text-sm font-bold text-zinc-800 group-hover:text-[#0F7C74] text-center max-w-[115px]">${c.name}</span>
+          </button>
+        `).join('');
+      }
+
+      const filteredNew = (state.products || []).filter(p => {
+        const matchCat = activeCategoryFilter === 'ALL' || p.categoryId === activeCategoryFilter;
+        const matchQ = !query || (p.name || '').toLowerCase().includes(query) || (p.description || '').toLowerCase().includes(query);
+        return matchCat && matchQ;
+      });
+
+      const naHeading = document.getElementById('new-arrivals-heading');
+      if (naHeading) {
+        naHeading.textContent = (state.sectionLabels?.newArrivalsTitle || t.newArrivalsTitle).toUpperCase();
+      }
+      const naGrid = document.getElementById('new-arrivals-grid');
+      if (naGrid) {
+        naGrid.innerHTML = filteredNew.slice(0, 5).map(renderProductCard).join('');
+      }
+
+      const visibleCats = activeCategoryFilter === 'ALL' ? sortedCats : sortedCats.filter(c => c.id === activeCategoryFilter);
+      const serBox = document.getElementById('serialized-categories-container');
+      if (serBox) {
+        serBox.innerHTML = visibleCats.map(cat => {
+          const catItems = (state.products || [])
+            .filter(p => p.categoryId === cat.id)
+            .sort((a, b) => (a.serial || 0) - (b.serial || 0));
+          const spotlight = catItems[0];
+
+          return `
+            <div class="space-y-6">
+              <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+                <div class="lg:col-span-8 rounded-3xl bg-gradient-to-br from-[#F2FAF9] via-[#E2F5F3] to-[#FEF9E7] border border-teal-200/80 p-6 sm:p-10 flex flex-col justify-between min-h-[260px] sm:min-h-[320px]">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-white border border-teal-200 text-[#0B5B56]">${t.serialLabel} #${cat.serial}</span>
+                    <span class="text-xs font-semibold text-[#0F7C74]">${catItems.length} Styles</span>
+                  </div>
+                  <div class="my-4">
+                    <h3 class="text-2xl sm:text-4xl font-extrabold text-zinc-950">${cat.name}</h3>
+                    <p class="text-xs sm:text-sm text-zinc-600 mt-2 max-w-xl">${cat.description}</p>
+                  </div>
+                  <div>
+                    <button type="button" onclick="selectCategoryFilter('${cat.id}')" class="px-5 py-2.5 rounded-full bg-amber-400 hover:bg-amber-300 text-zinc-950 text-xs sm:text-sm font-extrabold inline-flex items-center gap-1.5 shadow-xs transition cursor-pointer">
+                      <span>${t.seeAll}</span>
+                      <span>→</span>
+                    </button>
+                  </div>
+                </div>
+
+                ${spotlight ? `
+                  <div class="lg:col-span-4 rounded-3xl bg-white border border-teal-200/80 shadow-card p-5 flex flex-col justify-between">
+                    <div>
+                      <div class="text-[11px] font-extrabold uppercase tracking-wider text-[#0F7C74] mb-2">${cat.name}</div>
+                      <div onclick="openProductModal('${spotlight.id}')" class="aspect-[4/3] rounded-2xl overflow-hidden border border-teal-100 cursor-pointer mb-3">
+                        ${renderVariantMedia(spotlight.variants[0])}
+                      </div>
+                      <h4 class="font-bold text-base text-zinc-950 line-clamp-1">${spotlight.name}</h4>
+                      <div class="flex items-center gap-2 mt-1">
+                        <span class="font-extrabold text-sm text-[#0F7C74]">${formatBdt(spotlight.price)}</span>
+                        ${spotlight.oldPrice ? `<span class="text-xs line-through text-zinc-400">${formatBdt(spotlight.oldPrice)}</span>` : ''}
+                      </div>
+                    </div>
+                    <button type="button" onclick="openProductModal('${spotlight.id}')" class="mt-4 w-full py-2.5 rounded-full bg-[#0F7C74] hover:bg-[#0B5B56] text-white font-bold text-xs sm:text-sm transition cursor-pointer">
+                      ${t.viewBtn}
+                    </button>
+                  </div>
+                ` : ''}
+              </div>
+
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+                ${catItems.map(renderProductCard).join('')}
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    function selectCategoryFilter(catId) {
+      ensureStorefrontVisible();
+      activeCategoryFilter = catId;
+      renderStorefront();
+      const target = document.getElementById('categories-section');
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function triggerNewArrivalsFilter() {
+      ensureStorefrontVisible();
+      activeCategoryFilter = 'ALL';
+      const inp = document.getElementById('search-input');
+      if (inp) inp.value = '';
+      renderStorefront();
+      recordClarityActivity('Clicked New', 'New Arrivals');
+      const target = document.getElementById('new-arrivals-section');
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function focusSearchInput() {
+      ensureStorefrontVisible();
+      const inp = document.getElementById('search-input');
+      if (inp) {
+        inp.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        inp.focus();
+      }
+    }
+
+    function scrollNewArrivals(dir) {
+      if (state.products.length > 1) {
+        if (dir > 0) state.products.push(state.products.shift());
+        else state.products.unshift(state.products.pop());
+        renderStorefront();
+      }
+    }
+
+    // =========================================================================
+    // 3. MODALS, CART & FIXED GLOBAL COD CHECKOUT
+    // =========================================================================
+    function openBrandPopup() {
+      document.getElementById('brand-popup-modal').classList.remove('hidden');
+    }
+
+    function closeBrandPopup() {
+      document.getElementById('brand-popup-modal').classList.add('hidden');
+    }
+
+    function openProductModal(prodId) {
+      const prod = state.products.find(p => p.id === prodId);
+      if (!prod) return;
+      activeModalVariantIdx = 0;
+      activeModalSize = 'M';
+      recordClarityActivity('Inspected Product', prod.name);
+      trackPixelEvent('ViewContent', { id: prod.id, name: prod.name, price: prod.price });
+      renderProductModalContent(prod);
+      document.getElementById('product-modal').classList.remove('hidden');
+    }
+
+    function renderProductModalContent(prod) {
+      const v = prod.variants[activeModalVariantIdx] || prod.variants[0];
+      const upsell = prod.upsellId ? state.products.find(p => p.id === prod.upsellId) : null;
+
+      document.getElementById('product-modal-body').innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-12">
+          <div class="md:col-span-6 bg-[#F2FAF9] p-5 flex flex-col justify-between">
+            <div class="aspect-[4/5] rounded-2xl overflow-hidden bg-white border border-teal-100">
+              ${renderVariantMedia(v)}
+            </div>
+            <div class="flex flex-wrap items-center gap-2 mt-3">
+              ${prod.variants.map((item, idx) => `
+                <button type="button" onclick="activeModalVariantIdx=${idx}; renderProductModalContent(state.products.find(x=>x.id==='${prod.id}'));" class="px-3 py-1.5 rounded-full text-xs font-bold border flex items-center gap-1.5 cursor-pointer ${idx === activeModalVariantIdx ? 'border-[#0F7C74] bg-white text-[#0B5B56]' : 'border-teal-200 bg-white/60 text-zinc-700'}">
+                  <span class="w-3 h-3 rounded-full" style="background:${item.swatchHex}"></span>
+                  <span>${item.colorName}</span>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+          <div class="md:col-span-6 p-6 sm:p-7 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex items-start justify-between gap-2">
+                <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-950">${prod.name}</h3>
+                <button type="button" onclick="document.getElementById('product-modal').classList.add('hidden')" class="w-9 h-9 rounded-full bg-teal-50 font-bold cursor-pointer">✕</button>
+              </div>
+              <div class="flex items-center gap-2.5 mt-2">
+                <span class="text-2xl font-extrabold text-[#0F7C74]">${formatBdt(prod.price)}</span>
+                ${prod.oldPrice ? `<span class="text-sm line-through text-zinc-400">${formatBdt(prod.oldPrice)}</span>` : ''}
+                <span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold">In Stock (${prod.stock})</span>
+              </div>
+              <p class="text-xs sm:text-sm text-zinc-600 mt-3 leading-relaxed">${prod.description}</p>
+
+              <div class="mt-4">
+                <div class="text-xs font-bold text-zinc-700 mb-2">Select Size:</div>
+                <div class="flex gap-2">
+                  ${['M', 'L', 'XL'].map(sz => `
+                    <button type="button" onclick="activeModalSize='${sz}'; renderProductModalContent(state.products.find(x=>x.id==='${prod.id}'));" class="w-11 h-10 rounded-xl font-bold text-xs border cursor-pointer ${activeModalSize === sz ? 'bg-[#0F7C74] text-white border-[#0F7C74]' : 'bg-white text-zinc-800 border-teal-200'}">${sz}</button>
+                  `).join('')}
+                </div>
+              </div>
+
+              ${upsell ? `
+                <div class="mt-4 p-3.5 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-between gap-2">
+                  <div>
+                    <div class="text-[11px] font-extrabold text-amber-800">FREQUENTLY BOUGHT TOGETHER • ${prod.upsellOfferText}</div>
+                    <div class="text-xs font-bold text-zinc-900">${upsell.name} (${formatBdt(upsell.price)})</div>
+                  </div>
+                  <button type="button" onclick="quickAddToCart('${upsell.id}')" class="px-3 py-1.5 rounded-full bg-amber-400 text-zinc-950 text-xs font-extrabold shrink-0 cursor-pointer">+ Add</button>
+                </div>
+              ` : ''}
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5 pt-2">
+              <button type="button" onclick="addProductToCart('${prod.id}', activeModalVariantIdx, activeModalSize); document.getElementById('product-modal').classList.add('hidden');" class="py-3 rounded-2xl bg-[#DFF3F1] hover:bg-[#BEE6E2] text-[#0B5B56] font-bold text-xs sm:text-sm cursor-pointer">
+                Add to Bag
+              </button>
+              <button type="button" onclick="addProductToCart('${prod.id}', activeModalVariantIdx, activeModalSize); document.getElementById('product-modal').classList.add('hidden'); document.getElementById('checkout-section').scrollIntoView({behavior:'smooth'});" class="py-3 rounded-2xl bg-[#0F7C74] hover:bg-[#0B5B56] text-white font-bold text-xs sm:text-sm cursor-pointer">
+                Order Now (COD)
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function quickAddToCart(prodId) {
+      addProductToCart(prodId, 0, 'M');
+    }
+
+    function addProductToCart(prodId, variantIdx = 0, size = 'M') {
+      const prod = state.products.find(p => p.id === prodId);
+      if (!prod) return;
+      const v = prod.variants[variantIdx] || prod.variants[0];
+      const key = `${prod.id}_${v.colorName}_${size}`;
+      const existing = cart.find(c => c.key === key);
+      if (existing) existing.qty += 1;
+      else {
+        cart.push({
+          key,
+          productId: prod.id,
+          name: prod.name,
+          colorName: v.colorName,
+          size,
+          price: prod.price,
+          qty: 1
+        });
+      }
+      trackPixelEvent('AddToCart', { id: prod.id, name: prod.name, size, price: prod.price });
+      recordClarityActivity('Added to Bag', `${prod.name} (${size})`);
+      syncCartUI();
+      showToast(`${prod.name} (${size}) added to bag!`);
+    }
+
+    function syncCartUI() {
+      const count = cart.reduce((s, i) => s + i.qty, 0);
+      const badge = document.getElementById('cart-count-badge');
+      if (badge) badge.textContent = count;
+
+      const itemsHtml = cart.length === 0
+        ? `<div class="p-4 rounded-2xl bg-teal-50/60 text-xs text-zinc-600 text-center">Your bag is currently empty. Add any dress above or select one below!</div>`
+        : cart.map((item, idx) => `
+          <div class="p-3 rounded-2xl border border-teal-100 bg-teal-50/30 flex items-center justify-between gap-2 text-xs">
+            <div>
+              <div class="font-bold text-zinc-900">${item.name}</div>
+              <div class="text-zinc-500">${item.colorName} • Size ${item.size} • ${formatBdt(item.price)} × ${item.qty}</div>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <button type="button" onclick="updateCartQty(${idx}, -1)" class="w-6 h-6 rounded-full bg-white border font-bold cursor-pointer">-</button>
+              <span class="font-bold">${item.qty}</span>
+              <button type="button" onclick="updateCartQty(${idx}, 1)" class="w-6 h-6 rounded-full bg-white border font-bold cursor-pointer">+</button>
+            </div>
+          </div>
+        `).join('');
+
+      document.getElementById('drawer-cart-items').innerHTML = itemsHtml;
+      document.getElementById('checkout-items-list').innerHTML = itemsHtml;
+
+      const sub = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      document.getElementById('drawer-subtotal').textContent = formatBdt(sub);
+      recalculateCheckoutTotals();
+    }
+
+    function updateCartQty(idx, delta) {
+      if (!cart[idx]) return;
+      cart[idx].qty += delta;
+      if (cart[idx].qty <= 0) cart.splice(idx, 1);
+      syncCartUI();
+    }
+
+    function openCartDrawer() {
+      document.getElementById('cart-drawer').classList.remove('hidden');
+    }
+
+    function closeCartDrawer() {
+      document.getElementById('cart-drawer').classList.add('hidden');
+    }
+
+    function getDeliveryInfo() {
+      const dist = document.getElementById('chk-district')?.value || 'dhaka';
+      const subDhakaList = ['gazipur', 'savar', 'norsindi', 'narayongonj'];
+      if (dist === 'dhaka') {
+        const z = state.deliveryZones.find(x => x.id === 'dhaka');
+        return { label: 'Inside Dhaka', charge: z ? z.charge : 70 };
+      }
+      if (subDhakaList.includes(dist)) {
+        const z = state.deliveryZones.find(x => x.id === 'sub_dhaka');
+        return { label: 'Sub-Dhaka', charge: z ? z.charge : 100 };
+      }
+      const z = state.deliveryZones.find(x => x.id === 'outside_dhaka');
+      return { label: 'Outside Dhaka', charge: z ? z.charge : 120 };
+    }
+
+    function applyCheckoutCoupon() {
+      const code = (document.getElementById('chk-coupon').value || '').trim().toUpperCase();
+      const found = state.coupons.find(c => c.code === code && c.active);
+      if (!found) {
+        appliedCoupon = null;
+        recalculateCheckoutTotals();
+        showToast('Invalid or inactive coupon code.', 'err');
+        return;
+      }
+      appliedCoupon = found;
+      recalculateCheckoutTotals();
+      showToast(`Coupon ${found.code} applied!`);
+    }
+
+    function recalculateCheckoutTotals() {
+      const sub = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      const del = getDeliveryInfo();
+      let deliveryCharge = del.charge;
+      let discount = 0;
+
+      if (appliedCoupon) {
+        if (appliedCoupon.type === 'percent') discount = Math.round((sub * appliedCoupon.value) / 100);
+        else if (appliedCoupon.type === 'fixed') discount = Math.min(sub, appliedCoupon.value);
+        else if (appliedCoupon.type === 'free_delivery') deliveryCharge = 0;
+      }
+
+      document.getElementById('summary-subtotal').textContent = formatBdt(sub);
+      document.getElementById('summary-zone-label').textContent = del.label;
+      document.getElementById('summary-delivery').textContent = formatBdt(deliveryCharge);
+
+      const discRow = document.getElementById('summary-discount-row');
+      if (discount > 0) {
+        discRow.classList.remove('hidden');
+        document.getElementById('summary-discount').textContent = '-' + formatBdt(discount);
+      } else {
+        discRow.classList.add('hidden');
+      }
+
+      document.getElementById('summary-grand-total').textContent = formatBdt(Math.max(0, sub - discount + deliveryCharge));
+    }
+
+    function captureAbandonedLead() {
+      const name = document.getElementById('chk-name')?.value.trim();
+      const phone = document.getElementById('chk-phone')?.value.trim();
+      if (!phone || phone.length < 6) return;
+      const existing = state.abandonedCheckouts.find(a => a.phone === phone);
+      if (existing) {
+        existing.name = name || existing.name;
+      } else {
+        state.abandonedCheckouts.unshift({
+          id: 'ABN-' + Math.floor(100 + Math.random() * 899),
+          name: name || 'Guest',
+          phone,
+          district: document.getElementById('chk-district')?.value || 'dhaka'
+        });
+      }
+      saveState();
+    }
+
+    function submitGlobalOrder(e) {
+      e.preventDefault();
+      if (cart.length === 0) {
+        quickAddToCart(state.products[0].id);
+      }
+      const name = document.getElementById('chk-name').value.trim();
+      const phone = document.getElementById('chk-phone').value.trim();
+      if (state.blockedMobiles.includes(phone)) {
+        showToast('This mobile number is blocked from ordering.', 'err');
+        return;
+      }
+
+      const sub = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      const del = getDeliveryInfo();
+      let deliveryCharge = del.charge;
+      let discount = 0;
+
+      if (appliedCoupon) {
+        if (appliedCoupon.type === 'percent') discount = Math.round((sub * appliedCoupon.value) / 100);
+        else if (appliedCoupon.type === 'fixed') discount = Math.min(sub, appliedCoupon.value);
+        else if (appliedCoupon.type === 'free_delivery') deliveryCharge = 0;
+      }
+
+      const total = Math.max(0, sub - discount + deliveryCharge);
+      const ordId = 'ORD-' + Math.floor(1100 + Math.random() * 8800);
+
+      state.orders.unshift({
+        id: ordId,
+        customerName: name,
+        phone,
+        districtName: del.label,
+        total,
+        status: 'Pending'
+      });
+      state.abandonedCheckouts = state.abandonedCheckouts.filter(a => a.phone !== phone);
+      recordClarityActivity('Completed COD Order', `${ordId} • ${formatBdt(total)}`);
+      trackPixelEvent('Purchase', { orderId: ordId, total, currency: 'BDT' });
+      saveState();
+
+      document.getElementById('thankyou-modal-body').innerHTML = `
+        <div class="w-14 h-14 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl font-bold mx-auto">✓</div>
+        <h3 class="text-2xl font-extrabold text-zinc-950">Thank You, ${name}!</h3>
+        <p class="text-xs sm:text-sm text-zinc-600">Your Cash on Delivery order <strong>${ordId}</strong> (${formatBdt(total)}) has been confirmed. Our team will call ${phone} shortly.</p>
+        <button type="button" onclick="document.getElementById('thankyou-modal').classList.add('hidden')" class="w-full py-3 rounded-2xl bg-[#0F7C74] text-white font-bold text-sm cursor-pointer">Continue Shopping</button>
+      `;
+      document.getElementById('thankyou-modal').classList.remove('hidden');
+
+      cart = [];
+      appliedCoupon = null;
+      e.target.reset();
+      syncCartUI();
+    }
+
+    function openLandingModal() {
+      const p = state.products[0];
+      document.getElementById('landing-modal-body').innerHTML = `
+        <div class="flex items-center justify-between pb-4 border-b border-teal-100">
+          <span class="px-3 py-1 rounded-full bg-amber-400 text-zinc-950 text-xs font-extrabold">★ SPECIAL CAMPAIGN LANDING</span>
+          <button type="button" onclick="document.getElementById('landing-modal').classList.add('hidden')" class="w-9 h-9 rounded-full bg-teal-50 font-bold cursor-pointer">✕</button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center pt-5">
+          <div class="md:col-span-5 aspect-[4/5] rounded-2xl overflow-hidden border border-teal-100">
+            ${renderVariantMedia(p.variants[0])}
+          </div>
+          <div class="md:col-span-7 space-y-4">
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-zinc-950">${p.name}</h3>
+            <p class="text-sm text-zinc-600">${p.description}</p>
+            <div class="text-2xl font-extrabold text-[#0F7C74]">${formatBdt(p.price)} <span class="text-sm line-through text-zinc-400 font-normal">${formatBdt(p.oldPrice)}</span></div>
+            <button type="button" onclick="quickAddToCart('${p.id}'); document.getElementById('landing-modal').classList.add('hidden'); document.getElementById('checkout-section').scrollIntoView({behavior:'smooth'});" class="px-6 py-3.5 rounded-2xl bg-[#0F7C74] hover:bg-[#0B5B56] text-white font-bold text-sm cursor-pointer">
+              Order Now with Fixed COD Checkout →
+            </button>
+          </div>
+        </div>
+      `;
+      document.getElementById('landing-modal').classList.remove('hidden');
+    }
+
+    function openInfoModal(key) {
+      const titles = {
+        about: 'About Wajiha Lifestyle',
+        contact: 'Contact Us',
+        privacy: 'Privacy Policy',
+        terms: 'Terms and Conditions',
+        dataprotection: 'Customer Data Protection',
+        refund: 'Return and Refund Policy'
+      };
+      document.getElementById('info-modal-title').textContent = titles[key] || 'Information';
+      document.getElementById('info-modal-content').textContent = state.policies[key] || '';
+      document.getElementById('info-modal').classList.remove('hidden');
+    }
+
+    function openEventsModal() {
+      document.getElementById('events-log-list').innerHTML = state.eventLogs.length === 0
+        ? '<div class="text-zinc-500">No events recorded yet.</div>'
+        : state.eventLogs.map(ev => `<div class="p-2.5 rounded-xl bg-teal-50/60 border border-teal-100 flex justify-between"><strong>${ev.eventName}</strong><span class="text-zinc-500">${ev.time}</span></div>`).join('');
+      document.getElementById('events-modal').classList.remove('hidden');
+    }
+
+    // =========================================================================
+    // 4. NO-CODE ADMIN PANEL
+    // =========================================================================
+    function toggleAdminView() {
+      const sf = document.getElementById('storefront-view');
+      const ad = document.getElementById('admin-view');
+      const btn = document.getElementById('view-switch-btn');
+      const isHidden = ad ? ad.classList.contains('hidden') : true;
+      if (isHidden) {
+        if (sf) sf.classList.add('hidden');
+        if (ad) ad.classList.remove('hidden');
+        if (btn) btn.textContent = 'Storefront View';
+        renderAdminPanel();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        if (ad) ad.classList.add('hidden');
+        if (sf) sf.classList.remove('hidden');
+        if (btn) btn.textContent = 'Admin Panel';
+        renderAll();
+      }
+    }
+
+    const ADMIN_TABS = [
+      { id: 'dashboard', label: '📊 Sales Overview' },
+      { id: 'clarity', label: '👁️ Clarity & 7-Day Logs' },
+      { id: 'banner', label: '🖼️ Cover Banner & Save' },
+      { id: 'products', label: '👗 Products & Photos' },
+      { id: 'categories', label: '🗂️ Categories & Names' },
+      { id: 'sections', label: '✏️ Section & Store Texts' },
+      { id: 'orders', label: '📦 Orders & Block' },
+      { id: 'delivery', label: '🚚 Delivery Charges' }
+    ];
+
+    function renderAdminPanel() {
+      document.getElementById('admin-tabs-nav').innerHTML = ADMIN_TABS.map(t => `
+        <button type="button" onclick="currentAdminTab='${t.id}'; renderAdminPanel();" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold shrink-0 cursor-pointer ${currentAdminTab === t.id ? 'bg-[#0F7C74] text-white' : 'hover:bg-teal-50 text-zinc-800'}">${t.label}</button>
+      `).join('');
+
+      const box = document.getElementById('admin-tab-content');
+      if (currentAdminTab === 'dashboard') {
+        const rev = state.orders.reduce((s, o) => s + (o.total || 0), 0);
+        box.innerHTML = `
+          <h2 class="text-xl font-extrabold text-zinc-950 mb-4">Sales &amp; Store Overview</h2>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div class="p-4 rounded-2xl bg-[#F2FAF9] border border-teal-200"><div class="text-xs text-zinc-500">Total Revenue</div><div class="text-2xl font-extrabold text-[#0F7C74] mt-1">${formatBdt(rev)}</div></div>
+            <div class="p-4 rounded-2xl bg-[#F2FAF9] border border-teal-200"><div class="text-xs text-zinc-500">Total Orders</div><div class="text-2xl font-extrabold text-zinc-950 mt-1">${state.orders.length}</div></div>
+            <div class="p-4 rounded-2xl bg-[#F2FAF9] border border-teal-200"><div class="text-xs text-zinc-500">Products</div><div class="text-2xl font-extrabold text-zinc-950 mt-1">${state.products.length}</div></div>
+            <div class="p-4 rounded-2xl bg-[#F2FAF9] border border-teal-200"><div class="text-xs text-zinc-500">7-Day Sessions</div><div class="text-2xl font-extrabold text-[#0F7C74] mt-1">${(state.clarity?.sessions || []).length}</div></div>
+          </div>
+        `;
+      } else if (currentAdminTab === 'clarity') {
+        pruneOldClaritySessions();
+        const sessions = state.clarity?.sessions || [];
+        box.innerHTML = `
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <div>
+              <h2 class="text-xl font-extrabold text-zinc-950">Clarity &amp; 7-Day Visitor Behavior Tracker</h2>
+              <p class="text-xs text-zinc-500">Tracks entry time, product interactions, order status &amp; exit time (max 7 days retention).</p>
+            </div>
+            <button type="button" onclick="saveClaritySettings()" class="px-4 py-2 rounded-xl bg-[#0F7C74] hover:bg-[#0B5B56] text-white font-bold text-xs cursor-pointer">
+              💾 Save Clarity ID
+            </button>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-[#F2FAF9] border border-teal-200 mb-5 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex-1 min-w-[220px]">
+              <label class="block text-xs font-bold text-zinc-700 mb-1">Clarity Project ID</label>
+              <input id="clarity-pid-input" type="text" value="${state.clarity?.projectId || ''}" class="w-full px-3.5 py-2 rounded-xl bg-white border border-teal-200 text-xs sm:text-sm" />
+            </div>
+            <div class="text-xs font-bold text-[#0B5B56] bg-white px-3.5 py-2 rounded-xl border border-teal-200">
+              Retention Window: Max 7 Days
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            ${sessions.length === 0
+              ? `<div class="p-4 rounded-2xl border border-teal-100 text-xs text-zinc-500">No visitor sessions in the last 7 days yet.</div>`
+              : sessions.map(s => `
+                <div class="p-4 rounded-2xl border border-teal-200/80 bg-white space-y-2">
+                  <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+                    <div class="font-extrabold text-zinc-950">${s.sessionId} • <span class="${s.ordered ? 'text-emerald-700' : 'text-amber-700'}">${s.ordered ? 'Ordered ✓' : 'Did Not Order Yet'}</span></div>
+                    <div class="text-zinc-500">Entered: ${s.enteredText} • Last/Exit: ${s.exitedText}</div>
+                  </div>
+                  <div class="flex flex-wrap gap-1.5 pt-1">
+                    ${(s.steps || []).map(st => `<span class="px-2.5 py-1 rounded-full bg-[#F2FAF9] border border-teal-100 text-[11px] text-zinc-700"><strong>${st.time}</strong>: ${st.action}${st.detail ? ` (${st.detail})` : ''}</span>`).join('')}
+                  </div>
+                </div>
+              `).join('')
+            }
+          </div>
+        `;
+      } else if (currentAdminTab === 'banner') {
+        const previewImg = pendingHeroCoverData || state.customHeroCover || '';
+        box.innerHTML = `
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <div>
+              <h2 class="text-xl font-extrabold text-zinc-950">Full-Width Cover Banner Editor</h2>
+              <p class="text-xs text-zinc-500">Select a cover image or paste URL, preview it, and click Save Banner.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="saveCoverBannerChanges()" class="px-5 py-2.5 rounded-xl bg-[#0F7C74] hover:bg-[#0B5B56] text-white font-bold text-xs sm:text-sm shadow-xs cursor-pointer">
+                💾 Save Banner
+              </button>
+              <button type="button" onclick="clearCoverBanner()" class="px-3.5 py-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs cursor-pointer">
+                Reset
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+            <div class="p-4 rounded-2xl bg-[#F2FAF9] border border-teal-200 space-y-2">
+              <label class="block text-xs font-extrabold text-zinc-800">Upload Cover Photo from Device</label>
+              <input type="file" accept="image/*" onchange="stageHeroCoverFile(event)" class="w-full text-xs bg-white px-3 py-2 rounded-xl border border-teal-200 cursor-pointer" />
+            </div>
+            <div class="p-4 rounded-2xl bg-[#F2FAF9] border border-teal-200 space-y-2">
+              <label class="block text-xs font-extrabold text-zinc-800">Or Paste Cover Image URL</label>
+              <input id="banner-url-input" type="text" value="${previewImg.startsWith('http') ? previewImg : ''}" oninput="pendingHeroCoverData=this.value.trim(); renderBannerLivePreview();" placeholder="https://example.com/banner.jpg" class="w-full px-3.5 py-2 rounded-xl bg-white border border-teal-200 text-xs" />
+            </div>
+          </div>
+
+          <div id="banner-live-preview" class="w-full h-52 rounded-2xl overflow-hidden border border-teal-200 bg-[#F2FAF9] flex items-center justify-center">
+            ${previewImg ? `<img src="${previewImg}" alt="Banner Preview" class="w-full h-full object-cover" />` : `<div class="text-xs text-zinc-600 p-4">No custom banner image selected. Default editorial gradient slide is active.</div>`}
+          </div>
+        `;
+      } else if (currentAdminTab === 'products') {
+        box.innerHTML = `
+          <h2 class="text-xl font-extrabold text-zinc-950 mb-4">Products, Names, Prices &amp; Photos</h2>
+          <form onsubmit="adminAddProduct(event)" class="p-4 rounded-2xl bg-[#F2FAF9] border border-teal-200 mb-6 space-y-3">
+            <div class="font-extrabold text-xs uppercase tracking-wider text-[#0B5B56]">+ Add New Item</div>
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+              <input id="adm-pname" type="text" required placeholder="Item Name" class="px-3.5 py-2 rounded-xl bg-white border border-teal-200 text-xs sm:text-sm" />
+              <select id="adm-pcat" class="px-3.5 py-2 rounded-xl bg-white border border-teal-200 text-xs sm:text-sm">${state.categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('')}</select>
+              <input id="adm-pprice" type="number" required placeholder="Price (৳)" class="px-3.5 py-2 rounded-xl bg-white border border-teal-200 text-xs sm:text-sm" />
+              <input id="adm-pold" type="number" placeholder="Old Price (optional)" class="px-3.5 py-2 rounded-xl bg-white border border-teal-200 text-xs sm:text-sm" />
+            </div>
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <input type="file" accept="image/*" onchange="handleAdminNewFile(event)" class="text-xs bg-white px-3 py-1.5 rounded-xl border border-teal-200 cursor-pointer" />
+              <button type="submit" class="px-5 py-2.5 rounded-xl bg-[#0F7C74] hover:bg-[#0B5B56] text-white font-bold text-xs cursor-pointer">💾 Save New Product</button>
+            </div>
+          </form>
+
+          <div class="space-y-3">
+            ${state.products.map(p => `
+              <div class="p-4 rounded-2xl border border-teal-200/80 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="flex items-center gap-3 flex-1">
+                  <div class="w-12 h-14 rounded-xl overflow-hidden border border-teal-100 shrink-0">${renderVariantMedia(p.variants[0])}</div>
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 flex-1">
+                    <input id="edit-pname-${p.id}" type="text" value="${p.name}" class="px-3 py-1.5 rounded-xl border border-teal-200 text-xs font-bold" />
+                    <input id="edit-pprice-${p.id}" type="number" value="${p.price}" class="px-3 py-1.5 rounded-xl border border-teal-200 text-xs font-bold" />
+                    <input id="edit-pstock-${p.id}" type="number" value="${p.stock}" class="px-3 py-1.5 rounded-xl border border-teal-200 text-xs font-bold" />
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                  <label class="px-3 py-1.5 rounded-xl bg-[#F2FAF9] border border-teal-200 text-xs font-bold text-[#0B5B56] cursor-pointer">
+                    📷 Photo
+                    <input type="file" accept="image/*" class="hidden" onchange="stageProductPhoto('${p.id}', event)" />
+                  </label>
+                  <button type="button" onclick="saveSingleProductEdit('${p.id}')" class="px-3.5 py-1.5 rounded-xl bg-[#0F7C74] hover:bg-[#0B5B56] text-white text-xs font-bold cursor-pointer">
+                    💾 Save
+                  </button>
+                  <button type="button" onclick="deleteProductItem('${p.id}')" class="px-2.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold cursor-pointer">
+                    ✕
+                  </button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else if (currentAdminTab === 'categories') {
+        const sorted = [...state.categories].sort((a, b) => a.serial - b.serial);
+        box.innerHTML = `
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <div>
+              <h2 class="text-xl font-extrabold text-zinc-950">Categories, Custom Names &amp; Serial Order</h2>
+              <p class="text-xs text-zinc-500">Rename categories or reorder serial numbers and click Save.</p>
+            </div>
+            <button type="button" onclick="saveAllCategoryEdits()" class="px-5 py-2.5 rounded-xl bg-[#0F7C74] hover:bg-[#0B5B56] text-white font-bold text-xs sm:text-sm cursor-pointer">
+              💾 Save Categories
+            </button>
+          </div>
+
+          <form onsubmit="addNewCategoryItem(event)" class="p-4 rounded-2xl bg-[#F2FAF9] border border-teal-200 mb-5 flex flex-wrap gap-3">
+            <input id="new-cat-name" type="text" required placeholder="New Category Name" class="flex-1 min-w-[180px] px-3.5 py-2 rounded-xl bg-white border border-teal-200 text-xs sm:text-sm" />
+            <input id="new-cat-desc" type="text" placeholder="Short description" class="flex-1 min-w-[180px] px-3.5 py-2 rounded-xl bg-white border border-teal-200 text-xs sm:text-sm" />
+            <button type="submit" class="px-4 py-2 rounded-xl bg-amber-400 text-zinc-950 font-extrabold text-xs cursor-pointer">+ Add Category</button>
+          </form>
+
+          <div class="space-y-3">
+            ${sorted.map((c, idx) => `
+              <div class="p-3.5 rounded-2xl border border-teal-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <input id="cat-name-${c.id}" type="text" value="${c.name}" class="px-3 py-1.5 rounded-xl border border-teal-200 text-xs sm:text-sm font-bold" />
+                  <input id="cat-desc-${c.id}" type="text" value="${c.description || ''}" class="px-3 py-1.5 rounded-xl border border-teal-200 text-xs" />
+                </div>
+                <div class="flex items-center gap-1.5 shrink-0">
+                  <span class="text-xs font-extrabold text-[#0B5B56] mr-1">#${c.serial}</span>
+                  <button type="button" onclick="adminMoveCat('${c.id}', -1)" ${idx === 0 ? 'disabled' : ''} class="px-3 py-1 rounded-lg bg-teal-50 border font-bold text-xs disabled:opacity-30 cursor-pointer">↑</button>
+                  <button type="button" onclick="adminMoveCat('${c.id}', 1)" ${idx === sorted.length - 1 ? 'disabled' : ''} class="px-3 py-1 rounded-lg bg-teal-50 border font-bold text-xs disabled:opacity-30 cursor-pointer">↓</button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else if (currentAdminTab === 'sections') {
+        const s = state.sectionLabels;
+        box.innerHTML = `
+          <div class="flex items-center justify-between gap-3 mb-4">
+            <div>
+              <h2 class="text-xl font-extrabold text-zinc-950">Section Titles &amp; Store Info</h2>
+              <p class="text-xs text-zinc-500">Edit headings, address, or phone number and click Save.</p>
+            </div>
+            <button type="button" onclick="saveSectionLabels()" class="px-5 py-2.5 rounded-xl bg-[#0F7C74] hover:bg-[#0B5B56] text-white font-bold text-xs sm:text-sm cursor-pointer">
+              💾 Save Texts
+            </button>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 mb-1">New Arrivals Heading</label>
+              <input id="sec-na-title" type="text" value="${s.newArrivalsTitle}" class="w-full px-3.5 py-2 rounded-xl border border-teal-200 text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 mb-1">Collection Badge Label</label>
+              <input id="sec-feat-tag" type="text" value="${s.featuredTag}" class="w-full px-3.5 py-2 rounded-xl border border-teal-200 text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 mb-1">Store Address</label>
+              <input id="sec-addr" type="text" value="${state.brand.address}" class="w-full px-3.5 py-2 rounded-xl border border-teal-200 text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 mb-1">Hotline / Phone</label>
+              <input id="sec-phone" type="text" value="${state.brand.phone}" class="w-full px-3.5 py-2 rounded-xl border border-teal-200 text-sm" />
+            </div>
+          </div>
+        `;
+      } else if (currentAdminTab === 'orders') {
+        box.innerHTML = `
+          <h2 class="text-xl font-extrabold text-zinc-950 mb-4">Orders, Abandoned Checkouts &amp; Mobile Block</h2>
+          <div class="p-4 rounded-2xl bg-rose-50/60 border border-rose-200 mb-5 space-y-3">
+            <div class="text-xs font-extrabold text-rose-800">Block Mobile Number</div>
+            <div class="flex gap-2">
+              <input id="block-mobile-input" type="text" placeholder="017XXXXXXXX" class="px-3.5 py-2 rounded-xl bg-white border border-rose-200 text-xs sm:text-sm" />
+              <button type="button" onclick="addBlockedMobileNumber()" class="px-4 py-2 rounded-xl bg-rose-700 text-white font-bold text-xs cursor-pointer">Block</button>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              ${(state.blockedMobiles || []).map(m => `<span class="px-3 py-1 rounded-full bg-white border border-rose-200 text-xs font-bold text-rose-800">${m} <button type="button" onclick="removeBlockedMobileNumber('${m}')" class="ml-1 cursor-pointer">✕</button></span>`).join('')}
+            </div>
+          </div>
+
+          <div class="space-y-2.5 mb-6">
+            ${state.orders.map(o => `
+              <div class="p-3.5 rounded-2xl border border-teal-100 flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm">
+                <div><strong>${o.id}</strong> — ${o.customerName} (${o.phone}) • ${o.districtName} • ${formatBdt(o.total)}</div>
+                <span class="px-3 py-1 rounded-full bg-teal-50 text-[#0B5B56] font-bold text-xs">${o.status}</span>
+              </div>
+            `).join('')}
+          </div>
+
+          <h3 class="text-sm font-extrabold text-zinc-900 mb-2">Abandoned Checkout Leads (${state.abandonedCheckouts.length})</h3>
+          <div class="space-y-2">
+            ${state.abandonedCheckouts.length === 0
+              ? '<div class="text-xs text-zinc-500">No abandoned checkouts captured yet.</div>'
+              : state.abandonedCheckouts.map(a => `<div class="p-3 rounded-xl bg-[#F2FAF9] border border-teal-100 text-xs flex justify-between"><span><strong>${a.name}</strong> (${a.phone}) — ${a.district}</span><span class="font-bold text-[#0F7C74]">${a.id}</span></div>`).join('')
+            }
+          </div>
+        `;
+      } else if (currentAdminTab === 'delivery') {
+        box.innerHTML = `
+          <h2 class="text-xl font-extrabold text-zinc-950 mb-4">Delivery Charges</h2>
+          <div class="space-y-3 max-w-md">
+            ${state.deliveryZones.map(z => `
+              <div class="p-3.5 rounded-2xl border border-teal-100 flex items-center justify-between">
+                <span class="text-xs sm:text-sm font-bold">${z.label}</span>
+                <input type="number" value="${z.charge}" onchange="adminSaveZone('${z.id}', this.value)" class="w-24 px-3 py-1.5 rounded-xl border border-teal-200 font-bold text-sm" />
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+    }
+
+    function saveClaritySettings() {
+      const pid = document.getElementById('clarity-pid-input')?.value.trim();
+      state.clarity.projectId = pid || 'CLARITY_WAJIHA_7D';
+      pruneOldClaritySessions();
+      saveState();
+      renderAdminPanel();
+      showToast('Clarity ID & 7-day tracker saved!');
+    }
+
+    function stageHeroCoverFile(e) {
+      const f = e.target.files?.[0];
+      if (!f) return;
+      const r = new FileReader();
+      r.onload = () => {
+        pendingHeroCoverData = String(r.result || '');
+        renderBannerLivePreview();
+      };
+      r.readAsDataURL(f);
+    }
+
+    function renderBannerLivePreview() {
+      const box = document.getElementById('banner-live-preview');
+      if (!box) return;
+      const src = pendingHeroCoverData || state.customHeroCover || '';
+      box.innerHTML = src
+        ? `<img src="${src}" alt="Banner Preview" class="w-full h-full object-cover" />`
+        : `<div class="text-xs text-zinc-600 p-4">No custom banner image selected. Default editorial gradient slide is active.</div>`;
+    }
+
+    function saveCoverBannerChanges() {
+      const urlVal = document.getElementById('banner-url-input')?.value.trim();
+      const finalCover = pendingHeroCoverData || urlVal || state.customHeroCover || '';
+      if (!finalCover) {
+        showToast('Please choose an image or enter an image URL first.', 'err');
+        return;
+      }
+      state.customHeroCover = finalCover;
+      pendingHeroCoverData = '';
+      saveState();
+      renderHeroCarousel();
+      renderAdminPanel();
+      showToast('Full-width cover banner saved!');
+    }
+
+    function clearCoverBanner() {
+      state.customHeroCover = '';
+      pendingHeroCoverData = '';
+      saveState();
+      renderHeroCarousel();
+      renderAdminPanel();
+      showToast('Cover banner reset to default.');
+    }
+
+    function stageProductPhoto(prodId, e) {
+      const f = e.target.files?.[0];
+      if (!f) return;
+      const r = new FileReader();
+      r.onload = () => {
+        pendingProdUploads[prodId] = String(r.result || '');
+        showToast('Photo ready — click Save next to the product to apply!');
+      };
+      r.readAsDataURL(f);
+    }
+
+    function saveSingleProductEdit(prodId) {
+      const p = state.products.find(x => x.id === prodId);
+      if (!p) return;
+      const nameVal = document.getElementById(`edit-pname-${prodId}`)?.value.trim();
+      const priceVal = Number(document.getElementById(`edit-pprice-${prodId}`)?.value);
+      const stockVal = Number(document.getElementById(`edit-pstock-${prodId}`)?.value);
+      if (nameVal) p.name = nameVal;
+      if (!Number.isNaN(priceVal) && priceVal > 0) p.price = priceVal;
+      if (!Number.isNaN(stockVal) && stockVal >= 0) p.stock = stockVal;
+      if (pendingProdUploads[prodId]) {
+        p.variants[0].imageUrl = pendingProdUploads[prodId];
+        delete pendingProdUploads[prodId];
+      }
+      saveState();
+      renderStorefront();
+      renderAdminPanel();
+      showToast(`${p.name} saved!`);
+    }
+
+    function deleteProductItem(prodId) {
+      state.products = state.products.filter(x => x.id !== prodId);
+      saveState();
+      renderStorefront();
+      renderAdminPanel();
+      showToast('Product removed.');
+    }
+
+    function addNewCategoryItem(e) {
+      e.preventDefault();
+      const name = document.getElementById('new-cat-name').value.trim();
+      const desc = document.getElementById('new-cat-desc').value.trim() || `${name} collection at Wajiha Lifestyle.`;
+      if (!name) return;
+      const nextSerial = state.categories.length + 1;
+      state.categories.push({
+        id: 'cat-' + Date.now(),
+        name,
+        description: desc,
+        serial: nextSerial,
+        badgeSvg: createCircleBadgeSvg('#DFF3F1', '#8FD1CA', '#0F7C74', name.slice(0, 12))
+      });
+      saveState();
+      renderStorefront();
+      renderAdminPanel();
+      showToast(`Category "${name}" added!`);
+    }
+
+    function saveAllCategoryEdits() {
+      state.categories.forEach(c => {
+        const nEl = document.getElementById(`cat-name-${c.id}`);
+        const dEl = document.getElementById(`cat-desc-${c.id}`);
+        if (nEl && nEl.value.trim()) c.name = nEl.value.trim();
+        if (dEl) c.description = dEl.value.trim();
+      });
+      saveState();
+      renderStorefront();
+      renderAdminPanel();
+      showToast('All category names & descriptions saved!');
+    }
+
+    function saveSectionLabels() {
+      state.sectionLabels.newArrivalsTitle = document.getElementById('sec-na-title')?.value.trim() || state.sectionLabels.newArrivalsTitle;
+      state.sectionLabels.featuredTag = document.getElementById('sec-feat-tag')?.value.trim() || state.sectionLabels.featuredTag;
+      state.brand.address = document.getElementById('sec-addr')?.value.trim() || state.brand.address;
+      state.brand.phone = document.getElementById('sec-phone')?.value.trim() || state.brand.phone;
+      saveState();
+      renderStorefront();
+      showToast('Store & section texts saved!');
+    }
+
+    function handleAdminNewFile(e) {
+      const f = e.target.files?.[0];
+      if (!f) return;
+      const r = new FileReader();
+      r.onload = () => { newProdImageData = String(r.result || ''); };
+      r.readAsDataURL(f);
+    }
+
+    function adminAddProduct(e) {
+      e.preventDefault();
+      const name = document.getElementById('adm-pname').value.trim();
+      const categoryId = document.getElementById('adm-pcat').value;
+      const price = Number(document.getElementById('adm-pprice').value) || 1990;
+      const oldPrice = Number(document.getElementById('adm-pold').value) || 0;
+      const catCount = state.products.filter(p => p.categoryId === categoryId).length;
+      const newId = 'prod-' + Date.now();
+      state.products.unshift({
+        id: newId,
+        name,
+        categoryId,
+        serial: catCount + 1,
+        price,
+        oldPrice,
+        stock: 20,
+        soldCount: 0,
+        description: `${name} from Wajiha Lifestyle — crafted for comfort and style.`,
+        upsellId: '',
+        upsellOfferText: '',
+        variants: [
+          {
+            colorName: 'Signature Teal',
+            swatchHex: '#0F7C74',
+            size: 'M, L, XL',
+            imageUrl: newProdImageData || '',
+            svg: createDressSvg('#0F7C74', '#FDE68A', name.slice(0, 12).toUpperCase())
+          }
+        ]
+      });
+      newProdImageData = '';
+      e.target.reset();
+      saveState();
+      renderStorefront();
+      renderAdminPanel();
+      showToast(`"${name}" added!`);
+    }
+
+    function adminMoveCat(id, delta) {
+      const s = [...state.categories].sort((a, b) => a.serial - b.serial);
+      const i = s.findIndex(x => x.id === id);
+      const t = i + delta;
+      if (i < 0 || t < 0 || t >= s.length) return;
+      [s[i].serial, s[t].serial] = [s[t].serial, s[i].serial];
+      s.sort((a, b) => a.serial - b.serial).forEach((x, idx) => x.serial = idx + 1);
+      state.categories = s;
+      saveState();
+      renderAdminPanel();
+    }
+
+    function adminSaveZone(id, val) {
+      const z = state.deliveryZones.find(x => x.id === id);
+      if (z) {
+        z.charge = Number(val) || 0;
+        saveState();
+        recalculateCheckoutTotals();
+        showToast('Delivery charge updated!');
+      }
+    }
+
+    function addBlockedMobileNumber() {
+      const val = (document.getElementById('block-mobile-input')?.value || '').trim();
+      if (!val) return;
+      if (!state.blockedMobiles.includes(val)) state.blockedMobiles.push(val);
+      saveState();
+      renderAdminPanel();
+      showToast(`Blocked ${val}`);
+    }
+
+    function removeBlockedMobileNumber(mob) {
+      state.blockedMobiles = state.blockedMobiles.filter(m => m !== mob);
+      saveState();
+      renderAdminPanel();
+    }
+
+    // =========================================================================
+    // 5. INITIALIZATION
+    // =========================================================================
+    function renderAll() {
+      try {
+        renderHeroCarousel();
+        renderStorefront();
+        syncCartUI();
+      } catch (err) {
+        console.error('Storefront render error:', err);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        renderAll();
+        recordClarityActivity('Entered Storefront', 'Home Page');
+        setTimeout(() => trackPixelEvent('PageView', { page: 'Wajiha Lifestyle Storefront' }), 0);
+      });
+    } else {
+      renderAll();
+      recordClarityActivity('Entered Storefront', 'Home Page');
+      setTimeout(() => trackPixelEvent('PageView', { page: 'Wajiha Lifestyle Storefront' }), 0);
+    }
+    window.addEventListener('beforeunload', markSessionExit);
+  </script>
+</body>
+</html>
