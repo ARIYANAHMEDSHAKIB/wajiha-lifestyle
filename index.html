@@ -302,7 +302,7 @@
         <div>
           <span class="px-3 py-1 rounded-full bg-white/15 text-teal-100 text-xs font-bold">No-Code Control Center</span>
           <h1 class="text-2xl sm:text-3xl font-extrabold mt-2">Wajiha Lifestyle — Admin Dashboard</h1>
-          <p class="text-xs sm:text-sm text-teal-100 mt-1">Manage products, upload photos, reorder categories, check orders &amp; control delivery charges.</p>
+          <p class="text-xs sm:text-sm text-teal-100 mt-1">Manage products, upload photos, edit popups &amp; categories, check orders &amp; control delivery charges.</p>
         </div>
         <div class="flex items-center gap-2">
           <button type="button" onclick="toggleAdminView()" class="px-4 py-2 rounded-xl bg-amber-400 text-zinc-950 font-bold text-xs cursor-pointer">← Back to Storefront</button>
@@ -325,7 +325,7 @@
       <div>
         <div class="brand-logo-font text-3xl font-bold text-[#0F7C74] -rotate-2 inline-block">Wajiha</div>
         <div class="brand-logo-font text-sm font-bold text-[#0B5B56] -mt-1">Lifestyle</div>
-        <p class="text-xs text-zinc-600 mt-3 leading-relaxed">
+        <p id="footer-about-text" class="text-xs text-zinc-600 mt-3 leading-relaxed">
           Wajiha Lifestyle is here for every woman's refined wardrobe needs. Safe, reliable, and easily accessible across Bangladesh.
         </p>
         <p id="footer-address-text" class="text-xs font-semibold text-zinc-800 mt-3">📍 TONGI GAGIPUR TONGIBAZAR ANARKOLI ROAD</p>
@@ -369,18 +369,7 @@
 
   <!-- Brand Popup Modal -->
   <div id="brand-popup-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-md w-full p-6 border border-teal-200 shadow-2xl text-center space-y-4">
-      <div class="inline-flex flex-col items-center px-6 py-3 rounded-2xl bg-[#F2FAF9] border border-teal-200">
-        <span class="brand-logo-font text-3xl font-bold text-[#0F7C74] -rotate-2">Wajiha</span>
-        <span class="brand-logo-font text-sm font-bold text-[#0B5B56]">Lifestyle</span>
-      </div>
-      <h3 class="text-xl font-extrabold text-zinc-950">Welcome to Wajiha Lifestyle</h3>
-      <p class="text-xs sm:text-sm text-zinc-600">Premium embroidered 3-piece sets, festive lawn &amp; modern co-ords delivered nationwide with Cash on Delivery.</p>
-      <div class="flex gap-2 justify-center pt-2">
-        <button type="button" onclick="closeBrandPopup()" class="px-5 py-2.5 rounded-full bg-[#0F7C74] text-white text-xs font-bold cursor-pointer">Explore Collection</button>
-        <button type="button" onclick="closeBrandPopup(); document.getElementById('checkout-section').scrollIntoView({behavior:'smooth'});" class="px-5 py-2.5 rounded-full bg-amber-400 text-zinc-950 text-xs font-bold cursor-pointer">Order Now</button>
-      </div>
-    </div>
+    <div id="brand-popup-body" class="bg-white rounded-3xl max-w-md w-full p-6 border border-teal-200 shadow-2xl text-center space-y-4"></div>
   </div>
 
   <!-- Product Quick-View Modal -->
@@ -443,7 +432,7 @@
   </div>
 
   <script>
-    const STORAGE_KEY = 'wajiha_lifestyle_classic_banner_v6';
+    const STORAGE_KEY = 'wajiha_lifestyle_full_editable_v7';
     const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
 
     let currentLang = 'en';
@@ -456,6 +445,8 @@
     let newProdImageData = '';
     let pendingHeroCoverData = '';
     let pendingProdUploads = {};
+    let pendingCatUploads = {};
+    let pendingPopupImageData = '';
     let _saveTimer = null;
 
     const I18N = {
@@ -572,6 +563,12 @@
           phone: '01812829178',
           promoBanner: ''
         },
+        popupConfig: {
+          title: 'Welcome to Wajiha Lifestyle',
+          subtitle: '3-Piece & Festive Collection — Edit name, photo & offer anytime from Admin Panel.',
+          badgeText: '3-Piece Special',
+          imageUrl: '9.jpg'
+        },
         customHeroCover: '',
         heroSlides: [
           {
@@ -609,6 +606,7 @@
             name: '3-Piece',
             description: 'Embroidered kamiz, salwar & dupatta sets crafted for everyday elegance and festive grace.',
             serial: 1,
+            imageUrl: '9.jpg',
             badgeSvg: createCircleBadgeSvg('#DFF3F1', '#8FD1CA', '#0F7C74', '3-Piece')
           },
           {
@@ -616,6 +614,7 @@
             name: '2-Piece',
             description: 'Breezy two-piece ensembles with matching bottoms for effortless daily wear.',
             serial: 2,
+            imageUrl: 'dress-2.jpg',
             badgeSvg: createCircleBadgeSvg('#E0F2FE', '#BAE6FD', '#0369A1', '2-Piece')
           },
           {
@@ -623,6 +622,7 @@
             name: '1-Piece',
             description: 'Statement tunics, long kurtis & chic single-piece silhouettes.',
             serial: 3,
+            imageUrl: 'dress-3.jpg',
             badgeSvg: createCircleBadgeSvg('#FEF3C7', '#FDE68A', '#B45309', '1-Piece')
           },
           {
@@ -630,6 +630,7 @@
             name: 'Co-ord Set',
             description: 'Modern coordinated top & trouser sets tailored for clean contemporary styling.',
             serial: 4,
+            imageUrl: 'dress-4.jpg',
             badgeSvg: createCircleBadgeSvg('#FCE7F3', '#FBCFE8', '#9D174D', 'Co-ord Set')
           },
           {
@@ -637,6 +638,7 @@
             name: 'Festive Wear',
             description: 'Rich textures, delicate threadwork & occasion-ready outfits for celebrations.',
             serial: 5,
+            imageUrl: 'dress-11.jpg',
             badgeSvg: createCircleBadgeSvg('#EDE9FE', '#DDD6FE', '#5B21B6', 'Festive')
           }
         ],
@@ -654,7 +656,7 @@
             upsellId: 'prod-festive-royal',
             upsellOfferText: 'Save ৳200 when bundled!',
             variants: [
-              { colorName: 'Signature Teal', swatchHex: '#0F7C74', size: 'M, L, XL', imageUrl: 'JPG4.jpg', svg: createDressSvg('#0F7C74', '#FEF3C7', '3-PIECE 04') }
+              { colorName: 'Signature Teal', swatchHex: '#0F7C74', size: 'M, L, XL', imageUrl: '9.jpg', svg: createDressSvg('#0F7C74', '#FEF3C7', '3-PIECE 04') }
             ]
           },
           {
@@ -686,7 +688,7 @@
             upsellId: '',
             upsellOfferText: '',
             variants: [
-              { colorName: 'Sapphire Blue', swatchHex: '#0284C7', size: 'M, L, XL', imageUrl: 'JPG6.jpg', svg: createDressSvg('#0284C7', '#E0F2FE', '2-PIECE 06') }
+              { colorName: 'Sapphire Blue', swatchHex: '#0284C7', size: 'M, L, XL', imageUrl: 'dress-2.jpg', svg: createDressSvg('#0284C7', '#E0F2FE', '2-PIECE 06') }
             ]
           },
           {
@@ -718,7 +720,7 @@
             upsellId: '',
             upsellOfferText: '',
             variants: [
-              { colorName: 'Deep Teal', swatchHex: '#0B5B56', size: 'M, L, XL', imageUrl: 'JPG8.jpg', svg: createDressSvg('#0B5B56', '#FEF3C7', '1-PIECE 08') }
+              { colorName: 'Deep Teal', swatchHex: '#0B5B56', size: 'M, L, XL', imageUrl: 'dress-3.jpg', svg: createDressSvg('#0B5B56', '#FEF3C7', '1-PIECE 08') }
             ]
           },
           {
@@ -734,7 +736,7 @@
             upsellId: '',
             upsellOfferText: '',
             variants: [
-              { colorName: 'Ivory & Blue', swatchHex: '#3B5998', size: 'M, L, XL', imageUrl: '9.jpg', svg: createDressSvg('#3B5998', '#F0F9FF', 'IMG 9') }
+              { colorName: 'Ivory & Blue', swatchHex: '#3B5998', size: 'M, L, XL', imageUrl: 'dress-1.jpg', svg: createDressSvg('#3B5998', '#F0F9FF', 'IMG 9') }
             ]
           },
           {
@@ -750,7 +752,7 @@
             upsellId: '',
             upsellOfferText: '',
             variants: [
-              { colorName: 'Beige & Rose', swatchHex: '#C96A7B', size: 'M, L, XL', imageUrl: 'dress-1.jpg', svg: createDressSvg('#C96A7B', '#E0F2FE', 'DRESS-1') }
+              { colorName: 'Beige & Rose', swatchHex: '#C96A7B', size: 'M, L, XL', imageUrl: 'dress-12_2.jpg', svg: createDressSvg('#C96A7B', '#E0F2FE', 'DRESS-1') }
             ]
           },
           {
@@ -766,7 +768,7 @@
             upsellId: '',
             upsellOfferText: '',
             variants: [
-              { colorName: 'Deep Plum', swatchHex: '#6B3E6C', size: 'M, L, XL', imageUrl: 'dress-2.jpg', svg: createDressSvg('#6B3E6C', '#FEF9C3', 'DRESS-2') }
+              { colorName: 'Deep Plum', swatchHex: '#6B3E6C', size: 'M, L, XL', imageUrl: 'dress-5.jpg', svg: createDressSvg('#6B3E6C', '#FEF9C3', 'DRESS-2') }
             ]
           },
           {
@@ -798,46 +800,14 @@
             upsellId: '',
             upsellOfferText: '',
             variants: [
-              { colorName: 'Camel & Brown', swatchHex: '#5C3A21', size: 'M, L, XL', imageUrl: 'dress-3.jpg', svg: createDressSvg('#5C3A21', '#EDE9FE', 'DRESS-3') }
-            ]
-          },
-          {
-            id: 'prod-extra-5',
-            name: 'Royal Blue Floral 3-Piece',
-            categoryId: 'cat-3-piece',
-            serial: 3,
-            price: 2650,
-            oldPrice: 2990,
-            stock: 15,
-            soldCount: 18,
-            description: 'Printed & embroidered 3-piece set with matching dupatta.',
-            upsellId: '',
-            upsellOfferText: '',
-            variants: [
-              { colorName: 'Royal Blue', swatchHex: '#1D4ED8', size: 'M, L, XL', imageUrl: 'dress-5.jpg', svg: createDressSvg('#1D4ED8', '#EFF6FF', 'DRESS-5') }
-            ]
-          },
-          {
-            id: 'prod-extra-6',
-            name: 'Sea Green Embroidered 3-Piece',
-            categoryId: 'cat-3-piece',
-            serial: 4,
-            price: 2550,
-            oldPrice: 2890,
-            stock: 18,
-            soldCount: 22,
-            description: 'Detailed neck, sleeve, trouser & dupatta embroidery set.',
-            upsellId: '',
-            upsellOfferText: '',
-            variants: [
-              { colorName: 'Sea Green', swatchHex: '#4E8D7C', size: 'M, L, XL', imageUrl: 'dress-6.jpg', svg: createDressSvg('#4E8D7C', '#ECFDF5', 'DRESS-6') }
+              { colorName: 'Camel & Brown', swatchHex: '#5C3A21', size: 'M, L, XL', imageUrl: 'dress-6.jpg', svg: createDressSvg('#5C3A21', '#EDE9FE', 'DRESS-3') }
             ]
           },
           {
             id: 'prod-extra-7',
             name: 'White & Navy Embroidered 3-Piece',
             categoryId: 'cat-3-piece',
-            serial: 5,
+            serial: 3,
             price: 2490,
             oldPrice: 2790,
             stock: 16,
@@ -853,7 +823,7 @@
             id: 'prod-extra-12',
             name: 'Beige Floral 3-Piece Set',
             categoryId: 'cat-3-piece',
-            serial: 6,
+            serial: 4,
             price: 2690,
             oldPrice: 2990,
             stock: 14,
@@ -866,26 +836,10 @@
             ]
           },
           {
-            id: 'prod-extra-12-2',
-            name: 'Terracotta Motif 3-Piece',
-            categoryId: 'cat-festive-wear',
-            serial: 3,
-            price: 2750,
-            oldPrice: 3050,
-            stock: 12,
-            soldCount: 15,
-            description: 'Festive beige & terracotta 3-piece outfit with detailed border.',
-            upsellId: '',
-            upsellOfferText: '',
-            variants: [
-              { colorName: 'Warm Beige', swatchHex: '#9A3412', size: 'M, L, XL', imageUrl: 'dress-12_2.jpg', svg: createDressSvg('#9A3412', '#FEF2F2', 'DRESS-12_2') }
-            ]
-          },
-          {
             id: 'prod-extra-13',
             name: 'Slate Grey Embroidered 3-Piece',
             categoryId: 'cat-3-piece',
-            serial: 7,
+            serial: 5,
             price: 2590,
             oldPrice: 2890,
             stock: 15,
@@ -969,6 +923,7 @@
           ...def,
           ...parsed,
           brand: { ...def.brand, ...(parsed.brand || {}) },
+          popupConfig: { ...def.popupConfig, ...(parsed.popupConfig || {}) },
           sectionLabels: { ...def.sectionLabels, ...(parsed.sectionLabels || {}) },
           policies: { ...def.policies, ...(parsed.policies || {}) },
           clarity: { ...def.clarity, ...(parsed.clarity || {}) },
@@ -994,12 +949,14 @@
       appliedCoupon = null;
       pendingHeroCoverData = '';
       pendingProdUploads = {};
+      pendingCatUploads = {};
+      pendingPopupImageData = '';
       saveState();
       renderAll();
       if (!document.getElementById('admin-view').classList.contains('hidden')) {
         renderAdminPanel();
       }
-      showToast('Demo data reset to Wajiha Lifestyle clothing defaults!');
+      showToast('Demo data reset to Wajiha Lifestyle defaults!');
     }
 
     function pruneOldClaritySessions() {
@@ -1072,8 +1029,6 @@
       });
       state.eventLogs = state.eventLogs.slice(0, 30);
       saveState();
-      const badge = document.getElementById('event-count-badge');
-      if (badge) badge.textContent = state.eventLogs.length;
     }
 
     function setLanguage(lang) {
@@ -1136,6 +1091,13 @@
         return `<img src="${v.imageUrl}" alt="${v.colorName || 'Wajiha Dress'}" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';" class="w-full h-full object-cover" /><div style="display:none;" class="w-full h-full">${v.svg || ''}</div>`;
       }
       return v.svg || '';
+    }
+
+    function renderCategoryBadge(cat) {
+      if (cat && cat.imageUrl) {
+        return `<img src="${cat.imageUrl}" alt="${cat.name}" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';" class="w-full h-full object-cover" /><div style="display:none;" class="w-full h-full">${cat.badgeSvg || createCircleBadgeSvg('#DFF3F1', '#8FD1CA', '#0F7C74', cat.name)}</div>`;
+      }
+      return cat?.badgeSvg || createCircleBadgeSvg('#DFF3F1', '#8FD1CA', '#0F7C74', cat?.name || '3-Piece');
     }
 
     function getDiscountPct(prod) {
@@ -1259,7 +1221,7 @@
           <button type="button" onclick="selectCategoryFilter('${c.id}')" class="flex flex-col items-center gap-2.5 shrink-0 group cursor-pointer">
             <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full p-1.5 bg-white border-2 ${activeCategoryFilter === c.id ? 'border-[#0F7C74] shadow-soft' : 'border-teal-200 group-hover:border-[#0F7C74]'} transition">
               <div class="w-full h-full rounded-full overflow-hidden">
-                ${c.badgeSvg || createCircleBadgeSvg('#DFF3F1', '#8FD1CA', '#0F7C74', c.name)}
+                ${renderCategoryBadge(c)}
               </div>
             </div>
             <span class="text-xs sm:text-sm font-bold text-zinc-800 group-hover:text-[#0F7C74] text-center max-w-[115px]">${c.name}</span>
@@ -1377,6 +1339,21 @@
     }
 
     function openBrandPopup() {
+      const pop = state.popupConfig || getDefaultState().popupConfig;
+      const imgHtml = pop.imageUrl
+        ? `<div class="w-40 h-48 mx-auto rounded-2xl overflow-hidden border border-teal-200 bg-[#F2FAF9]"><img src="${pop.imageUrl}" alt="${pop.title}" class="w-full h-full object-cover" /></div>`
+        : `<div class="inline-flex flex-col items-center px-6 py-3 rounded-2xl bg-[#F2FAF9] border border-teal-200"><span class="brand-logo-font text-3xl font-bold text-[#0F7C74] -rotate-2">Wajiha</span><span class="brand-logo-font text-sm font-bold text-[#0B5B56]">Lifestyle</span></div>`;
+
+      document.getElementById('brand-popup-body').innerHTML = `
+        <span class="inline-block px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-[11px] font-extrabold">${pop.badgeText || '3-Piece Special'}</span>
+        ${imgHtml}
+        <h3 class="text-xl font-extrabold text-zinc-950">${pop.title || 'Welcome to Wajiha Lifestyle'}</h3>
+        <p class="text-xs sm:text-sm text-zinc-600">${pop.subtitle || ''}</p>
+        <div class="flex gap-2 justify-center pt-2">
+          <button type="button" onclick="closeBrandPopup()" class="px-5 py-2.5 rounded-full bg-[#0F7C74] text-white text-xs font-bold cursor-pointer">Explore Collection</button>
+          <button type="button" onclick="closeBrandPopup(); document.getElementById('checkout-section').scrollIntoView({behavior:'smooth'});" class="px-5 py-2.5 rounded-full bg-amber-400 text-zinc-950 text-xs font-bold cursor-pointer">Order Now</button>
+        </div>
+      `;
       document.getElementById('brand-popup-modal').classList.remove('hidden');
     }
 
@@ -1697,13 +1674,6 @@
       document.getElementById('info-modal').classList.remove('hidden');
     }
 
-    function openEventsModal() {
-      document.getElementById('events-log-list').innerHTML = state.eventLogs.length === 0
-        ? '<div class="text-zinc-500">No events recorded yet.</div>'
-        : state.eventLogs.map(ev => `<div class="p-2.5 rounded-xl bg-teal-50/60 border border-teal-100 flex justify-between"><strong>${ev.eventName}</strong><span class="text-zinc-500">${ev.time}</span></div>`).join('');
-      document.getElementById('events-modal').classList.remove('hidden');
-    }
-
     function toggleAdminView() {
       const sf = document.getElementById('storefront-view');
       const ad = document.getElementById('admin-view');
@@ -1728,7 +1698,8 @@
       { id: 'clarity', label: '👁️ Clarity & 7-Day Logs' },
       { id: 'banner', label: '🖼️ Cover Banner & Save' },
       { id: 'products', label: '👗 Products & Photos' },
-      { id: 'categories', label: '🗂️ Categories & Names' },
+      { id: 'categories', label: '🗂️ Categories & 3-Piece Edit' },
+      { id: 'popup', label: '✨ Brand Popup Editor' },
       { id: 'sections', label: '✏️ Section & Store Texts' },
       { id: 'orders', label: '📦 Orders & Block' },
       { id: 'delivery', label: '🚚 Delivery Charges' }
@@ -1835,7 +1806,7 @@
           <form onsubmit="adminAddProduct(event)" class="p-4 rounded-2xl bg-[#F2FAF9] border border-teal-200 mb-6 space-y-3">
             <div class="font-extrabold text-xs uppercase tracking-wider text-[#0B5B56]">+ Add New Item</div>
             <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
-              <input id="adm-pname" type="text" required placeholder="Item Name (e.g. Embroidered 3-Piece)" class="px-3.5 py-2 rounded-xl bg-white border border-teal-200 text-xs sm:text-sm" />
+              <input id="adm-pname" type="text" required placeholder="Item Name (e.g. 3-Piece)" class="px-3.5 py-2 rounded-xl bg-white border border-teal-200 text-xs sm:text-sm" />
               <select id="adm-pcat" class="px-3.5 py-2 rounded-xl bg-white border border-teal-200 text-xs sm:text-sm">${state.categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('')}</select>
               <input id="adm-pprice" type="number" required placeholder="Price (৳)" class="px-3.5 py-2 rounded-xl bg-white border border-teal-200 text-xs sm:text-sm" />
               <input id="adm-pold" type="number" placeholder="Old Price (optional)" class="px-3.5 py-2 rounded-xl bg-white border border-teal-200 text-xs sm:text-sm" />
@@ -1847,30 +1818,39 @@
           </form>
 
           <div class="space-y-3">
-            ${state.products.map(p => `
-              <div class="p-4 rounded-2xl border border-teal-200/80 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div class="flex items-center gap-3 flex-1">
-                  <div class="w-12 h-14 rounded-xl overflow-hidden border border-teal-100 shrink-0">${renderVariantMedia(p.variants[0])}</div>
-                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 flex-1">
-                    <input id="edit-pname-${p.id}" type="text" value="${p.name}" class="px-3 py-1.5 rounded-xl border border-teal-200 text-xs font-bold" />
-                    <input id="edit-pprice-${p.id}" type="number" value="${p.price}" class="px-3 py-1.5 rounded-xl border border-teal-200 text-xs font-bold" />
-                    <input id="edit-pstock-${p.id}" type="number" value="${p.stock}" class="px-3 py-1.5 rounded-xl border border-teal-200 text-xs font-bold" />
+            ${state.products.map(p => {
+              const curImg = pendingProdUploads[p.id] || p.variants[0]?.imageUrl || '';
+              return `
+                <div class="p-4 rounded-2xl border border-teal-200/80 bg-white flex flex-col gap-3">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div class="flex items-center gap-3 flex-1">
+                      <div class="w-12 h-14 rounded-xl overflow-hidden border border-teal-100 shrink-0">${renderVariantMedia({ ...p.variants[0], imageUrl: curImg })}</div>
+                      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 flex-1">
+                        <input id="edit-pname-${p.id}" type="text" value="${p.name}" class="px-3 py-1.5 rounded-xl border border-teal-200 text-xs font-bold" />
+                        <input id="edit-pprice-${p.id}" type="number" value="${p.price}" class="px-3 py-1.5 rounded-xl border border-teal-200 text-xs font-bold" />
+                        <input id="edit-pstock-${p.id}" type="number" value="${p.stock}" class="px-3 py-1.5 rounded-xl border border-teal-200 text-xs font-bold" />
+                      </div>
+                    </div>
+                    <div class="flex items-center gap-2 shrink-0">
+                      <label class="px-3 py-1.5 rounded-xl bg-[#F2FAF9] border border-teal-200 text-xs font-bold text-[#0B5B56] cursor-pointer">
+                        📷 Upload
+                        <input type="file" accept="image/*" class="hidden" onchange="stageProductPhoto('${p.id}', event)" />
+                      </label>
+                      <button type="button" onclick="saveSingleProductEdit('${p.id}')" class="px-3.5 py-1.5 rounded-xl bg-[#0F7C74] hover:bg-[#0B5B56] text-white text-xs font-bold cursor-pointer">
+                        💾 Save
+                      </button>
+                      <button type="button" onclick="deleteProductItem('${p.id}')" class="px-2.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold cursor-pointer">
+                        ✕
+                      </button>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-[11px] font-bold text-zinc-500 shrink-0">Image File / URL:</span>
+                    <input id="edit-pimg-${p.id}" type="text" value="${curImg}" placeholder="dress-1.jpg or https://..." class="flex-1 px-3 py-1 rounded-lg border border-teal-100 bg-teal-50/30 text-xs" />
                   </div>
                 </div>
-                <div class="flex items-center gap-2 shrink-0">
-                  <label class="px-3 py-1.5 rounded-xl bg-[#F2FAF9] border border-teal-200 text-xs font-bold text-[#0B5B56] cursor-pointer">
-                    📷 Photo
-                    <input type="file" accept="image/*" class="hidden" onchange="stageProductPhoto('${p.id}', event)" />
-                  </label>
-                  <button type="button" onclick="saveSingleProductEdit('${p.id}')" class="px-3.5 py-1.5 rounded-xl bg-[#0F7C74] hover:bg-[#0B5B56] text-white text-xs font-bold cursor-pointer">
-                    💾 Save
-                  </button>
-                  <button type="button" onclick="deleteProductItem('${p.id}')" class="px-2.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold cursor-pointer">
-                    ✕
-                  </button>
-                </div>
-              </div>
-            `).join('')}
+              `;
+            }).join('')}
           </div>
         `;
       } else if (currentAdminTab === 'categories') {
@@ -1878,8 +1858,8 @@
         box.innerHTML = `
           <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
             <div>
-              <h2 class="text-xl font-extrabold text-zinc-950">Categories, Custom Names &amp; Serial Order</h2>
-              <p class="text-xs text-zinc-500">Rename categories or reorder serial numbers and click Save.</p>
+              <h2 class="text-xl font-extrabold text-zinc-950">Categories &amp; 3-Piece Custom Names &amp; Photos</h2>
+              <p class="text-xs text-zinc-500">Edit 3-Piece or any category name, description, photo or serial order, then click Save.</p>
             </div>
             <button type="button" onclick="saveAllCategoryEdits()" class="px-5 py-2.5 rounded-xl bg-[#0F7C74] hover:bg-[#0B5B56] text-white font-bold text-xs sm:text-sm cursor-pointer">
               💾 Save Categories
@@ -1887,25 +1867,79 @@
           </div>
 
           <form onsubmit="addNewCategoryItem(event)" class="p-4 rounded-2xl bg-[#F2FAF9] border border-teal-200 mb-5 flex flex-wrap gap-3">
-            <input id="new-cat-name" type="text" required placeholder="New Category Name" class="flex-1 min-w-[180px] px-3.5 py-2 rounded-xl bg-white border border-teal-200 text-xs sm:text-sm" />
+            <input id="new-cat-name" type="text" required placeholder="New Category Name (e.g. 3-Piece)" class="flex-1 min-w-[180px] px-3.5 py-2 rounded-xl bg-white border border-teal-200 text-xs sm:text-sm" />
             <input id="new-cat-desc" type="text" placeholder="Short description" class="flex-1 min-w-[180px] px-3.5 py-2 rounded-xl bg-white border border-teal-200 text-xs sm:text-sm" />
             <button type="submit" class="px-4 py-2 rounded-xl bg-amber-400 text-zinc-950 font-extrabold text-xs cursor-pointer">+ Add Category</button>
           </form>
 
           <div class="space-y-3">
-            ${sorted.map((c, idx) => `
-              <div class="p-3.5 rounded-2xl border border-teal-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  <input id="cat-name-${c.id}" type="text" value="${c.name}" class="px-3 py-1.5 rounded-xl border border-teal-200 text-xs sm:text-sm font-bold" />
-                  <input id="cat-desc-${c.id}" type="text" value="${c.description || ''}" class="px-3 py-1.5 rounded-xl border border-teal-200 text-xs" />
+            ${sorted.map((c, idx) => {
+              const curCatImg = pendingCatUploads[c.id] || c.imageUrl || '';
+              return `
+                <div class="p-4 rounded-2xl border border-teal-200/80 bg-white space-y-2.5">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div class="flex items-center gap-3 flex-1">
+                      <div class="w-12 h-12 rounded-full overflow-hidden border border-teal-200 shrink-0">${renderCategoryBadge({ ...c, imageUrl: curCatImg })}</div>
+                      <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <input id="cat-name-${c.id}" type="text" value="${c.name}" class="px-3 py-1.5 rounded-xl border border-teal-200 text-xs sm:text-sm font-bold" />
+                        <input id="cat-desc-${c.id}" type="text" value="${c.description || ''}" class="px-3 py-1.5 rounded-xl border border-teal-200 text-xs" />
+                      </div>
+                    </div>
+                    <div class="flex items-center gap-1.5 shrink-0">
+                      <label class="px-2.5 py-1 rounded-lg bg-[#F2FAF9] border border-teal-200 text-xs font-bold text-[#0B5B56] cursor-pointer">
+                        📷 Photo
+                        <input type="file" accept="image/*" class="hidden" onchange="stageCategoryPhoto('${c.id}', event)" />
+                      </label>
+                      <span class="text-xs font-extrabold text-[#0B5B56] mx-1">#${c.serial}</span>
+                      <button type="button" onclick="adminMoveCat('${c.id}', -1)" ${idx === 0 ? 'disabled' : ''} class="px-2.5 py-1 rounded-lg bg-teal-50 border font-bold text-xs disabled:opacity-30 cursor-pointer">↑</button>
+                      <button type="button" onclick="adminMoveCat('${c.id}', 1)" ${idx === sorted.length - 1 ? 'disabled' : ''} class="px-2.5 py-1 rounded-lg bg-teal-50 border font-bold text-xs disabled:opacity-30 cursor-pointer">↓</button>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-[11px] font-bold text-zinc-500 shrink-0">Category Image File / URL:</span>
+                    <input id="cat-img-${c.id}" type="text" value="${curCatImg}" placeholder="9.jpg or https://..." class="flex-1 px-3 py-1 rounded-lg border border-teal-100 bg-teal-50/30 text-xs" />
+                  </div>
                 </div>
-                <div class="flex items-center gap-1.5 shrink-0">
-                  <span class="text-xs font-extrabold text-[#0B5B56] mr-1">#${c.serial}</span>
-                  <button type="button" onclick="adminMoveCat('${c.id}', -1)" ${idx === 0 ? 'disabled' : ''} class="px-3 py-1 rounded-lg bg-teal-50 border font-bold text-xs disabled:opacity-30 cursor-pointer">↑</button>
-                  <button type="button" onclick="adminMoveCat('${c.id}', 1)" ${idx === sorted.length - 1 ? 'disabled' : ''} class="px-3 py-1 rounded-lg bg-teal-50 border font-bold text-xs disabled:opacity-30 cursor-pointer">↓</button>
-                </div>
-              </div>
-            `).join('')}
+              `;
+            }).join('')}
+          </div>
+        `;
+      } else if (currentAdminTab === 'popup') {
+        const pop = state.popupConfig || getDefaultState().popupConfig;
+        const popImg = pendingPopupImageData || pop.imageUrl || '';
+        box.innerHTML = `
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <div>
+              <h2 class="text-xl font-extrabold text-zinc-950">Brand Popup Editor (Name, Offer &amp; Photo)</h2>
+              <p class="text-xs text-zinc-500">Edit the popup text and image that appears when clicking the Brand badge.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="previewBrandPopupFromAdmin()" class="px-3.5 py-2 rounded-xl bg-amber-400 text-zinc-950 font-bold text-xs cursor-pointer">👁️ Preview Popup</button>
+              <button type="button" onclick="savePopupSettings()" class="px-5 py-2.5 rounded-xl bg-[#0F7C74] hover:bg-[#0B5B56] text-white font-bold text-xs sm:text-sm cursor-pointer">💾 Save Popup</button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 mb-1">Popup Badge / Tag (e.g. 3-Piece Special)</label>
+              <input id="pop-badge-input" type="text" value="${pop.badgeText || ''}" class="w-full px-3.5 py-2 rounded-xl border border-teal-200 text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 mb-1">Popup Heading / Name</label>
+              <input id="pop-title-input" type="text" value="${pop.title || ''}" class="w-full px-3.5 py-2 rounded-xl border border-teal-200 text-sm" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-zinc-700 mb-1">Popup Description / Offer Text</label>
+              <input id="pop-sub-input" type="text" value="${pop.subtitle || ''}" class="w-full px-3.5 py-2 rounded-xl border border-teal-200 text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 mb-1">Popup Image File / URL</label>
+              <input id="pop-img-input" type="text" value="${popImg}" placeholder="9.jpg or https://..." class="w-full px-3.5 py-2 rounded-xl border border-teal-200 text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 mb-1">Or Upload Photo from Device</label>
+              <input type="file" accept="image/*" onchange="stagePopupPhoto(event)" class="w-full text-xs bg-white px-3 py-2 rounded-xl border border-teal-200 cursor-pointer" />
+            </div>
           </div>
         `;
       } else if (currentAdminTab === 'sections') {
@@ -2045,6 +2079,8 @@
       const r = new FileReader();
       r.onload = () => {
         pendingProdUploads[prodId] = String(r.result || '');
+        const inp = document.getElementById(`edit-pimg-${prodId}`);
+        if (inp) inp.value = pendingProdUploads[prodId];
         showToast('Photo ready — click Save next to the product to apply!');
       };
       r.readAsDataURL(f);
@@ -2056,13 +2092,15 @@
       const nameVal = document.getElementById(`edit-pname-${prodId}`)?.value.trim();
       const priceVal = Number(document.getElementById(`edit-pprice-${prodId}`)?.value);
       const stockVal = Number(document.getElementById(`edit-pstock-${prodId}`)?.value);
+      const imgVal = document.getElementById(`edit-pimg-${prodId}`)?.value.trim();
       if (nameVal) p.name = nameVal;
       if (!Number.isNaN(priceVal) && priceVal > 0) p.price = priceVal;
       if (!Number.isNaN(stockVal) && stockVal >= 0) p.stock = stockVal;
-      if (pendingProdUploads[prodId]) {
-        p.variants[0].imageUrl = pendingProdUploads[prodId];
-        delete pendingProdUploads[prodId];
+      const nextImg = pendingProdUploads[prodId] || imgVal || '';
+      if (nextImg) {
+        p.variants[0].imageUrl = nextImg;
       }
+      delete pendingProdUploads[prodId];
       saveState();
       renderStorefront();
       renderAdminPanel();
@@ -2077,6 +2115,19 @@
       showToast('Product removed.');
     }
 
+    function stageCategoryPhoto(catId, e) {
+      const f = e.target.files?.[0];
+      if (!f) return;
+      const r = new FileReader();
+      r.onload = () => {
+        pendingCatUploads[catId] = String(r.result || '');
+        const inp = document.getElementById(`cat-img-${catId}`);
+        if (inp) inp.value = pendingCatUploads[catId];
+        showToast('Category photo staged — click Save Categories!');
+      };
+      r.readAsDataURL(f);
+    }
+
     function addNewCategoryItem(e) {
       e.preventDefault();
       const name = document.getElementById('new-cat-name').value.trim();
@@ -2088,6 +2139,7 @@
         name,
         description: desc,
         serial: nextSerial,
+        imageUrl: '9.jpg',
         badgeSvg: createCircleBadgeSvg('#DFF3F1', '#8FD1CA', '#0F7C74', name.slice(0, 12))
       });
       saveState();
@@ -2100,13 +2152,48 @@
       state.categories.forEach(c => {
         const nEl = document.getElementById(`cat-name-${c.id}`);
         const dEl = document.getElementById(`cat-desc-${c.id}`);
+        const iEl = document.getElementById(`cat-img-${c.id}`);
         if (nEl && nEl.value.trim()) c.name = nEl.value.trim();
         if (dEl) c.description = dEl.value.trim();
+        const nextImg = pendingCatUploads[c.id] || (iEl ? iEl.value.trim() : '');
+        if (nextImg) c.imageUrl = nextImg;
+        delete pendingCatUploads[c.id];
       });
       saveState();
       renderStorefront();
       renderAdminPanel();
-      showToast('All category names & descriptions saved!');
+      showToast('All category names, descriptions & photos saved!');
+    }
+
+    function stagePopupPhoto(e) {
+      const f = e.target.files?.[0];
+      if (!f) return;
+      const r = new FileReader();
+      r.onload = () => {
+        pendingPopupImageData = String(r.result || '');
+        const inp = document.getElementById('pop-img-input');
+        if (inp) inp.value = pendingPopupImageData;
+        showToast('Popup photo ready — click Save Popup!');
+      };
+      r.readAsDataURL(f);
+    }
+
+    function savePopupSettings() {
+      state.popupConfig = {
+        badgeText: document.getElementById('pop-badge-input')?.value.trim() || '3-Piece Special',
+        title: document.getElementById('pop-title-input')?.value.trim() || 'Welcome to Wajiha Lifestyle',
+        subtitle: document.getElementById('pop-sub-input')?.value.trim() || '',
+        imageUrl: pendingPopupImageData || document.getElementById('pop-img-input')?.value.trim() || ''
+      };
+      pendingPopupImageData = '';
+      saveState();
+      renderAdminPanel();
+      showToast('Brand popup settings saved!');
+    }
+
+    function previewBrandPopupFromAdmin() {
+      savePopupSettings();
+      openBrandPopup();
     }
 
     function saveSectionLabels() {
