@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script>
-    // Configure Tailwind brand tokens matching Wajiha Lifestyle teal & soft mint palette
     tailwind.config = {
       theme: {
         extend: {
@@ -85,7 +84,8 @@
         </button>
       </a>
 
-      <nav aria-label="Primary Navigation" class="hidden lg:flex items-center gap-4 xl:gap-6 text-[13px] font-semibold text-zinc-800 whitespace-nowrap">
+      <nav aria-label="Primary Navigation" class="hidden lg:flex items-center gap-4 xl:gap-5 text-[13px] font-semibold text-zinc-800 whitespace-nowrap">
+        <button type="button" onclick="goHomeView()" class="hover:text-[#0F7C74] transition cursor-pointer" data-i18n="navHome">Home</button>
         <button type="button" onclick="jumpToSection('new-arrivals-section')" class="hover:text-[#0F7C74] transition cursor-pointer" data-i18n="navAll">All products</button>
         <button type="button" onclick="triggerNewArrivalsFilter()" class="hover:text-[#0F7C74] transition cursor-pointer" data-i18n="navNew">New</button>
         <button type="button" onclick="openLandingModal()" class="px-3.5 py-1.5 rounded-full bg-[#FBBF24] hover:bg-amber-300 text-zinc-950 font-bold text-xs inline-flex items-center gap-1 shadow-xs transition cursor-pointer">
@@ -122,10 +122,10 @@
   <!-- ==================== STOREFRONT VIEW ==================== -->
   <main id="storefront-view" class="flex-1">
 
-    <!-- 1. Full-Width Cover Banner Carousel (Full Image Uncropped Fit) -->
+    <!-- 1. Full-Width Cover Banner Carousel -->
     <section id="top" class="pt-3 sm:pt-4 pb-4 px-3 sm:px-5 lg:px-6 w-full">
-      <div class="relative w-full rounded-3xl overflow-hidden border border-teal-200/80 shadow-soft bg-gradient-to-br from-[#0B5B56] via-[#0F7C74] to-[#084743]">
-        <div id="hero-slide-content" class="w-full"></div>
+      <div class="relative w-full h-[360px] sm:h-[480px] lg:h-[560px] rounded-3xl overflow-hidden border border-teal-200/80 shadow-soft bg-gradient-to-br from-[#0B5B56] via-[#0F7C74] to-[#084743]">
+        <div id="hero-slide-content" class="w-full h-full"></div>
 
         <button type="button" onclick="prevHeroSlide()" aria-label="Previous Banner" class="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/95 hover:bg-white text-zinc-900 shadow-lg flex items-center justify-center font-extrabold text-xl transition cursor-pointer">
           ‹
@@ -134,7 +134,7 @@
           ›
         </button>
 
-        <div id="hero-dots" class="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 bg-black/30 backdrop-blur-xs px-3 py-1.5 rounded-full"></div>
+        <div id="hero-dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2"></div>
       </div>
     </section>
 
@@ -443,10 +443,7 @@
   </div>
 
   <script>
-    // =========================================================================
-    // 1. STATE & CONSTANTS
-    // =========================================================================
-    const STORAGE_KEY = 'wajiha_lifestyle_uncropped_v4';
+    const STORAGE_KEY = 'wajiha_lifestyle_classic_banner_v6';
     const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
 
     let currentLang = 'en';
@@ -539,7 +536,7 @@
       const safePrimary = primaryHex || '#0F7C74';
       const safeAccent = accentHex || '#FDE68A';
       return `
-        <svg viewBox="0 0 240 300" class="w-full h-full object-contain select-none" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 240 300" class="w-full h-full object-cover select-none" xmlns="http://www.w3.org/2000/svg">
           <rect width="240" height="300" fill="#F2FAF9"/>
           <path d="M92 175 L84 268 H114 L120 202 L126 268 H156 L148 175 Z" fill="${safePrimary}"/>
           <path d="M80 66 L102 52 H138 L160 66 L176 122 L154 129 L146 92 L152 212 H88 L94 92 L86 129 L64 122 Z" fill="${safePrimary}"/>
@@ -557,7 +554,7 @@
       const safeBot = bgBot || '#8FD1CA';
       const safeAccent = accent || '#0F7C74';
       return `
-        <svg viewBox="0 0 120 120" class="w-full h-full object-contain" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 120 120" class="w-full h-full object-cover" xmlns="http://www.w3.org/2000/svg">
           <circle cx="60" cy="60" r="58" fill="${safeTop}" stroke="${safeBot}" stroke-width="3"/>
           <circle cx="60" cy="66" r="40" fill="#FFFFFF" fill-opacity="0.7"/>
           <path d="M40 42 L52 34 H68 L80 42 L88 70 L76 74 L72 54 L76 100 H44 L48 54 L44 74 L32 70 Z" fill="${safeAccent}"/>
@@ -673,7 +670,7 @@
             upsellId: 'prod-2p-lawn',
             upsellOfferText: 'Add with ৳150 off!',
             variants: [
-              { colorName: 'Royal Crimson', swatchHex: '#B91C1C', size: 'M, L, XL', imageUrl: 'JPG5.jpg', svg: createDressSvg('#B91C1C', '#FEF3C7', 'FESTIVE 05') }
+              { colorName: 'Royal Crimson', swatchHex: '#B91C1C', size: 'M, L, XL', imageUrl: 'dress-11.jpg', svg: createDressSvg('#B91C1C', '#FEF3C7', 'DRESS-11') }
             ]
           },
           {
@@ -701,11 +698,11 @@
             oldPrice: 2450,
             stock: 22,
             soldCount: 37,
-            description: 'Coordinated shirt & relaxed trouser set with clean modern tailoring.',
+            description: 'Coordinated top & trouser set with clean modern tailoring.',
             upsellId: '',
             upsellOfferText: '',
             variants: [
-              { colorName: 'Emerald & Ivory', swatchHex: '#0F7C74', size: 'M, L, XL', imageUrl: 'JPG7.jpg', svg: createDressSvg('#0F7C74', '#F0FDFA', 'CO-ORD 07') }
+              { colorName: 'Beige & Collar', swatchHex: '#D6C7B2', size: 'M, L, XL', imageUrl: 'dress-4.jpg', svg: createDressSvg('#D6C7B2', '#F0FDFA', 'DRESS-4') }
             ]
           },
           {
@@ -726,82 +723,194 @@
           },
           {
             id: 'prod-3p-garden',
-            name: 'Garden Bloom 3-Piece Suit',
+            name: 'Ivory Blue Embroidered 3-Piece',
             categoryId: 'cat-3-piece',
             serial: 2,
             price: 2590,
             oldPrice: 2900,
             stock: 16,
             soldCount: 23,
-            description: 'Floral-inspired 3-piece dress with matching dupatta and trouser.',
+            description: 'Embroidered 3-piece dress with matching dupatta and trouser.',
             upsellId: '',
             upsellOfferText: '',
             variants: [
-              { colorName: 'Sky & Teal', swatchHex: '#0284C7', size: 'M, L, XL', imageUrl: 'JPG9.jpg', svg: createDressSvg('#0284C7', '#F0F9FF', '3-PIECE 09') }
+              { colorName: 'Ivory & Blue', swatchHex: '#3B5998', size: 'M, L, XL', imageUrl: '9.jpg', svg: createDressSvg('#3B5998', '#F0F9FF', 'IMG 9') }
             ]
           },
           {
             id: 'prod-festive-evening',
-            name: 'Evening Silk Festive Ensemble',
+            name: 'Rose Motif 3-Piece Ensemble',
             categoryId: 'cat-festive-wear',
             serial: 2,
             price: 3450,
             oldPrice: 3890,
             stock: 14,
             soldCount: 19,
-            description: 'Refined festive wear crafted for family gatherings and celebrations.',
+            description: 'Refined 3-piece outfit crafted for family gatherings and celebrations.',
             upsellId: '',
             upsellOfferText: '',
             variants: [
-              { colorName: 'Midnight Navy', swatchHex: '#0369A1', size: 'M, L, XL', imageUrl: 'JPG10.jpg', svg: createDressSvg('#0369A1', '#E0F2FE', 'FESTIVE 10') }
+              { colorName: 'Beige & Rose', swatchHex: '#C96A7B', size: 'M, L, XL', imageUrl: 'dress-1.jpg', svg: createDressSvg('#C96A7B', '#E0F2FE', 'DRESS-1') }
             ]
           },
           {
             id: 'prod-2p-everyday',
-            name: 'Daily Comfort 2-Piece Outfit',
+            name: 'Plum Embroidered 3-Piece Set',
             categoryId: 'cat-2-piece',
             serial: 2,
             price: 1790,
             oldPrice: 2050,
             stock: 21,
             soldCount: 31,
-            description: 'Soft-touch 2-piece set suitable for daily outings and home comfort.',
+            description: 'Detailed embroidery set suitable for daily outings and comfort.',
             upsellId: '',
             upsellOfferText: '',
             variants: [
-              { colorName: 'Warm Olive Teal', swatchHex: '#0F7C74', size: 'M, L, XL', imageUrl: '', svg: createDressSvg('#0F7C74', '#FEF9C3', '2-PIECE 08') }
+              { colorName: 'Deep Plum', swatchHex: '#6B3E6C', size: 'M, L, XL', imageUrl: 'dress-2.jpg', svg: createDressSvg('#6B3E6C', '#FEF9C3', 'DRESS-2') }
             ]
           },
           {
             id: 'prod-coord-urban',
-            name: 'Urban Chic Co-ord Set',
+            name: 'Floral Black & White Set',
             categoryId: 'cat-coord-set',
             serial: 2,
             price: 2290,
             oldPrice: 2590,
             stock: 18,
             soldCount: 24,
-            description: 'Structured top and matching pants for a smart everyday look.',
+            description: 'Botanical printed top and matching pants for a smart everyday look.',
             upsellId: '',
             upsellOfferText: '',
             variants: [
-              { colorName: 'Teal Slate', swatchHex: '#0B5B56', size: 'M, L, XL', imageUrl: '', svg: createDressSvg('#0B5B56', '#CCFBF1', 'CO-ORD 09') }
+              { colorName: 'Off-White & Black', swatchHex: '#27272A', size: 'M, L, XL', imageUrl: 'dress-14.jpg', svg: createDressSvg('#27272A', '#CCFBF1', 'DRESS-14') }
             ]
           },
           {
             id: 'prod-1p-classic',
-            name: 'Classic Draped 1-Piece Kurti',
+            name: 'Camel Brown Embroidered 3-Piece',
             categoryId: 'cat-1-piece',
             serial: 2,
             price: 1650,
             oldPrice: 1890,
             stock: 17,
             soldCount: 21,
-            description: 'Versatile 1-piece dress with clean cut and comfortable fit.',
+            description: 'Embroidered outfit with clean cut and comfortable fit.',
             upsellId: '',
             upsellOfferText: '',
             variants: [
-              { colorName: 'Plum & Teal', swatchHex: '#6D28D9', size: 'M, L, XL', imageUrl: '', svg: createDressSvg('#6D28D9', '#EDE9FE', '1-PIECE 10') }
+              { colorName: 'Camel & Brown', swatchHex: '#5C3A21', size: 'M, L, XL', imageUrl: 'dress-3.jpg', svg: createDressSvg('#5C3A21', '#EDE9FE', 'DRESS-3') }
+            ]
+          },
+          {
+            id: 'prod-extra-5',
+            name: 'Royal Blue Floral 3-Piece',
+            categoryId: 'cat-3-piece',
+            serial: 3,
+            price: 2650,
+            oldPrice: 2990,
+            stock: 15,
+            soldCount: 18,
+            description: 'Printed & embroidered 3-piece set with matching dupatta.',
+            upsellId: '',
+            upsellOfferText: '',
+            variants: [
+              { colorName: 'Royal Blue', swatchHex: '#1D4ED8', size: 'M, L, XL', imageUrl: 'dress-5.jpg', svg: createDressSvg('#1D4ED8', '#EFF6FF', 'DRESS-5') }
+            ]
+          },
+          {
+            id: 'prod-extra-6',
+            name: 'Sea Green Embroidered 3-Piece',
+            categoryId: 'cat-3-piece',
+            serial: 4,
+            price: 2550,
+            oldPrice: 2890,
+            stock: 18,
+            soldCount: 22,
+            description: 'Detailed neck, sleeve, trouser & dupatta embroidery set.',
+            upsellId: '',
+            upsellOfferText: '',
+            variants: [
+              { colorName: 'Sea Green', swatchHex: '#4E8D7C', size: 'M, L, XL', imageUrl: 'dress-6.jpg', svg: createDressSvg('#4E8D7C', '#ECFDF5', 'DRESS-6') }
+            ]
+          },
+          {
+            id: 'prod-extra-7',
+            name: 'White & Navy Embroidered 3-Piece',
+            categoryId: 'cat-3-piece',
+            serial: 5,
+            price: 2490,
+            oldPrice: 2790,
+            stock: 16,
+            soldCount: 20,
+            description: 'Classic white 3-piece with navy floral threadwork.',
+            upsellId: '',
+            upsellOfferText: '',
+            variants: [
+              { colorName: 'White & Navy', swatchHex: '#1E3A8A', size: 'M, L, XL', imageUrl: 'dress-7.jpg', svg: createDressSvg('#1E3A8A', '#F8FAFC', 'DRESS-7') }
+            ]
+          },
+          {
+            id: 'prod-extra-12',
+            name: 'Beige Floral 3-Piece Set',
+            categoryId: 'cat-3-piece',
+            serial: 6,
+            price: 2690,
+            oldPrice: 2990,
+            stock: 14,
+            soldCount: 17,
+            description: 'Embroidered kameez with floral bottom & patterned dupatta.',
+            upsellId: '',
+            upsellOfferText: '',
+            variants: [
+              { colorName: 'Beige & Terracotta', swatchHex: '#B45309', size: 'M, L, XL', imageUrl: 'dress-12.jpg', svg: createDressSvg('#B45309', '#FFFBEB', 'DRESS-12') }
+            ]
+          },
+          {
+            id: 'prod-extra-12-2',
+            name: 'Terracotta Motif 3-Piece',
+            categoryId: 'cat-festive-wear',
+            serial: 3,
+            price: 2750,
+            oldPrice: 3050,
+            stock: 12,
+            soldCount: 15,
+            description: 'Festive beige & terracotta 3-piece outfit with detailed border.',
+            upsellId: '',
+            upsellOfferText: '',
+            variants: [
+              { colorName: 'Warm Beige', swatchHex: '#9A3412', size: 'M, L, XL', imageUrl: 'dress-12_2.jpg', svg: createDressSvg('#9A3412', '#FEF2F2', 'DRESS-12_2') }
+            ]
+          },
+          {
+            id: 'prod-extra-13',
+            name: 'Slate Grey Embroidered 3-Piece',
+            categoryId: 'cat-3-piece',
+            serial: 7,
+            price: 2590,
+            oldPrice: 2890,
+            stock: 15,
+            soldCount: 19,
+            description: 'Slate grey 3-piece set with intricate dark embroidery.',
+            upsellId: '',
+            upsellOfferText: '',
+            variants: [
+              { colorName: 'Slate Grey', swatchHex: '#4B5563', size: 'M, L, XL', imageUrl: 'dress-13.jpg', svg: createDressSvg('#4B5563', '#F3F4F6', 'DRESS-13') }
+            ]
+          },
+          {
+            id: 'prod-extra-15',
+            name: 'Collar Tunic & Trouser Set',
+            categoryId: 'cat-coord-set',
+            serial: 3,
+            price: 2190,
+            oldPrice: 2490,
+            stock: 19,
+            soldCount: 21,
+            description: 'Button-down collar tunic with floral border and relaxed trouser.',
+            upsellId: '',
+            upsellOfferText: '',
+            variants: [
+              { colorName: 'Sand & Black', swatchHex: '#3F3F46', size: 'M, L, XL', imageUrl: 'dress-15.jpg', svg: createDressSvg('#3F3F46', '#FAFAFA', 'DRESS-15') }
             ]
           }
         ],
@@ -1024,7 +1133,7 @@
     function renderVariantMedia(v) {
       if (!v) return '';
       if (v.imageUrl) {
-        return `<img src="${v.imageUrl}" alt="${v.colorName || 'Wajiha Dress'}" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';" class="w-full h-full object-contain bg-[#F2FAF9]" /><div style="display:none;" class="w-full h-full">${v.svg || ''}</div>`;
+        return `<img src="${v.imageUrl}" alt="${v.colorName || 'Wajiha Dress'}" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';" class="w-full h-full object-cover" /><div style="display:none;" class="w-full h-full">${v.svg || ''}</div>`;
       }
       return v.svg || '';
     }
@@ -1034,9 +1143,6 @@
       return Math.round(((prod.oldPrice - prod.price) / prod.oldPrice) * 100);
     }
 
-    // =========================================================================
-    // 2. STOREFRONT RENDERING (FULL IMAGE UNCROPPED BANNER & CARDS)
-    // =========================================================================
     function renderHeroCarousel() {
       const slides = Array.isArray(state.heroSlides) && state.heroSlides.length > 0 ? state.heroSlides : getDefaultState().heroSlides;
       const slide = slides[activeHeroSlide % slides.length];
@@ -1045,24 +1151,25 @@
 
       if (coverUrl) {
         box.innerHTML = `
-          <div onclick="document.getElementById('new-arrivals-section').scrollIntoView({behavior:'smooth'})" class="w-full cursor-pointer flex items-center justify-center bg-[#F2FAF9] py-2 sm:py-3">
-            <img src="${coverUrl}" alt="Wajiha Lifestyle Banner" class="w-full max-h-[540px] object-contain" />
+          <div onclick="document.getElementById('new-arrivals-section').scrollIntoView({behavior:'smooth'})" class="relative w-full h-full cursor-pointer">
+            <img src="${coverUrl}" alt="Wajiha Lifestyle Banner" class="w-full h-full object-cover" />
           </div>
         `;
       } else if (slide && slide.imageUrl) {
         box.innerHTML = `
-          <div onclick="document.getElementById('new-arrivals-section').scrollIntoView({behavior:'smooth'})" class="w-full cursor-pointer flex flex-col items-center justify-center bg-[#F2FAF9] pt-2 sm:pt-3 pb-10 px-2 sm:px-6">
-            <img src="${slide.imageUrl}" alt="${slide.headline || 'Wajiha Lifestyle'}" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';" class="w-full max-h-[460px] sm:max-h-[520px] object-contain rounded-2xl" />
-            <div style="display:none; background: linear-gradient(125deg, #DDF3F1 0%, #F2FAF9 50%, #FEF6E4 100%);" class="w-full min-h-[260px] rounded-2xl items-center justify-center p-6 sm:p-10 text-center">
+          <div onclick="document.getElementById('new-arrivals-section').scrollIntoView({behavior:'smooth'})" class="relative w-full h-full cursor-pointer">
+            <img src="${slide.imageUrl}" alt="${slide.headline || 'Wajiha Lifestyle'}" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';" class="w-full h-full object-cover" />
+            <div style="display:none; background: linear-gradient(125deg, #DDF3F1 0%, #F2FAF9 50%, #FEF6E4 100%);" class="w-full h-full items-center justify-center p-6 sm:p-10 text-center">
               <div class="max-w-4xl w-full space-y-2">
                 <span class="inline-block px-4 py-1 rounded-full bg-[#0F7C74] text-white text-xs font-extrabold">${slide.badge || 'WAJIHA LIFESTYLE'}</span>
                 <h1 class="text-2xl sm:text-4xl font-extrabold text-zinc-950">${slide.headline || 'Wajiha Lifestyle Collection'}</h1>
                 <p class="text-xs sm:text-base text-zinc-700">${slide.sub || ''}</p>
               </div>
             </div>
-            <div class="mt-2.5 flex flex-wrap items-center justify-center gap-2 text-center px-2">
-              <span class="px-3 py-0.5 rounded-full bg-amber-400 text-zinc-950 text-[11px] font-extrabold">${slide.badge || 'WAJIHA LIFESTYLE'}</span>
-              <span class="text-xs sm:text-sm font-bold text-[#0B5B56]">${slide.headline || ''}</span>
+            <div class="hidden sm:flex flex-col items-start gap-1.5 absolute bottom-6 left-6 z-10 bg-white/90 backdrop-blur-xs px-4 py-3 rounded-2xl border border-teal-100 shadow-md max-w-md">
+              <span class="px-2.5 py-0.5 rounded-full bg-amber-400 text-zinc-950 text-[10px] font-extrabold">${slide.badge || 'WAJIHA LIFESTYLE'}</span>
+              <div class="text-sm font-extrabold text-zinc-950">${slide.headline || ''}</div>
+              <div class="text-xs text-zinc-600">${slide.sub || ''}</div>
             </div>
           </div>
         `;
@@ -1131,6 +1238,7 @@
       const mobileStrip = document.getElementById('mobile-header-strip');
       if (mobileStrip) {
         mobileStrip.innerHTML = `
+          <button type="button" onclick="goHomeView()" class="px-2.5 py-1 rounded-full bg-white border border-teal-200 font-bold text-[#0B5B56] cursor-pointer">${t.navHome}</button>
           <button type="button" onclick="jumpToSection('new-arrivals-section')" class="px-2.5 py-1 rounded-full bg-white border border-teal-200 cursor-pointer">${t.navAll}</button>
           <button type="button" onclick="triggerNewArrivalsFilter()" class="px-2.5 py-1 rounded-full bg-white border border-teal-200 cursor-pointer">${t.navNew}</button>
           <button type="button" onclick="openLandingModal()" class="px-2.5 py-1 rounded-full bg-[#FBBF24] text-zinc-950 font-bold cursor-pointer">★ ${t.navSpecial}</button>
@@ -1268,9 +1376,6 @@
       }
     }
 
-    // =========================================================================
-    // 3. MODALS, CART & FIXED GLOBAL COD CHECKOUT
-    // =========================================================================
     function openBrandPopup() {
       document.getElementById('brand-popup-modal').classList.remove('hidden');
     }
@@ -1599,9 +1704,6 @@
       document.getElementById('events-modal').classList.remove('hidden');
     }
 
-    // =========================================================================
-    // 4. NO-CODE ADMIN PANEL
-    // =========================================================================
     function toggleAdminView() {
       const sf = document.getElementById('storefront-view');
       const ad = document.getElementById('admin-view');
@@ -1720,9 +1822,9 @@
             </div>
           </div>
 
-          <div id="banner-live-preview" class="w-full h-56 rounded-2xl overflow-hidden border border-teal-200 bg-[#F2FAF9] flex items-center justify-center mb-5 p-2">
+          <div id="banner-live-preview" class="w-full h-56 rounded-2xl overflow-hidden border border-teal-200 bg-[#F2FAF9] flex items-center justify-center mb-5">
             ${previewImg
-              ? `<img src="${previewImg}" alt="Banner Preview" class="w-full h-full object-contain" />`
+              ? `<img src="${previewImg}" alt="Banner Preview" class="w-full h-full object-cover" />`
               : `<div class="text-xs text-zinc-700 p-4 text-center">Active Top Carousel Slides: <strong>${slides.map(s => s.imageUrl).join(' • ')}</strong></div>`
             }
           </div>
@@ -1908,7 +2010,7 @@
       if (!box) return;
       const src = pendingHeroCoverData || state.customHeroCover || '';
       box.innerHTML = src
-        ? `<img src="${src}" alt="Banner Preview" class="w-full h-full object-contain" />`
+        ? `<img src="${src}" alt="Banner Preview" class="w-full h-full object-cover" />`
         : `<div class="text-xs text-zinc-700 p-4 text-center">Active Top Carousel Slides: <strong>JPG1.jpg • JPG2.jpg • JPG3.jpg</strong></div>`;
     }
 
@@ -2100,9 +2202,6 @@
       renderAdminPanel();
     }
 
-    // =========================================================================
-    // 5. INITIALIZATION
-    // =========================================================================
     function renderAll() {
       try {
         renderHeroCarousel();
