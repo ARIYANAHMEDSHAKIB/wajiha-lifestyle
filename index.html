@@ -25,7 +25,192 @@
               300: '#8FD1CA',
               400: '#4FB3A9',
               500: '#24948A',
-              600: '#0F7C74',
+              600: '#0F7C74',<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wajiha Lifestyle</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background-color: #f7f5f2;
+      color: #222;
+      line-height: 1.5;
+    }
+
+    header {
+      background-color: #1f1f1f;
+      color: #ffffff;
+      padding: 20px 16px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 28px;
+      letter-spacing: 0.5px;
+    }
+
+    header p {
+      font-size: 14px;
+      color: #dddddd;
+      margin-top: 4px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 28px 16px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #1f1f1f;
+      border-left: 4px solid #b06d3b;
+      padding-left: 10px;
+    }
+
+    .top-showcase {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 40px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background-color: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+      border: 1px solid #ece8e1;
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 430px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-caption {
+      padding: 10px 12px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      text-align: center;
+      background-color: #fff;
+    }
+
+    footer {
+      background-color: #1f1f1f;
+      color: #cccccc;
+      text-align: center;
+      padding: 18px 16px;
+      margin-top: 40px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .top-showcase {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .card img {
+        height: 360px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Wajiha Lifestyle</h1>
+    <p>Exclusive Collection</p>
+  </header>
+
+  <main class="container">
+    <h2 class="section-title">Featured Showcase</h2>
+    <section class="top-showcase">
+      <div class="card">
+        <img src="JPG1.jpg" alt="Featured Design 1" />
+        <div class="card-caption">Collection 01</div>
+      </div>
+      <div class="card">
+        <img src="JPG2.jpg" alt="Featured Design 2" />
+        <div class="card-caption">Collection 02</div>
+      </div>
+      <div class="card">
+        <img src="JPG3.jpg" alt="Featured Design 3" />
+        <div class="card-caption">Collection 03</div>
+      </div>
+    </section>
+
+    <h2 class="section-title">More Designs</h2>
+    <section class="gallery-grid">
+      <div class="card">
+        <img src="JPG4.jpg" alt="Design 4" />
+        <div class="card-caption">Design 04</div>
+      </div>
+      <div class="card">
+        <img src="JPG5.jpg" alt="Design 5" />
+        <div class="card-caption">Design 05</div>
+      </div>
+      <div class="card">
+        <img src="JPG6.jpg" alt="Design 6" />
+        <div class="card-caption">Design 06</div>
+      </div>
+      <div class="card">
+        <img src="JPG7.jpg" alt="Design 7" />
+        <div class="card-caption">Design 07</div>
+      </div>
+      <div class="card">
+        <img src="JPG8.jpg" alt="Design 8" />
+        <div class="card-caption">Design 08</div>
+      </div>
+      <div class="card">
+        <img src="JPG9.jpg" alt="Design 9" />
+        <div class="card-caption">Design 09</div>
+      </div>
+      <div class="card">
+        <img src="JPG10.jpg" alt="Design 10" />
+        <div class="card-caption">Design 10</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Wajiha Lifestyle
+  </footer>
+</body>
+</html>
               700: '#0B5B56',
               800: '#084743',
               900: '#053230',
