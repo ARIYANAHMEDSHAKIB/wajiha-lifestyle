@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wajiha Lifestyle — Premium Boutique &amp; Editorial Store</title>
+  <title>Wajiha Lifestyle — Premium Boutique &amp; Landing Page</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -74,7 +74,7 @@
   <!-- Sticky Header -->
   <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-teal-100 shadow-xs">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
-      <a href="#top" onclick="goHomeView()" class="flex items-center gap-2 group shrink-0">
+      <a href="#top" onclick="event.preventDefault(); goHomeView();" class="flex items-center gap-2 group shrink-0">
         <div class="flex flex-col items-center leading-none select-none">
           <span class="brand-logo-font text-2xl sm:text-[30px] font-bold tracking-tight text-[#0F7C74] -rotate-2">Wajiha</span>
           <span class="brand-logo-font text-[11px] sm:text-xs font-bold tracking-wide text-[#0B5B56] -mt-0.5">Lifestyle</span>
@@ -88,9 +88,9 @@
         <button type="button" onclick="goHomeView()" class="hover:text-[#0F7C74] transition cursor-pointer" data-i18n="navHome">Home</button>
         <button type="button" onclick="jumpToSection('new-arrivals-section')" class="hover:text-[#0F7C74] transition cursor-pointer" data-i18n="navAll">All products</button>
         <button type="button" onclick="triggerNewArrivalsFilter()" class="hover:text-[#0F7C74] transition cursor-pointer" data-i18n="navNew">New</button>
-        <button type="button" onclick="openLandingModal()" class="px-3.5 py-1.5 rounded-full bg-[#FBBF24] hover:bg-amber-300 text-zinc-950 font-bold text-xs inline-flex items-center gap-1 shadow-xs transition cursor-pointer">
+        <button type="button" onclick="openLandingPageView()" class="px-3.5 py-1.5 rounded-full bg-[#FBBF24] hover:bg-amber-300 text-zinc-950 font-bold text-xs inline-flex items-center gap-1 shadow-xs transition cursor-pointer">
           <span>★</span>
-          <span data-i18n="navSpecial">Special</span>
+          <span data-i18n="navLanding">Landing Page</span>
         </button>
         <div id="header-category-links" class="flex items-center gap-4 xl:gap-5"></div>
       </nav>
@@ -295,6 +295,11 @@
     </section>
   </main>
 
+  <!-- ==================== DEDICATED LANDING PAGE VIEW ==================== -->
+  <section id="landing-page-view" class="hidden flex-1 bg-white">
+    <div id="landing-page-container" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-12"></div>
+  </section>
+
   <!-- ==================== NO-CODE ADMIN PANEL VIEW ==================== -->
   <section id="admin-view" class="hidden flex-1 bg-[#F2FAF9] py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -302,7 +307,7 @@
         <div>
           <span class="px-3 py-1 rounded-full bg-white/15 text-teal-100 text-xs font-bold">No-Code Control Center</span>
           <h1 class="text-2xl sm:text-3xl font-extrabold mt-2">Wajiha Lifestyle — Admin Dashboard</h1>
-          <p class="text-xs sm:text-sm text-teal-100 mt-1">Manage products, upload photos, edit popups &amp; categories, check orders &amp; control delivery charges.</p>
+          <p class="text-xs sm:text-sm text-teal-100 mt-1">Manage landing page, products, photos, popups &amp; categories, check orders &amp; control delivery charges.</p>
         </div>
         <div class="flex items-center gap-2">
           <button type="button" onclick="toggleAdminView()" class="px-4 py-2 rounded-xl bg-amber-400 text-zinc-950 font-bold text-xs cursor-pointer">← Back to Storefront</button>
@@ -345,7 +350,8 @@
       <div>
         <h4 class="text-xs font-extrabold uppercase tracking-wider text-zinc-950 mb-3">SERVICES AND POLICIES</h4>
         <ul class="space-y-2 text-xs text-zinc-600">
-          <li><a href="#checkout-section" class="hover:text-[#0F7C74]">Track order / Checkout</a></li>
+          <li><button type="button" onclick="openLandingPageView()" class="hover:text-[#0F7C74] cursor-pointer">Special Landing Page</button></li>
+          <li><a href="#checkout-section" onclick="ensureStorefrontVisible()" class="hover:text-[#0F7C74]">Track order / Checkout</a></li>
           <li><button type="button" onclick="openInfoModal('dataprotection')" class="hover:text-[#0F7C74] cursor-pointer">Customer Data Protection</button></li>
           <li><button type="button" onclick="openInfoModal('refund')" class="hover:text-[#0F7C74] cursor-pointer">Return and Refund Policy</button></li>
         </ul>
@@ -360,7 +366,7 @@
     <div class="max-w-7xl mx-auto pt-6 flex flex-wrap items-center justify-between gap-3 text-xs text-zinc-500">
       <div>© 2026 Wajiha Lifestyle. All rights reserved.</div>
       <div class="flex items-center gap-2">
-        <a href="#checkout-section" class="px-4 py-2 rounded-full bg-[#0F7C74] hover:bg-[#0B5B56] text-white font-bold text-xs shadow-soft transition">
+        <a href="#checkout-section" onclick="ensureStorefrontVisible()" class="px-4 py-2 rounded-full bg-[#0F7C74] hover:bg-[#0B5B56] text-white font-bold text-xs shadow-soft transition">
           Cash on delivery
         </a>
       </div>
@@ -392,16 +398,11 @@
           <span>Subtotal</span>
           <span id="drawer-subtotal" class="text-[#0F7C74]">৳0</span>
         </div>
-        <button type="button" onclick="closeCartDrawer(); document.getElementById('checkout-section').scrollIntoView({behavior:'smooth'});" class="w-full py-3.5 rounded-2xl bg-[#0F7C74] hover:bg-[#0B5B56] text-white font-bold text-sm cursor-pointer">
+        <button type="button" onclick="closeCartDrawer(); ensureStorefrontVisible(); document.getElementById('checkout-section').scrollIntoView({behavior:'smooth'});" class="w-full py-3.5 rounded-2xl bg-[#0F7C74] hover:bg-[#0B5B56] text-white font-bold text-sm cursor-pointer">
           Proceed to COD Checkout
         </button>
       </div>
     </div>
-  </div>
-
-  <!-- Landing Page Modal -->
-  <div id="landing-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-    <div id="landing-modal-body" class="bg-white rounded-3xl max-w-4xl w-full p-6 border border-teal-200 shadow-2xl my-8"></div>
   </div>
 
   <!-- Info Policy Modal -->
@@ -415,24 +416,13 @@
     </div>
   </div>
 
-  <!-- Pixel Events Log Modal -->
-  <div id="events-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-xl w-full p-6 border border-teal-200 shadow-2xl">
-      <div class="flex items-center justify-between pb-3 border-b border-teal-100">
-        <h3 class="text-lg font-extrabold text-zinc-950">Pixel &amp; CAPI Event Stream</h3>
-        <button type="button" onclick="document.getElementById('events-modal').classList.add('hidden')" class="w-8 h-8 rounded-full bg-teal-50 font-bold cursor-pointer">✕</button>
-      </div>
-      <div id="events-log-list" class="mt-4 space-y-2 max-h-72 overflow-y-auto custom-scrollbar text-xs"></div>
-    </div>
-  </div>
-
   <!-- Order Thank-You Modal -->
   <div id="thankyou-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
     <div id="thankyou-modal-body" class="bg-white rounded-3xl max-w-md w-full p-6 border border-teal-200 shadow-2xl text-center space-y-4"></div>
   </div>
 
   <script>
-    const STORAGE_KEY = 'wajiha_lifestyle_full_editable_v7';
+    const STORAGE_KEY = 'wajiha_lifestyle_landing_v8';
     const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
 
     let currentLang = 'en';
@@ -441,21 +431,21 @@
     let activeModalVariantIdx = 0;
     let activeModalSize = 'M';
     let appliedCoupon = null;
-    let currentAdminTab = 'dashboard';
+    let currentAdminTab = 'landing';
     let newProdImageData = '';
     let pendingHeroCoverData = '';
     let pendingProdUploads = {};
     let pendingCatUploads = {};
     let pendingPopupImageData = '';
+    let pendingLandingImageData = '';
     let _saveTimer = null;
 
     const I18N = {
       en: {
-        eventsBtn: 'Events',
         navHome: 'Home',
         navAll: 'All products',
         navNew: 'New',
-        navSpecial: 'Special',
+        navLanding: 'Landing Page',
         orderBtn: 'Order',
         newArrivalsTitle: 'New arrivals',
         newArrivalsSub: 'Click any piece for color swatches, size & instant COD checkout',
@@ -486,11 +476,10 @@
         totalPayableLbl: 'Total Payable (COD)'
       },
       bn: {
-        eventsBtn: 'ইভেন্ট',
         navHome: 'হোম',
         navAll: 'সব প্রোডাক্ট',
         navNew: 'নতুন',
-        navSpecial: 'স্পেশাল',
+        navLanding: 'ল্যান্ডিং পেজ',
         orderBtn: 'অর্ডার',
         newArrivalsTitle: 'নতুন পোশাক',
         newArrivalsSub: 'কালার সোয়াচ, সাইজ ও ইনস্ট্যান্ট COD অর্ডারের জন্য যেকোনো ড্রেসে ক্লিক করুন',
@@ -562,6 +551,19 @@
           address: 'TONGI GAGIPUR TONGIBAZAR ANARKOLI ROAD',
           phone: '01812829178',
           promoBanner: ''
+        },
+        landingPage: {
+          badge: '★ SPECIAL OFFER • 3-PIECE & FESTIVE EDIT',
+          headline: 'Wajiha Lifestyle Signature 3-Piece & Festive Collection',
+          subheadline: 'Handpicked breathable fabrics, fine embroidery & graceful drape with Cash on Delivery across Bangladesh.',
+          ctaText: 'Order Now with Cash on Delivery',
+          imageUrl: '9.jpg',
+          featuredProductId: 'prod-3p-teal',
+          highlights: [
+            'Premium embroidered 3-piece, 2-piece, 1-piece & co-ord styles',
+            'Cash on Delivery available nationwide (Dhaka ৳70 • Sub-Dhaka ৳100 • Outside ৳120)',
+            'Easy exchange & direct support via 01812829178'
+          ]
         },
         popupConfig: {
           title: 'Welcome to Wajiha Lifestyle',
@@ -923,6 +925,7 @@
           ...def,
           ...parsed,
           brand: { ...def.brand, ...(parsed.brand || {}) },
+          landingPage: { ...def.landingPage, ...(parsed.landingPage || {}) },
           popupConfig: { ...def.popupConfig, ...(parsed.popupConfig || {}) },
           sectionLabels: { ...def.sectionLabels, ...(parsed.sectionLabels || {}) },
           policies: { ...def.policies, ...(parsed.policies || {}) },
@@ -951,6 +954,7 @@
       pendingProdUploads = {};
       pendingCatUploads = {};
       pendingPopupImageData = '';
+      pendingLandingImageData = '';
       saveState();
       renderAll();
       if (!document.getElementById('admin-view').classList.contains('hidden')) {
@@ -1051,16 +1055,90 @@
         if (I18N[lang] && I18N[lang][key]) el.textContent = I18N[lang][key];
       });
       renderStorefront();
+      renderLandingPageView();
       showToast(lang === 'bn' ? 'বাংলা ভাষা চালু হয়েছে' : 'English language active');
     }
 
     function ensureStorefrontVisible() {
       const sf = document.getElementById('storefront-view');
+      const lp = document.getElementById('landing-page-view');
       const ad = document.getElementById('admin-view');
       const btn = document.getElementById('view-switch-btn');
       if (ad) ad.classList.add('hidden');
+      if (lp) lp.classList.add('hidden');
       if (sf) sf.classList.remove('hidden');
       if (btn) btn.textContent = 'Admin Panel';
+    }
+
+    function openLandingPageView() {
+      const sf = document.getElementById('storefront-view');
+      const lp = document.getElementById('landing-page-view');
+      const ad = document.getElementById('admin-view');
+      const btn = document.getElementById('view-switch-btn');
+      if (ad) ad.classList.add('hidden');
+      if (sf) sf.classList.add('hidden');
+      if (lp) lp.classList.remove('hidden');
+      if (btn) btn.textContent = 'Admin Panel';
+      renderLandingPageView();
+      recordClarityActivity('Opened Landing Page', state.landingPage?.headline || 'Landing');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderLandingPageView() {
+      const lp = state.landingPage || getDefaultState().landingPage;
+      const featuredProd = state.products.find(p => p.id === lp.featuredProductId) || state.products[0];
+      const picks = state.products.slice(0, 4);
+      const imgSrc = lp.imageUrl || featuredProd?.variants?.[0]?.imageUrl || '9.jpg';
+      const bullets = Array.isArray(lp.highlights) && lp.highlights.length > 0
+        ? lp.highlights
+        : getDefaultState().landingPage.highlights;
+
+      document.getElementById('landing-page-container').innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <button type="button" onclick="goHomeView()" class="px-4 py-2 rounded-full bg-[#F2FAF9] hover:bg-[#DFF3F1] text-[#0B5B56] border border-teal-200 font-bold text-xs cursor-pointer">
+            ← Back to Storefront
+          </button>
+          <button type="button" onclick="currentAdminTab='landing'; toggleAdminView();" class="px-4 py-2 rounded-full bg-[#0B5B56] hover:bg-[#084743] text-white font-bold text-xs cursor-pointer">
+            ✏️ Edit Landing Page in Admin
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center rounded-3xl bg-gradient-to-br from-[#F2FAF9] via-[#E5F6F4] to-[#FEF9E7] border border-teal-200/80 p-6 sm:p-10 shadow-soft">
+          <div class="lg:col-span-7 space-y-4">
+            <span class="inline-block px-3.5 py-1 rounded-full bg-amber-400 text-zinc-950 text-xs font-extrabold">${lp.badge || '★ SPECIAL OFFER'}</span>
+            <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-zinc-950 leading-tight">${lp.headline || 'Wajiha Lifestyle Collection'}</h1>
+            <p class="text-sm sm:text-base text-zinc-700 leading-relaxed">${lp.subheadline || ''}</p>
+            <ul class="space-y-2 pt-1">
+              ${bullets.map(b => `<li class="flex items-start gap-2 text-xs sm:text-sm font-semibold text-zinc-800"><span class="text-[#0F7C74] font-extrabold">✓</span><span>${b}</span></li>`).join('')}
+            </ul>
+            <div class="flex flex-wrap items-center gap-3 pt-2">
+              <button type="button" onclick="if(state.products[0]) addProductToCart('${featuredProd ? featuredProd.id : state.products[0].id}', 0, 'M'); ensureStorefrontVisible(); document.getElementById('checkout-section').scrollIntoView({behavior:'smooth'});" class="px-6 py-3.5 rounded-2xl bg-[#0F7C74] hover:bg-[#0B5B56] text-white font-bold text-sm shadow-soft cursor-pointer">
+                ${lp.ctaText || 'Order Now with Cash on Delivery'} →
+              </button>
+              ${featuredProd ? `<span class="px-4 py-2.5 rounded-2xl bg-white border border-teal-200 text-sm font-extrabold text-[#0B5B56]">Featured: ${formatBdt(featuredProd.price)}</span>` : ''}
+            </div>
+          </div>
+
+          <div class="lg:col-span-5">
+            <div class="aspect-[4/5] rounded-3xl overflow-hidden border-2 border-white shadow-card bg-white">
+              <img src="${imgSrc}" alt="${lp.headline}" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';" class="w-full h-full object-cover" />
+              <div style="display:none;" class="w-full h-full">${featuredProd ? renderVariantMedia(featuredProd.variants[0]) : ''}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl sm:text-2xl font-extrabold text-zinc-950">Featured Pieces in This Campaign</h2>
+            <button type="button" onclick="ensureStorefrontVisible(); document.getElementById('checkout-section').scrollIntoView({behavior:'smooth'});" class="text-xs sm:text-sm font-bold text-[#0F7C74] hover:underline cursor-pointer">
+              Go to COD Checkout ↓
+            </button>
+          </div>
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+            ${picks.map(renderProductCard).join('')}
+          </div>
+        </div>
+      `;
     }
 
     function jumpToSection(secId) {
@@ -1203,7 +1281,7 @@
           <button type="button" onclick="goHomeView()" class="px-2.5 py-1 rounded-full bg-white border border-teal-200 font-bold text-[#0B5B56] cursor-pointer">${t.navHome}</button>
           <button type="button" onclick="jumpToSection('new-arrivals-section')" class="px-2.5 py-1 rounded-full bg-white border border-teal-200 cursor-pointer">${t.navAll}</button>
           <button type="button" onclick="triggerNewArrivalsFilter()" class="px-2.5 py-1 rounded-full bg-white border border-teal-200 cursor-pointer">${t.navNew}</button>
-          <button type="button" onclick="openLandingModal()" class="px-2.5 py-1 rounded-full bg-[#FBBF24] text-zinc-950 font-bold cursor-pointer">★ ${t.navSpecial}</button>
+          <button type="button" onclick="openLandingPageView()" class="px-2.5 py-1 rounded-full bg-[#FBBF24] text-zinc-950 font-bold cursor-pointer">★ ${t.navLanding}</button>
           ${sortedCats.map(c => `<button type="button" onclick="selectCategoryFilter('${c.id}')" class="px-2.5 py-1 rounded-full bg-white/80 hover:bg-white border border-teal-100 cursor-pointer">${c.name}</button>`).join('')}
         `;
       }
@@ -1349,9 +1427,9 @@
         ${imgHtml}
         <h3 class="text-xl font-extrabold text-zinc-950">${pop.title || 'Welcome to Wajiha Lifestyle'}</h3>
         <p class="text-xs sm:text-sm text-zinc-600">${pop.subtitle || ''}</p>
-        <div class="flex gap-2 justify-center pt-2">
-          <button type="button" onclick="closeBrandPopup()" class="px-5 py-2.5 rounded-full bg-[#0F7C74] text-white text-xs font-bold cursor-pointer">Explore Collection</button>
-          <button type="button" onclick="closeBrandPopup(); document.getElementById('checkout-section').scrollIntoView({behavior:'smooth'});" class="px-5 py-2.5 rounded-full bg-amber-400 text-zinc-950 text-xs font-bold cursor-pointer">Order Now</button>
+        <div class="flex flex-wrap gap-2 justify-center pt-2">
+          <button type="button" onclick="closeBrandPopup()" class="px-4 py-2.5 rounded-full bg-[#0F7C74] text-white text-xs font-bold cursor-pointer">Explore Collection</button>
+          <button type="button" onclick="closeBrandPopup(); openLandingPageView();" class="px-4 py-2.5 rounded-full bg-amber-400 text-zinc-950 text-xs font-bold cursor-pointer">★ Landing Page</button>
         </div>
       `;
       document.getElementById('brand-popup-modal').classList.remove('hidden');
@@ -1428,7 +1506,7 @@
               <button type="button" onclick="addProductToCart('${prod.id}', activeModalVariantIdx, activeModalSize); document.getElementById('product-modal').classList.add('hidden');" class="py-3 rounded-2xl bg-[#DFF3F1] hover:bg-[#BEE6E2] text-[#0B5B56] font-bold text-xs sm:text-sm cursor-pointer">
                 Add to Bag
               </button>
-              <button type="button" onclick="addProductToCart('${prod.id}', activeModalVariantIdx, activeModalSize); document.getElementById('product-modal').classList.add('hidden'); document.getElementById('checkout-section').scrollIntoView({behavior:'smooth'});" class="py-3 rounded-2xl bg-[#0F7C74] hover:bg-[#0B5B56] text-white font-bold text-xs sm:text-sm cursor-pointer">
+              <button type="button" onclick="addProductToCart('${prod.id}', activeModalVariantIdx, activeModalSize); document.getElementById('product-modal').classList.add('hidden'); ensureStorefrontVisible(); document.getElementById('checkout-section').scrollIntoView({behavior:'smooth'});" class="py-3 rounded-2xl bg-[#0F7C74] hover:bg-[#0B5B56] text-white font-bold text-xs sm:text-sm cursor-pointer">
                 Order Now (COD)
               </button>
             </div>
@@ -1636,30 +1714,6 @@
       syncCartUI();
     }
 
-    function openLandingModal() {
-      const p = state.products[0];
-      document.getElementById('landing-modal-body').innerHTML = `
-        <div class="flex items-center justify-between pb-4 border-b border-teal-100">
-          <span class="px-3 py-1 rounded-full bg-amber-400 text-zinc-950 text-xs font-extrabold">★ SPECIAL CAMPAIGN LANDING</span>
-          <button type="button" onclick="document.getElementById('landing-modal').classList.add('hidden')" class="w-9 h-9 rounded-full bg-teal-50 font-bold cursor-pointer">✕</button>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center pt-5">
-          <div class="md:col-span-5 aspect-[4/5] rounded-2xl overflow-hidden border border-teal-100">
-            ${renderVariantMedia(p.variants[0])}
-          </div>
-          <div class="md:col-span-7 space-y-4">
-            <h3 class="text-2xl sm:text-3xl font-extrabold text-zinc-950">${p.name}</h3>
-            <p class="text-sm text-zinc-600">${p.description}</p>
-            <div class="text-2xl font-extrabold text-[#0F7C74]">${formatBdt(p.price)} <span class="text-sm line-through text-zinc-400 font-normal">${formatBdt(p.oldPrice)}</span></div>
-            <button type="button" onclick="quickAddToCart('${p.id}'); document.getElementById('landing-modal').classList.add('hidden'); document.getElementById('checkout-section').scrollIntoView({behavior:'smooth'});" class="px-6 py-3.5 rounded-2xl bg-[#0F7C74] hover:bg-[#0B5B56] text-white font-bold text-sm cursor-pointer">
-              Order Now with Fixed COD Checkout →
-            </button>
-          </div>
-        </div>
-      `;
-      document.getElementById('landing-modal').classList.remove('hidden');
-    }
-
     function openInfoModal(key) {
       const titles = {
         about: 'About Wajiha Lifestyle',
@@ -1676,17 +1730,20 @@
 
     function toggleAdminView() {
       const sf = document.getElementById('storefront-view');
+      const lp = document.getElementById('landing-page-view');
       const ad = document.getElementById('admin-view');
       const btn = document.getElementById('view-switch-btn');
       const isHidden = ad ? ad.classList.contains('hidden') : true;
       if (isHidden) {
         if (sf) sf.classList.add('hidden');
+        if (lp) lp.classList.add('hidden');
         if (ad) ad.classList.remove('hidden');
         if (btn) btn.textContent = 'Storefront View';
         renderAdminPanel();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         if (ad) ad.classList.add('hidden');
+        if (lp) lp.classList.add('hidden');
         if (sf) sf.classList.remove('hidden');
         if (btn) btn.textContent = 'Admin Panel';
         renderAll();
@@ -1694,6 +1751,7 @@
     }
 
     const ADMIN_TABS = [
+      { id: 'landing', label: '★ Landing Page Builder' },
       { id: 'dashboard', label: '📊 Sales Overview' },
       { id: 'clarity', label: '👁️ Clarity & 7-Day Logs' },
       { id: 'banner', label: '🖼️ Cover Banner & Save' },
@@ -1711,7 +1769,62 @@
       `).join('');
 
       const box = document.getElementById('admin-tab-content');
-      if (currentAdminTab === 'dashboard') {
+      if (currentAdminTab === 'landing') {
+        const lp = state.landingPage || getDefaultState().landingPage;
+        const lpImg = pendingLandingImageData || lp.imageUrl || '';
+        const bullets = Array.isArray(lp.highlights) ? lp.highlights.join('\n') : '';
+        box.innerHTML = `
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <div>
+              <h2 class="text-xl font-extrabold text-zinc-950">Dedicated Landing Page Builder</h2>
+              <p class="text-xs text-zinc-500">Edit landing headline, offer points, featured item &amp; photo, then preview or save.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="saveLandingPageSettings(true)" class="px-3.5 py-2 rounded-xl bg-amber-400 text-zinc-950 font-bold text-xs cursor-pointer">👁️ Save &amp; Open Page</button>
+              <button type="button" onclick="saveLandingPageSettings(false)" class="px-5 py-2.5 rounded-xl bg-[#0F7C74] hover:bg-[#0B5B56] text-white font-bold text-xs sm:text-sm cursor-pointer">💾 Save Landing</button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 mb-1">Offer Badge</label>
+              <input id="lp-badge-input" type="text" value="${lp.badge || ''}" class="w-full px-3.5 py-2 rounded-xl border border-teal-200 text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 mb-1">CTA Button Text</label>
+              <input id="lp-cta-input" type="text" value="${lp.ctaText || ''}" class="w-full px-3.5 py-2 rounded-xl border border-teal-200 text-sm" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-zinc-700 mb-1">Landing Headline</label>
+              <input id="lp-headline-input" type="text" value="${lp.headline || ''}" class="w-full px-3.5 py-2 rounded-xl border border-teal-200 text-sm font-bold" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-zinc-700 mb-1">Landing Subheadline</label>
+              <input id="lp-sub-input" type="text" value="${lp.subheadline || ''}" class="w-full px-3.5 py-2 rounded-xl border border-teal-200 text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 mb-1">Featured Dress</label>
+              <select id="lp-feat-prod" class="w-full px-3.5 py-2 rounded-xl border border-teal-200 text-sm bg-white">
+                ${state.products.map(p => `<option value="${p.id}" ${lp.featuredProductId === p.id ? 'selected' : ''}>${p.name} (${formatBdt(p.price)})</option>`).join('')}
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-zinc-700 mb-1">Landing Photo (File / URL or Upload)</label>
+              <div class="flex gap-2">
+                <input id="lp-img-input" type="text" value="${lpImg}" placeholder="9.jpg or https://..." class="flex-1 px-3.5 py-2 rounded-xl border border-teal-200 text-xs" />
+                <label class="px-3 py-2 rounded-xl bg-[#F2FAF9] border border-teal-200 text-xs font-bold text-[#0B5B56] cursor-pointer shrink-0">
+                  📷 Upload
+                  <input type="file" accept="image/*" class="hidden" onchange="stageLandingPhoto(event)" />
+                </label>
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-zinc-700 mb-1">Key Highlights (one per line)</label>
+              <textarea id="lp-highlights-input" rows="3" class="w-full px-3.5 py-2 rounded-xl border border-teal-200 text-xs sm:text-sm">${bullets}</textarea>
+            </div>
+          </div>
+        `;
+      } else if (currentAdminTab === 'dashboard') {
         const rev = state.orders.reduce((s, o) => s + (o.total || 0), 0);
         box.innerHTML = `
           <h2 class="text-xl font-extrabold text-zinc-950 mb-4">Sales &amp; Store Overview</h2>
@@ -2019,6 +2132,45 @@
       }
     }
 
+    function stageLandingPhoto(e) {
+      const f = e.target.files?.[0];
+      if (!f) return;
+      const r = new FileReader();
+      r.onload = () => {
+        pendingLandingImageData = String(r.result || '');
+        const inp = document.getElementById('lp-img-input');
+        if (inp) inp.value = pendingLandingImageData;
+        showToast('Landing photo staged — click Save Landing!');
+      };
+      r.readAsDataURL(f);
+    }
+
+    function saveLandingPageSettings(openAfter = false) {
+      const rawLines = (document.getElementById('lp-highlights-input')?.value || '')
+        .split('\n')
+        .map(x => x.trim())
+        .filter(Boolean);
+
+      state.landingPage = {
+        badge: document.getElementById('lp-badge-input')?.value.trim() || '★ SPECIAL OFFER',
+        ctaText: document.getElementById('lp-cta-input')?.value.trim() || 'Order Now with Cash on Delivery',
+        headline: document.getElementById('lp-headline-input')?.value.trim() || 'Wajiha Lifestyle Collection',
+        subheadline: document.getElementById('lp-sub-input')?.value.trim() || '',
+        featuredProductId: document.getElementById('lp-feat-prod')?.value || state.products[0]?.id || '',
+        imageUrl: pendingLandingImageData || document.getElementById('lp-img-input')?.value.trim() || '9.jpg',
+        highlights: rawLines.length > 0 ? rawLines : getDefaultState().landingPage.highlights
+      };
+      pendingLandingImageData = '';
+      saveState();
+      renderLandingPageView();
+      if (openAfter) {
+        openLandingPageView();
+      } else {
+        renderAdminPanel();
+        showToast('Landing page saved!');
+      }
+    }
+
     function saveClaritySettings() {
       const pid = document.getElementById('clarity-pid-input')?.value.trim();
       state.clarity.projectId = pid || 'CLARITY_WAJIHA_7D';
@@ -2293,6 +2445,7 @@
       try {
         renderHeroCarousel();
         renderStorefront();
+        renderLandingPageView();
         syncCartUI();
       } catch (err) {
         console.error('Storefront render error:', err);
